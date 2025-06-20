@@ -7,7 +7,7 @@ COPY package*.json ./
 
 # Copy the entire repo (or workspaces + apps)
 COPY packages ./packages
-COPY . .
+COPY apps/server ./apps/server 
 
 # Install all workspaces
 RUN npm install

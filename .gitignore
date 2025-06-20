@@ -1,5 +1,56 @@
-node_modules
+# Node modules (always)
+node_modules/
 
+# Build output
+dist/
+.next/
+out/
+build/
+.esbuild/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
 .env
+.env.*      # e.g., .env.local, .env.development
 
-dist
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Test output
+coverage/
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Docker
+*.pid
+docker-compose.override.yml
+.docker/
+
+# Supabase local dev artifacts (if using `supabase start`)
+.supabase/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Monorepo / Workspaces
+apps/*/node_modules/
+packages/*/node_modules/

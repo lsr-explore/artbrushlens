@@ -2,8 +2,8 @@ services:
   main-app:
     platform: linux/amd64
     build:
-      context: ./apps/main
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/main/Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -20,10 +20,10 @@ services:
   admin-app:
     platform: linux/amd64
     build:
-      context: ./apps/admin
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/admin/Dockerfile
     ports:
-      - "3001:3000"
+      - "3001:3001" # Host port 3001 → Container port 3001
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_GRAPHQL_URL=http://localhost:4000/graphql
@@ -40,8 +40,8 @@ services:
   server:
     platform: linux/amd64
     build:
-      context: ./apps/server
-      dockerfile: Dockerfile
+      context: . 
+      dockerfile: apps/server/Dockerfile
     ports:
       - "4000:4000"
     environment:

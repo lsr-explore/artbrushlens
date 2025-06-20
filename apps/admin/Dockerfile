@@ -5,9 +5,10 @@ WORKDIR /app
 # Copy root lock and manifest
 COPY package*.json ./
 
+
 # Copy the entire repo (or workspaces + apps)
 COPY packages ./packages
-COPY . .
+COPY  apps/admin ./apps/admin 
 
 # Install all workspaces
 RUN npm install
@@ -15,7 +16,7 @@ RUN npm install
 # Set working directory to desired app
 WORKDIR /app/apps/admin
 
-EXPOSE 3000
+EXPOSE 3001
 
 # Build if needed (e.g., tsc or next build)
 CMD ["npm", "run", "dev"]
