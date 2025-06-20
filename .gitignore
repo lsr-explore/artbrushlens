@@ -54,3 +54,14 @@ docker-compose.override.yml
 # Monorepo / Workspaces
 apps/*/node_modules/
 packages/*/node_modules/
+
+
+#Playwrigt/Cypress
+playwright-report/
+cypress/videos/
+cypress/screenshots/
+
+TurboRep/Nx
+turbo/
+nx-cache
+
