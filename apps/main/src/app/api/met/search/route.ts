@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import { NextRequest, NextResponse } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
@@ -61,7 +63,7 @@ export async function GET(req: NextRequest) {
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
-	} catch (err: unknown) {
+	} catch (err: any) {
 		console.error("❌ MET API error:", err);
 		return NextResponse.json({ error: err.message }, { status: 500 });
 	}
