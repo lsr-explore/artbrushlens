@@ -16,8 +16,6 @@ services:
     volumes:
       - ./apps/main:/app/apps/main
       - /app/node_modules
-    depends_on:
-      - server
 
   admin-app:
     platform: linux/amd64
@@ -37,30 +35,6 @@ services:
       - NEXT_PUBLIC_AUTH0_CLIENT_ID=your-auth0-client-id
     volumes:
       - ./apps/admin:/app/apps/admin
-      - /app/node_modules
-    depends_on:
-      - server
-
-  server:
-    platform: linux/amd64
-    build:
-      context: . 
-      dockerfile: apps/server/Dockerfile
-      tags:
-        - local-ai/localai:latest
-        - artbrushlens-server:latest
-    ports:
-      - "4000:4000"
-    environment:
-      - NODE_ENV=development
-      - SUPABASE_URL=http://localhost:54321
-      - SUPABASE_SERVICE_KEY=your-service-key
-      - OPENAI_API_KEY=your-openai-key
-      - LOCAL_AI_URL=http://localhost:8080
-      - USE_LOCAL_AI=true
-      - MET_API_URL=https://collectionapi.metmuseum.org/public/collection/v1
-    volumes:
-      - ./apps/server:/app/apps/server
       - /app/node_modules
 
   local-ai:

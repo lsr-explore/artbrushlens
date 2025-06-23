@@ -2,7 +2,7 @@
 
 import Artwork from "@artbrushlens/shared";
 import Image from "next/image";
-import LoadingSpinner from "./LoadingSpinner";
+import LoadingSpinner from "./loading";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchArtworks } from "../lib/met/search";

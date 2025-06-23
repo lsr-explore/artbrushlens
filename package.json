@@ -1,34 +1,35 @@
 {
-    "name": "artbrushlens",
-    "version": "1.0.0",
-    "private": true,
-    "workspaces": [
-        "apps/*",
-        "packages/*"
-    ],
-    "scripts": {
-        "dev": "concurrently \"npm run dev:main\" \"npm run dev:admin\" \"npm run dev:server\"",
-        "dev:main": "cd apps/main && npm run dev",
-        "dev:admin": "cd apps/admin && npm run dev",
-        "dev:server": "cd apps/server && npm run dev",
-        "build": "npm run build:shared && npm run build:main && npm run build:admin && npm run build:server",
-        "build:main": "cd apps/main && npm run build",
-        "build:admin": "cd apps/admin && npm run build",
-        "build:server": "cd apps/server && npm run build",
-        "build:shared": "cd packages/shared && npm run build",
-        "test": "npm run test:main && npm run test:admin && npm run test:server",
-        "test:main": "cd apps/main && npm run test",
-        "test:admin": "cd apps/admin && npm run test",
-        "test:server": "cd apps/server && npm run test",
-        "docker:up": "docker-compose up -d",
-        "docker:down": "docker-compose down",
-        "supabase:start": "supabase start",
-        "supabase:stop": "supabase stop",
-        "lint":"cd apps/main && npm run lint; cd ../admin && npm run lint; cd ../server && npm run lint; cd ../../packages/shared && npm run lint"
-    },
-    "devDependencies": {
-        "concurrently": "^8.2.2",
-        "@types/node": "^20.10.0",
-        "typescript": "^5.3.2"
-    }
+	"name": "artbrushlens",
+	"version": "1.0.0",
+	"private": true,
+	"workspaces": [
+		"apps/*",
+		"packages/*"
+	],
+	"scripts": {
+		"dev": "concurrently \"npm run dev:main\" \"npm run dev:admin\"",
+		"dev:main": "npm run dev --workspace=@artbrushlens/main",
+		"dev:admin": "npm run dev --workspace=@artbrushlens/admin",
+		"build": "npm run build:shared && npm run build:main && npm run build:admin && npm run build:server",
+		"build:main": "npm run build --workspace=@artbrushlens/main",
+		"build:admin": "npm run build --workspace=@artbrushlens/admin",
+		"build:shared": "npm run build --workspace=@artbrushlens/shared",
+		"clean:all": "rm -rf node_modules && rm -rf packages/shared/node_modules && rm -rf packages/shared/dist && rm -rf apps/main/node_modules && rm -rf apps/admin/node_modules",
+		"test": "npm run test:main && npm run test:admin",
+		"test:main": "npm run test --workspace=@artbrushlens/main",
+		"test:admin": "npm run test --workspace=@artbrushlens/admin",
+		"test:shared": "npm run test --workspace=@artbrushlens/shared",
+		"docker:build": "docker-compose build",
+		"docker:up": "docker-compose up -d",
+		"docker:down": "docker-compose down",
+		"supabase:start": "supabase start",
+		"supabase:stop": "supabase stop",
+		"lint": "npm run lint:admin && npm run lint:main && npm run lint:shared",
+		"lint:admin": "npm run lint --workspace=@artbrushlens/admin",
+		"lint:main": "npm run lint --workspace=@artbrushlens/main",
+		"lint:shared": "npm run lint --workspace=@artbrushlens/shared"
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	}
 }

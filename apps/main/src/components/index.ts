@@ -1,3 +1,3 @@
 export * from "./ArtworkGrid";
-export * from "./LoadingSpinner";
+export * from "./loading";
 export * from "./Providers";

@@ -8,47 +8,38 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchAdminArtworks } from "../../lib/api/artworks";
 
 export default function ArtworksPage() {
-	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
+	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
+	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["admin-artworks"],
 		queryFn: fetchAdminArtworks,
 	});
 
-	// const [analyzeArtwork] = useMutation(ANALYZE_ARTWORK, {
-	// 	onCompleted: () => {
-	// 		setAnalyzingId(null);
-	// 		refetch();
-	// 	},
-	// 	onError: (error) => {
-	// 		console.error("Analysis failed:", error);
-	// 		setAnalyzingId(null);
-	// 	},
-	// });
+	async function analyzeArtwork(artwork: Artwork) {
+		setAnalyzingId(artwork.id);
+		setAnalyzeResults(null);
 
-	const analyzeArtwork = async (variables: { id: string }) => {
-		try {
-			const response = await fetch("/api/artworks/analyze", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(variables),
-			});
+		const res = await fetch("/api/ai/analyze", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(artwork),
+		});
 
-			if (!response.ok) {
-				throw new Error("Failed to analyze artwork");
-			}
+		const data = await res.json();
 
-			const data = await response.json();
-
-			return data;
-		} catch (error) {
-			console.error("Error analyzing artwork:", error);
-			throw error;
+		if (!res.ok) {
+			setAnalyzingId(null);
+			throw new Error(data.error || "Failed to analyze artwork");
 		}
-	};
+
+		console.log("AI Analysis Result:", data.result);
+		setAnalyzeResults(data.result);
+
+		// You may also want to update the artwork's local state to include the AI result (optional)
+		return data.result;
+	}
 
 	const handleAnalyze = async (artworkId: string) => {
 		setAnalyzingId(artworkId);

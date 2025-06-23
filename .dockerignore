@@ -1,5 +1,6 @@
 # Common folders that shouldn’t go into Docker images
 node_modules
+**/node_modules
 dist
 .next
 coverage
