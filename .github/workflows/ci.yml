@@ -7,33 +7,72 @@ on:
     branches: [main]
 
 jobs:
-  install-and-test:
+  install:
+    name: Install dependencies
     runs-on: ubuntu-latest
+    outputs:
+      cache-hit: ${{ steps.cache.outputs.cache-hit }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version: '18'
           cache: 'npm'
 
-      - name: Install root dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build shared package
-        run: npm run build:shared
-
-      - name: Build main app
-        run: npm run build:main
-
-      - name: Build admin app
-        run: npm run build:admin
-
-      - name: Lint all packages
+  lint:
+    name: Lint all workspaces
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
         run: npm run lint
 
+  build:
+    name: Build all workspaces
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
+      - name: Build shared
+        run: npm run build:shared
+      - name: Build main
+        run: npm run build:main
+      - name: Build admin
+        run: npm run build:admin
+      - name: Build server
+        run: npm run build:server
+
+  test:
+    name: Run tests
+    needs: install
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install dependencies
+        run: npm install
       - name: Run tests
-        run: npm run test
+        run: npm test
+
 
