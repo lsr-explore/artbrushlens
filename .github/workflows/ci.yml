@@ -51,14 +51,8 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: npm install
-      - name: Build shared
-        run: npm run build:shared
-      - name: Build main
-        run: npm run build:main
-      - name: Build admin
-        run: npm run build:admin
-      - name: Build server
-        run: npm run build:server
+      - name: Build all
+        run: npm run build
 
   test:
     name: Run tests

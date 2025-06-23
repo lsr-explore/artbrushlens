@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
 		const { result } = await generateAIResponse(artwork);
 		return NextResponse.json({ result });
-	} catch (err: any) {
+	} catch (err: unknown) {
 		console.error("AI analysis failed:", err);
 		return NextResponse.json(
 			{ error: "AI processing failed", message: err.message },

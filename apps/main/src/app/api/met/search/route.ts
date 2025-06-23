@@ -1,4 +1,3 @@
-// apps/main/src/app/api/met/search/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
@@ -62,7 +61,7 @@ export async function GET(req: NextRequest) {
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
-	} catch (err: any) {
+	} catch (err: unknown) {
 		console.error("❌ MET API error:", err);
 		return NextResponse.json({ error: err.message }, { status: 500 });
 	}

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
 
 import Artwork from "@artbrushlens/shared";
@@ -10,7 +12,7 @@ import { fetchAdminArtworks } from "../../lib/api/artworks";
 export default function ArtworksPage() {
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
-	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
+	const [, setAnalyzeResults] = useState<string | null>(null);
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["admin-artworks"],
