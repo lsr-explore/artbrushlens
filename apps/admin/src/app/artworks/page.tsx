@@ -1,51 +1,54 @@
 "use client";
 
-import Artwork from "@artbrushlens/shared"
-import Image from 'next/image'
-import { gql, useMutation, useQuery } from "@apollo/client";
+import Artwork from "@artbrushlens/shared";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
-const GET_ARTWORKS = gql`
-  query GetArtworks($limit: Int) {
-    artworks(limit: $limit) {
-      id
-      title
-      artist
-      imageUrl
-      description
-      aiAnalysis
-    }
-  }
-`;
-
-const ANALYZE_ARTWORK = gql`
-  mutation AnalyzeArtwork($id: ID!) {
-    analyzeArtwork(id: $id) {
-      id
-      aiAnalysis
-    }
-  }
-`;
+import { useQuery } from "@tanstack/react-query";
+import { fetchAdminArtworks } from "../../lib/api/artworks";
 
 export default function ArtworksPage() {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
 
-	const { loading, error, data, refetch } = useQuery(GET_ARTWORKS, {
-		variables: { limit: 50 },
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["admin-artworks"],
+		queryFn: fetchAdminArtworks,
 	});
 
-	const [analyzeArtwork] = useMutation(ANALYZE_ARTWORK, {
-		onCompleted: () => {
-			setAnalyzingId(null);
-			refetch();
-		},
-		onError: (error) => {
-			console.error("Analysis failed:", error);
-			setAnalyzingId(null);
-		},
-	});
+	// const [analyzeArtwork] = useMutation(ANALYZE_ARTWORK, {
+	// 	onCompleted: () => {
+	// 		setAnalyzingId(null);
+	// 		refetch();
+	// 	},
+	// 	onError: (error) => {
+	// 		console.error("Analysis failed:", error);
+	// 		setAnalyzingId(null);
+	// 	},
+	// });
+
+	const analyzeArtwork = async (variables: { id: string }) => {
+		try {
+			const response = await fetch("/api/artworks/analyze", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(variables),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to analyze artwork");
+			}
+
+			const data = await response.json();
+
+			return data;
+		} catch (error) {
+			console.error("Error analyzing artwork:", error);
+			throw error;
+		}
+	};
 
 	const handleAnalyze = async (artworkId: string) => {
 		setAnalyzingId(artworkId);
@@ -56,7 +59,7 @@ export default function ArtworksPage() {
 		setExpandedAnalysis(expandedAnalysis === artworkId ? null : artworkId);
 	};
 
-	if (loading) return <div className="p-8">Loading artworks...</div>;
+	if (isLoading) return <div className="p-8">Loading artworks...</div>;
 	if (error)
 		return <div className="p-8 text-red-500">Error: {error.message}</div>;
 
@@ -136,7 +139,10 @@ export default function ArtworksPage() {
 															: "Run AI Analysis"}
 													</button>
 												)}
-												<button type="button" className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
+												<button
+													type="button"
+													className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50"
+												>
 													Edit
 												</button>
 											</div>
@@ -168,7 +174,8 @@ export default function ArtworksPage() {
 								type="button"
 								onClick={() => {
 									const unanalyzedArtworks =
-										data?.artworks?.filter((art: Artwork) => !art.aiAnalysis) || [];
+										data?.artworks?.filter((art: Artwork) => !art.aiAnalysis) ||
+										[];
 									unanalyzedArtworks.forEach((artwork: Artwork) => {
 										setTimeout(
 											() => handleAnalyze(artwork.id),
@@ -180,10 +187,16 @@ export default function ArtworksPage() {
 							>
 								Analyze All Unanalyzed Artworks
 							</button>
-							<button type="button" className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+							<button
+								type="button"
+								className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+							>
 								Export Data
 							</button>
-							<button type="button" className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+							<button
+								type="button"
+								className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+							>
 								Refresh from API
 							</button>
 						</div>

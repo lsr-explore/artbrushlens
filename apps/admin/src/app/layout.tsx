@@ -1,7 +1,7 @@
-import "./globals.css";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
+// apps/admin/src/app/layout.tsx
+import { ReactQueryProvider } from "./react-query-provider";
 import { Inter } from "next/font/google";
-import { ApolloWrapper } from "./apollo-wrapper";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,9 +18,7 @@ export default function RootLayout({
 	return (
 		<html lang="en">
 			<body className={inter.className}>
-				<UserProvider>
-					<ApolloWrapper>{children}</ApolloWrapper>
-				</UserProvider>
+				<ReactQueryProvider>{children}</ReactQueryProvider>
 			</body>
 		</html>
 	);
