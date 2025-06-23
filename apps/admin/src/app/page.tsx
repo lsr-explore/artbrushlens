@@ -37,7 +37,10 @@ export default function AdminHome() {
 							<span className="text-sm text-gray-700">
 								Welcome, {user.name}
 							</span>
-							<button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+							<button
+								type="button"
+								className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+							>
 								Logout (Mock)
 							</button>
 						</div>
@@ -241,7 +244,7 @@ export default function AdminHome() {
 								</h3>
 								<div className="mt-2 text-sm text-yellow-700">
 									<p>
-										You're currently running in development mode with mock
+										You&apos;re currently running in development mode with mock
 										authentication. Auth0 integration will be added later.
 									</p>
 								</div>

@@ -2,8 +2,10 @@ services:
   main-app:
     platform: linux/amd64
     build:
-      context: ./apps/main
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/main/Dockerfile
+      tags:
+        - artbrushlens-main-app:latest
     ports:
       - "3000:3000"
     environment:
@@ -12,18 +14,18 @@ services:
       - NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
     volumes:
-      - ./apps/main:/app
+      - ./apps/main:/app/apps/main
       - /app/node_modules
-    depends_on:
-      - server
 
   admin-app:
     platform: linux/amd64
     build:
-      context: ./apps/admin
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: apps/admin/Dockerfile
+      tags:
+        - artbrushlens-admin-app:latest
     ports:
-      - "3001:3000"
+      - "3001:3001" # Host port 3001 → Container port 3001
     environment:
       - NODE_ENV=development
       - NEXT_PUBLIC_GRAPHQL_URL=http://localhost:4000/graphql
@@ -32,28 +34,7 @@ services:
       - NEXT_PUBLIC_AUTH0_DOMAIN=your-auth0-domain
       - NEXT_PUBLIC_AUTH0_CLIENT_ID=your-auth0-client-id
     volumes:
-      - ./apps/admin:/app
-      - /app/node_modules
-    depends_on:
-      - server
-
-  server:
-    platform: linux/amd64
-    build:
-      context: ./apps/server
-      dockerfile: Dockerfile
-    ports:
-      - "4000:4000"
-    environment:
-      - NODE_ENV=development
-      - SUPABASE_URL=http://localhost:54321
-      - SUPABASE_SERVICE_KEY=your-service-key
-      - OPENAI_API_KEY=your-openai-key
-      - LOCAL_AI_URL=http://localhost:8080
-      - USE_LOCAL_AI=true
-      - MET_API_URL=https://collectionapi.metmuseum.org/public/collection/v1
-    volumes:
-      - ./apps/server:/app
+      - ./apps/admin:/app/apps/admin
       - /app/node_modules
 
   local-ai:

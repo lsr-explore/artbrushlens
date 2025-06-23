@@ -1,84 +1,57 @@
 "use client";
 
-import { gql, useMutation, useQuery } from "@apollo/client";
+import Artwork from "@artbrushlens/shared";
+import Image from "next/image";
+import LoadingSpinner from "./loading";
 import { useState } from "react";
-
-const GET_ARTWORKS = gql`
-    query GetArtworks($limit: Int) {
-      artworks(limit: $limit) {
-        id
-        title
-        artist
-        imageUrl
-        description
-        aiAnalysis
-      }
-    }
-`;
-
-const ANALYZE_ARTWORK = gql`
-    mutation AnalyzeArtwork($id: ID!) {
-      analyzeArtwork(id: $id) {
-        id
-        aiAnalysis
-      }
-    }
-`;
+import { useQuery } from "@tanstack/react-query";
+import { fetchArtworks } from "../lib/met/search";
 
 export function ArtworkGrid() {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
+	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
-	const { loading, error, data } = useQuery(GET_ARTWORKS, {
-		variables: { limit: 12 },
-		onCompleted: (data) => {
-			console.log("✅ GraphQL query completed:", data);
-		},
-		onError: (error) => {
-			console.error("❌ GraphQL query error:", error);
-		},
-	});
+	async function analyzeArtwork(artwork: Artwork) {
+		setAnalyzingId(artwork.id);
+		setAnalyzeResults(null);
 
-	const [analyzeArtwork] = useMutation(ANALYZE_ARTWORK, {
-		onCompleted: (data) => {
-			console.log("✅ AI Analysis completed:", data);
-			setAnalyzingId(null);
-		},
-		onError: (error) => {
-			console.error("❌ AI Analysis error:", error);
-			setAnalyzingId(null);
-		},
-		refetchQueries: [{ query: GET_ARTWORKS, variables: { limit: 12 } }],
-	});
+		const res = await fetch("/api/ai/analyze", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(artwork),
+		});
 
-	const handleAnalyze = async (artworkId: string) => {
-		setAnalyzingId(artworkId);
-		try {
-			await analyzeArtwork({ variables: { id: artworkId } });
-		} catch (error) {
-			console.error("Analysis failed:", error);
+		const data = await res.json();
+
+		if (!res.ok) {
 			setAnalyzingId(null);
+			throw new Error(data.error || "Failed to analyze artwork");
 		}
-	};
 
-	if (loading)
-		return (
-			<div className="flex items-center justify-center min-h-64">
-				<div className="text-center">
-					<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-					<p className="mt-4 text-gray-600">Loading artworks...</p>
-				</div>
-			</div>
-		);
+		console.log("AI Analysis Result:", data.result);
+		setAnalyzeResults(data.result);
+
+		// You may also want to update the artwork's local state to include the AI result (optional)
+		return data.result;
+	}
+
+	const { data, isLoading, error } = useQuery({
+		queryKey: ["artworks", "sunflowers"],
+		queryFn: () => fetchArtworks("sunflowers"),
+	});
+
+	if (isLoading) return <LoadingSpinner />;
 
 	if (error)
 		return (
 			<div className="max-w-2xl mx-auto text-center p-8">
 				<div className="bg-red-50 border border-red-200 rounded-lg p-6">
 					<h3 className="text-lg font-medium text-red-800 mb-2">
-						Error loading artworks
+						Error loading artworks: {error.message}
 					</h3>
 					<p className="text-red-600 text-sm">{error.message}</p>
 					<button
+						type="button"
 						onClick={() => window.location.reload()}
 						className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
 					>
@@ -88,7 +61,7 @@ export function ArtworkGrid() {
 			</div>
 		);
 
-	if (!data?.artworks || data.artworks.length === 0) {
+	if (!data.artworks || data.artworks.length === 0) {
 		return (
 			<div className="text-center p-12">
 				<div className="text-gray-400 text-6xl mb-4">🎨</div>
@@ -114,7 +87,7 @@ export function ArtworkGrid() {
 			</div>
 
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-				{data.artworks.map((artwork: any) => (
+				{data.artworks.map((artwork: Artwork) => (
 					<div
 						key={artwork.id}
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
@@ -122,11 +95,13 @@ export function ArtworkGrid() {
 						{/* Image Container */}
 						<div className="relative h-48 bg-gray-200">
 							{artwork.imageUrl ? (
-								<img
+								<Image
+									width={200}
+									height={200}
 									src={artwork.imageUrl}
 									alt={artwork.title}
 									className="w-full h-full object-cover"
-									onError={(e) => {
+									onError={(e: { currentTarget: { src: string } }) => {
 										console.log("Image failed to load:", artwork.imageUrl);
 										e.currentTarget.src =
 											"data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5JbWFnZSBOb3QgRm91bmQ8L3RleHQ+PC9zdmc+";
@@ -150,14 +125,14 @@ export function ArtworkGrid() {
 							</p>
 
 							{/* AI Analysis Section */}
-							{artwork.aiAnalysis && (
+							{analyzeResults && analyzingId === artwork.id && (
 								<div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
 									<h4 className="text-sm font-medium text-blue-900 mb-2 flex items-center">
 										<span className="mr-1">🤖</span>
 										AI Analysis
 									</h4>
 									<p className="text-blue-800 text-xs leading-relaxed">
-										{artwork.aiAnalysis}
+										{analyzeResults}
 									</p>
 								</div>
 							)}
@@ -165,7 +140,8 @@ export function ArtworkGrid() {
 							{/* Action Button */}
 							<div className="flex justify-between items-center">
 								<button
-									onClick={() => handleAnalyze(artwork.id)}
+									type="button"
+									onClick={() => analyzeArtwork(artwork)}
 									disabled={analyzingId === artwork.id || !!artwork.aiAnalysis}
 									className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
 										artwork.aiAnalysis
@@ -175,7 +151,7 @@ export function ArtworkGrid() {
 												: "bg-blue-600 text-white hover:bg-blue-700"
 									}`}
 								>
-									{analyzingId === artwork.id ? (
+									{analyzingId === artwork.id && !analyzeResults ? (
 										<span className="flex items-center">
 											<svg
 												className="animate-spin -ml-1 mr-2 h-3 w-3 text-gray-500"
@@ -183,6 +159,7 @@ export function ArtworkGrid() {
 												fill="none"
 												viewBox="0 0 24 24"
 											>
+												<title>Analyzing...</title>
 												<circle
 													className="opacity-25"
 													cx="12"
@@ -199,7 +176,7 @@ export function ArtworkGrid() {
 											</svg>
 											Analyzing...
 										</span>
-									) : artwork.aiAnalysis ? (
+									) : analyzeResults && analyzingId === artwork.id ? (
 										"✓ Analyzed"
 									) : (
 										"🤖 AI Analysis"
@@ -210,7 +187,7 @@ export function ArtworkGrid() {
 							</div>
 						</div>
 					</div>
-				))}
+				))}{" "}
 			</div>
 
 			{/* Footer */}
