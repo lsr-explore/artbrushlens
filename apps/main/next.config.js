@@ -4,7 +4,7 @@ const nextConfig = {
 		appDir: true,
 	},
 	images: {
-		domains: ["images.metmuseum.org"],
+		domains: ["images.metmuseum.org", "upload.wikimedia.org"],
 	},
 	env: {
 		CUSTOM_KEY: process.env.CUSTOM_KEY,

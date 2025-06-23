@@ -1,5 +1,7 @@
 "use client";
 
+import Artwork from "@artbrushlens/shared"
+import Image from 'next/image'
 import { gql, useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useState } from "react";
@@ -88,7 +90,7 @@ export default function ArtworksPage() {
 										<div className="flex items-center justify-between">
 											<div className="flex items-center">
 												{artwork.imageUrl && (
-													<img
+													<Image
 														className="h-16 w-16 rounded-lg object-cover"
 														src={artwork.imageUrl}
 														alt={artwork.title}
@@ -113,6 +115,7 @@ export default function ArtworksPage() {
 															AI Analyzed
 														</span>
 														<button
+															type="button"
 															onClick={() => toggleAnalysis(artwork.id)}
 															className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50"
 														>
@@ -123,6 +126,7 @@ export default function ArtworksPage() {
 													</>
 												) : (
 													<button
+														type="button"
 														onClick={() => handleAnalyze(artwork.id)}
 														disabled={analyzingId === artwork.id}
 														className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded text-white bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400"
@@ -132,7 +136,7 @@ export default function ArtworksPage() {
 															: "Run AI Analysis"}
 													</button>
 												)}
-												<button className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
+												<button type="button" className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
 													Edit
 												</button>
 											</div>
@@ -161,10 +165,11 @@ export default function ArtworksPage() {
 						</h3>
 						<div className="flex space-x-4">
 							<button
+								type="button"
 								onClick={() => {
 									const unanalyzedArtworks =
-										data?.artworks?.filter((art: any) => !art.aiAnalysis) || [];
-									unanalyzedArtworks.forEach((artwork: any) => {
+										data?.artworks?.filter((art: Artwork) => !art.aiAnalysis) || [];
+									unanalyzedArtworks.forEach((artwork: Artwork) => {
 										setTimeout(
 											() => handleAnalyze(artwork.id),
 											Math.random() * 2000,
@@ -175,10 +180,10 @@ export default function ArtworksPage() {
 							>
 								Analyze All Unanalyzed Artworks
 							</button>
-							<button className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+							<button type="button" className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 								Export Data
 							</button>
-							<button className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+							<button type="button" className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
 								Refresh from API
 							</button>
 						</div>

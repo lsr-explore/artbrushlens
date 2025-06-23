@@ -23,7 +23,8 @@
         "docker:up": "docker-compose up -d",
         "docker:down": "docker-compose down",
         "supabase:start": "supabase start",
-        "supabase:stop": "supabase stop"
+        "supabase:stop": "supabase stop",
+        "lint":"cd apps/main && npm run lint; cd ../admin && npm run lint; cd ../server && npm run lint; cd ../../packages/shared && npm run lint"
     },
     "devDependencies": {
         "concurrently": "^8.2.2",

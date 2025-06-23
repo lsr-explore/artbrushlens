@@ -108,7 +108,7 @@ export default function AIConfigPage() {
 											>
 												OpenAI API
 												<span className="block text-sm text-gray-500">
-													Use OpenAI's GPT models - requires API key
+													Use OpenAI&apos;s GPT models - requires API key
 												</span>
 											</label>
 										</div>
@@ -244,12 +244,14 @@ export default function AIConfigPage() {
 							{/* Actions */}
 							<div className="flex justify-between pt-6 border-t border-gray-200">
 								<button
+									type="button"
 									onClick={testConnection}
 									className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
 								>
 									Test Connection
 								</button>
 								<button
+									type="button"
 									onClick={handleSave}
 									className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
 								>

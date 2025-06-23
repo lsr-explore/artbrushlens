@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: apps/main/Dockerfile
+      tags:
+        - artbrushlens-main-app:latest
     ports:
       - "3000:3000"
     environment:
@@ -12,7 +14,7 @@ services:
       - NEXT_PUBLIC_SUPABASE_URL=http://localhost:54321
       - NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
     volumes:
-      - ./apps/main:/app
+      - ./apps/main:/app/apps/main
       - /app/node_modules
     depends_on:
       - server
@@ -22,6 +24,8 @@ services:
     build:
       context: .
       dockerfile: apps/admin/Dockerfile
+      tags:
+        - artbrushlens-admin-app:latest
     ports:
       - "3001:3001" # Host port 3001 → Container port 3001
     environment:
@@ -32,7 +36,7 @@ services:
       - NEXT_PUBLIC_AUTH0_DOMAIN=your-auth0-domain
       - NEXT_PUBLIC_AUTH0_CLIENT_ID=your-auth0-client-id
     volumes:
-      - ./apps/admin:/app
+      - ./apps/admin:/app/apps/admin
       - /app/node_modules
     depends_on:
       - server
@@ -42,6 +46,9 @@ services:
     build:
       context: . 
       dockerfile: apps/server/Dockerfile
+      tags:
+        - local-ai/localai:latest
+        - artbrushlens-server:latest
     ports:
       - "4000:4000"
     environment:
@@ -53,7 +60,7 @@ services:
       - USE_LOCAL_AI=true
       - MET_API_URL=https://collectionapi.metmuseum.org/public/collection/v1
     volumes:
-      - ./apps/server:/app
+      - ./apps/server:/app/apps/server
       - /app/node_modules
 
   local-ai:
