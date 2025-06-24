@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
 
-import Artwork from "@artbrushlens/shared";
+import type { Artwork } from "@artbrushlens/shared";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -12,40 +12,40 @@ import { fetchAdminArtworks } from "../../lib/api/artworks";
 export default function ArtworksPage() {
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
-	const [, setAnalyzeResults] = useState<string | null>(null);
+	// const [, setAnalyzeResults] = useState<string | null>(null);
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["admin-artworks"],
 		queryFn: fetchAdminArtworks,
 	});
 
-	async function analyzeArtwork(artwork: Artwork) {
-		setAnalyzingId(artwork.id);
-		setAnalyzeResults(null);
+	// async function analyzeArtwork(artwork: Artwork) {
+	// 	setAnalyzingId(artwork.id);
+	// 	setAnalyzeResults(null);
 
-		const res = await fetch("/api/ai/analyze", {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(artwork),
-		});
+	// 	const res = await fetch("/api/ai/analyze", {
+	// 		method: "POST",
+	// 		headers: { "Content-Type": "application/json" },
+	// 		body: JSON.stringify(artwork),
+	// 	});
 
-		const data = await res.json();
+	// 	const data = await res.json();
 
-		if (!res.ok) {
-			setAnalyzingId(null);
-			throw new Error(data.error || "Failed to analyze artwork");
-		}
+	// 	if (!res.ok) {
+	// 		setAnalyzingId(null);
+	// 		throw new Error(data.error || "Failed to analyze artwork");
+	// 	}
 
-		console.log("AI Analysis Result:", data.result);
-		setAnalyzeResults(data.result);
+	// 	console.log("AI Analysis Result:", data.result);
+	// 	setAnalyzeResults(data.result);
 
-		// You may also want to update the artwork's local state to include the AI result (optional)
-		return data.result;
-	}
+	// 	// You may also want to update the artwork's local state to include the AI result (optional)
+	// 	return data.result;
+	// }
 
 	const handleAnalyze = async (artworkId: string) => {
 		setAnalyzingId(artworkId);
-		await analyzeArtwork({ variables: { id: artworkId } });
+		// await analyzeArtwork({ variables: { id: artworkId } });
 	};
 
 	const toggleAnalysis = (artworkId: string) => {

@@ -1,6 +1,6 @@
 "use client";
 
-import Artwork from "@artbrushlens/shared";
+import type { Artwork } from "@artbrushlens/shared";
 import Image from "next/image";
 import LoadingSpinner from "./loading";
 import { useState } from "react";
