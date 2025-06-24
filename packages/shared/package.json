@@ -7,7 +7,8 @@
 		"build": "tsc",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
-		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix ."
+		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix .",
+		"postinstall": "npm --workspace packages/shared run build"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.0.0",
