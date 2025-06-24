@@ -3,12 +3,12 @@
 	"version": "1.0.0",
 	"main": "dist/index.js",
 	"types": "dist/types/index.d.ts",
+	"type": "module",
 	"scripts": {
 		"build": "tsc",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
-		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix .",
-		"postinstall": "npm --workspace packages/shared run build"
+		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix ."
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.0.0",

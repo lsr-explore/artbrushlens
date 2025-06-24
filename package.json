@@ -27,7 +27,8 @@
 		"lint": "npm run lint:admin && npm run lint:main && npm run lint:shared",
 		"lint:admin": "npm run lint --workspace=@artbrushlens/admin",
 		"lint:main": "npm run lint --workspace=@artbrushlens/main",
-		"lint:shared": "npm run lint --workspace=@artbrushlens/shared"
+		"lint:shared": "npm run lint --workspace=@artbrushlens/shared",
+		"postinstall": "npm --workspace packages/shared run build"
 	},
 	"devDependencies": {
 		"concurrently": "^8.2.2"
