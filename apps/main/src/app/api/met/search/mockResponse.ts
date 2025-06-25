@@ -62,4 +62,15 @@ export const MOCK_ARTWORKS = [
 		metId: "45438",
 		aiAnalysis: null,
 	},
+	{
+		id: "7",
+		title: "Sunday Afternoon on the Island of La Grand Jatte",
+		artist: "George Seurat",
+		imageUrl:
+			"https://uploads7.wikiart.org/00142/images/57726d80edc2cb3880b482e1/a-sunday-on-la-grande-jatte-georges-seurat-1884.jpg!Large.jpg",
+		description:
+			"Post-Impressionist painting depicting a Sunday afternoon in Paris",
+		metId: "1111",
+		aiAnalysis: null,
+	},
 ];

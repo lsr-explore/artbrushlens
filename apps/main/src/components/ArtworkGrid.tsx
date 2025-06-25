@@ -6,6 +6,7 @@ import LoadingSpinner from "./loading";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchArtworks } from "../lib/met/search";
+import Link from "next/link";
 
 export function ArtworkGrid() {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
@@ -93,11 +94,11 @@ export function ArtworkGrid() {
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
 					>
 						{/* Image Container */}
-						<div className="relative h-48 bg-gray-200">
+						<div className="relative aspec-[4/3] h-48 bg-gray-200">
 							{artwork.imageUrl ? (
 								<Image
-									width={200}
-									height={200}
+									fill
+									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 									src={artwork.imageUrl}
 									alt={artwork.title}
 									className="w-full h-full object-cover"
@@ -182,6 +183,17 @@ export function ArtworkGrid() {
 										"🤖 AI Analysis"
 									)}
 								</button>
+
+								<Link
+									href={`/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
+								>
+									<button
+										type="button"
+										className="bg-indigo-500 text-white text-xs px-3 py-1 rounded hover:bg-indigo-600"
+									>
+										Analyze Image
+									</button>
+								</Link>
 
 								<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 							</div>
