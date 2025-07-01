@@ -1,24 +1,14 @@
-// apps/main/src/app/analyze/[id]/page.tsx
+/* eslint-disable @next/next/no-img-element */
+/** biome-ignore-all lint/performance/noImgElement: <explanation> */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "next/navigation";
-import Image from "next/image";
 import ColorThief from "colorthief";
 import { quantizeImageData } from "./quantize";
 import ColorTreemap from "./ColorTreemap";
 import { useSearchParams } from "next/navigation";
-
-const DUMMY_ARTWORKS = [
-	{
-		id: "123456",
-		title: "Girl with a Pearl Earring",
-		imageUrl:
-			"https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/1665_Girl_with_a_Pearl_Earring.jpg/800px-1665_Girl_with_a_Pearl_Earring.jpg",
-	},
-	// Add more mock artworks if needed
-];
 
 const HUGGINGFACE_MODELS = [
 	"facebook/detr-resnet-50",
@@ -26,9 +16,7 @@ const HUGGINGFACE_MODELS = [
 	"microsoft/resnet-50",
 ];
 
-export function getImageDataFromImageElement(
-	img: HTMLImageElement,
-): ImageData | null {
+function getImageDataFromImageElement(img: HTMLImageElement): ImageData | null {
 	if (!img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
 		console.warn("Image not loaded or invalid dimensions.");
 		return null;
@@ -72,7 +60,7 @@ export default function AnalyzePage() {
 	const imageRef = useRef<HTMLImageElement | null>(null);
 	const [imageLoaded, setImageLoaded] = useState(false);
 
-	const [analysisResult, setAnalysisResult] = useState(null);
+	const [analysisResult, setAnalysisResult] = useState<any>(null);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -99,14 +87,14 @@ export default function AnalyzePage() {
 		const img = imageRef.current;
 
 		const colorThief = new ColorThief();
-		if (img.complete) {
+		if (img?.complete) {
 			try {
 				const element = document.getElementById("artwork-image");
 				const result = colorThief.getPalette(element, 10);
 				setPalette(result);
 				const color = colorThief.getColor(element, 10);
 				setDominantColor(color);
-				const colorAmounts = getColorPercentages(element);
+				const colorAmounts = getColorPercentages(element as HTMLImageElement);
 				setColorPercentages(colorAmounts);
 			} catch (err) {
 				console.error("ColorThief failed:", err);
@@ -250,7 +238,7 @@ export default function AnalyzePage() {
 				<div className="mt-6">
 					<h3 className="text-lg font-semibold">Model Output</h3>
 					<pre className="bg-gray-100 p-4 mt-2 rounded">
-						{JSON.stringify(analysisResult.result, null, 2)}
+						{JSON.stringify(analysisResult?.result, null, 2)}
 					</pre>
 				</div>
 			)}
@@ -266,7 +254,7 @@ export default function AnalyzePage() {
 				{/* Palette Chips */}
 				{palette && (
 					<div className="flex space-x-2 mt-4">
-						{palette.map((color, idx) => (
+						{palette.map((color) => (
 							<>
 								<div
 									key={`${color}`}
@@ -286,7 +274,7 @@ export default function AnalyzePage() {
 				{/* Palette Chips */}
 				{colorPercentages && (
 					<div className=" mt-4">
-						{colorPercentages.map((colorItem, idx) => {
+						{colorPercentages.map((colorItem) => {
 							return (
 								<div key={`${colorItem.color}`}>
 									<div

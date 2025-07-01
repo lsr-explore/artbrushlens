@@ -1,5 +1,5 @@
 // apps/main/src/app/api/proxy-image/route.ts
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
 	const url = req.nextUrl.searchParams.get("url");
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 		});
 	} catch (e) {
 		return NextResponse.json(
-			{ error: "Failed to proxy image" },
+			{ error: `Failed to proxy image: ${e.message}` },
 			{ status: 500 },
 		);
 	}

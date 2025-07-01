@@ -45,7 +45,10 @@ export function quantizeImageData(
 	};
 
 	for (let i = 0; i < data.length; i += 4) {
-		const [r, g, b, a] = data.slice(i, i + 4);
+		const r = data[i];
+		const g = data[i + 1];
+		const b = data[i + 2];
+		const a = data[i + 3];
 		if (a < 128) continue; // Skip transparent pixels
 
 		// Apply quantization

@@ -8,6 +8,8 @@ const nextConfig = {
 			"images.metmuseum.org",
 			"upload.wikimedia.org",
 			"uploads7.wikiart.org",
+			"www.pexels.com",
+			"images.pexels.com",
 		],
 	},
 	env: {
