@@ -11,7 +11,7 @@ export const metadata = {
 	description: "Admin panel for ArtBrushLens",
 };
 
-export const RootLayout = ({ children }: { children: React.ReactNode }) => {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
@@ -20,3 +20,5 @@ export const RootLayout = ({ children }: { children: React.ReactNode }) => {
 		</html>
 	);
 };
+
+export default RootLayout;
