@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import { NextRequest, NextResponse } from "next/server";
 import { generateAIResponse } from "../../../../lib/ai/generate"; // ✅ relative import
 

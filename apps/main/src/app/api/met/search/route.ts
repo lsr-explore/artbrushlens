@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import { NextRequest, NextResponse } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 

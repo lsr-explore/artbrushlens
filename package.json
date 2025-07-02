@@ -22,6 +22,7 @@
 		"docker:build": "docker-compose build",
 		"docker:up": "docker-compose up -d",
 		"docker:down": "docker-compose down",
+		"docker:prune": "docker system prune -a --volumes",
 		"supabase:start": "supabase start",
 		"supabase:stop": "supabase stop",
 		"lint": "npm run lint:admin && npm run lint:main && npm run lint:shared",

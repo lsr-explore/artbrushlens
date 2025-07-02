@@ -2,13 +2,22 @@
 
 import type { Artwork } from "@artbrushlens/shared";
 import Image from "next/image";
-import LoadingSpinner from "./loading";
+import LoadingSpinner from "../loading";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchArtworks } from "../lib/met/search";
+import { fetchPhotoWorks } from "../../lib/";
 import Link from "next/link";
+// import Masonry from "react-masonry-css";
+import Masonry from "../../../../../node_modules/react-masonry-css";
 
-export function ArtworkGrid() {
+const breakpointColsObj = {
+	default: 4,
+	1100: 3,
+	700: 2,
+	500: 1,
+};
+
+export function PhotoGrid() {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
@@ -37,8 +46,8 @@ export function ArtworkGrid() {
 	}
 
 	const { data, isLoading, error } = useQuery({
-		queryKey: ["artworks", "sunflowers"],
-		queryFn: () => fetchArtworks("sunflowers"),
+		queryKey: ["photoworks", "cityStreet"],
+		queryFn: () => fetchPhotoWorks("people in a city park"),
 	});
 
 	if (isLoading) return <LoadingSpinner />;
@@ -80,24 +89,29 @@ export function ArtworkGrid() {
 		<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 			<div className="mb-8">
 				<h1 className="text-3xl font-bold text-gray-900 mb-2">
-					Art Collection
+					Photo Collection
 				</h1>
 				<p className="text-gray-600">
-					Discover and analyze beautiful artworks with AI
+					Discover and analyze beautiful photos with AI
 				</p>
 			</div>
 
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+			<Masonry
+				breakpointCols={breakpointColsObj}
+				className="my-masonry-grid"
+				columnClassName="my-masonry-grid_column"
+			>
 				{data.artworks.map((artwork: Artwork) => (
 					<div
 						key={artwork.id}
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
 					>
 						{/* Image Container */}
-						<div className="relative aspec-[4/3] h-48 bg-gray-200">
+						<div className="bg-gray-200">
 							{artwork.imageUrl ? (
 								<Image
-									fill
+									width={600}
+									height={0}
 									sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 									src={artwork.imageUrl}
 									alt={artwork.title}
@@ -200,13 +214,12 @@ export function ArtworkGrid() {
 						</div>
 					</div>
 				))}{" "}
-			</div>
+			</Masonry>
 
 			{/* Footer */}
 			<div className="mt-12 text-center">
 				<p className="text-gray-500 text-sm">
-					Showing {data.artworks.length} artworks • Powered by Metropolitan
-					Museum of Art API
+					Showing {data.artworks.length} artworks • Powered by Pexel&apos;s API.
 				</p>
 			</div>
 		</div>
