@@ -1,7 +1,7 @@
 // apps/main/src/app/api/analyze-image/route.ts
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export const POST = (req: NextRequest) => {
 	const { imageUrl, modelId } = await req.json();
 
 	console.log("imageUrl", imageUrl);

@@ -1,4 +1,4 @@
-export default function TestPage() {
+const TestPage = () => {
 	return (
 		<div className="min-h-screen bg-gray-100 p-8">
 			<div className="max-w-4xl mx-auto">
@@ -30,11 +30,13 @@ export default function TestPage() {
 
 				<div className="mt-8 p-4 bg-yellow-100 border border-yellow-400 rounded">
 					<p className="text-yellow-800">
-						If this page looks styled, Tailwind is working. If not, there&apos;s a
-						configuration issue.
+						If this page looks styled, Tailwind is working. If not, there&apos;s
+						a configuration issue.
 					</p>
 				</div>
 			</div>
 		</div>
 	);
-}
+};
+
+export default TestPage;

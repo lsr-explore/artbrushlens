@@ -3,13 +3,13 @@
 "use client";
 
 import type { Artwork } from "@artbrushlens/shared";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { fetchAdminArtworks } from "../../lib/api/artworks";
 
-export default function ArtworksPage() {
+const ArtworksPage = () => {
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	// const [, setAnalyzeResults] = useState<string | null>(null);
@@ -18,30 +18,6 @@ export default function ArtworksPage() {
 		queryKey: ["admin-artworks"],
 		queryFn: fetchAdminArtworks,
 	});
-
-	// async function analyzeArtwork(artwork: Artwork) {
-	// 	setAnalyzingId(artwork.id);
-	// 	setAnalyzeResults(null);
-
-	// 	const res = await fetch("/api/ai/analyze", {
-	// 		method: "POST",
-	// 		headers: { "Content-Type": "application/json" },
-	// 		body: JSON.stringify(artwork),
-	// 	});
-
-	// 	const data = await res.json();
-
-	// 	if (!res.ok) {
-	// 		setAnalyzingId(null);
-	// 		throw new Error(data.error || "Failed to analyze artwork");
-	// 	}
-
-	// 	console.log("AI Analysis Result:", data.result);
-	// 	setAnalyzeResults(data.result);
-
-	// 	// You may also want to update the artwork's local state to include the AI result (optional)
-	// 	return data.result;
-	// }
 
 	const handleAnalyze = async (artworkId: string) => {
 		setAnalyzingId(artworkId);
@@ -198,4 +174,6 @@ export default function ArtworksPage() {
 			</main>
 		</div>
 	);
-}
+};
+
+export default ArtworksPage;

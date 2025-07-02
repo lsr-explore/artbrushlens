@@ -4,11 +4,11 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import ColorThief from "colorthief";
-import { quantizeImageData } from "./quantize";
-import ColorTreemap from "./ColorTreemap";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import ColorTreemap from "../../../components/ColorTreeMap/ColorTreemap";
+import { quantizeImageData } from "../../../lib/color/quantize";
 
 const HUGGINGFACE_MODELS = [
 	"facebook/detr-resnet-50",
@@ -16,7 +16,9 @@ const HUGGINGFACE_MODELS = [
 	"microsoft/resnet-50",
 ];
 
-function getImageDataFromImageElement(img: HTMLImageElement): ImageData | null {
+const getImageDataFromImageElement = (
+	img: HTMLImageElement,
+): ImageData | null => {
 	if (!img.complete || img.naturalWidth === 0 || img.naturalHeight === 0) {
 		console.warn("Image not loaded or invalid dimensions.");
 		return null;
@@ -30,7 +32,7 @@ function getImageDataFromImageElement(img: HTMLImageElement): ImageData | null {
 
 	ctx.drawImage(img, 0, 0);
 	return ctx.getImageData(0, 0, canvas.width, canvas.height);
-}
+};
 
 const getColorPercentages = (element: HTMLImageElement | null) => {
 	// 1. Get imageData
@@ -44,7 +46,7 @@ const getColorPercentages = (element: HTMLImageElement | null) => {
 	return topColors;
 };
 
-export default function AnalyzePage() {
+const AnalyzePage = () => {
 	const searchParams = useSearchParams();
 	const artwork = {
 		imageUrl: searchParams.get("imageUrl"),
@@ -104,18 +106,18 @@ export default function AnalyzePage() {
 
 	const colorMap: Record<string, string> = {};
 
-	function getColorForLabel(label: string): string {
+	const getColorForLabel = (label: string): string => {
 		if (!colorMap[label]) {
 			colorMap[label] = getRandomColor();
 		}
 		return colorMap[label];
-	}
+	};
 
-	function getRandomColor(): string {
+	const getRandomColor = (): string => {
 		return `#${Math.floor(Math.random() * 16777215)
 			.toString(16)
 			.padStart(6, "0")}`;
-	}
+	};
 
 	const handleAnalyze = async () => {
 		if (!artwork.imageUrl) return;
@@ -294,4 +296,6 @@ export default function AnalyzePage() {
 			<ColorTreemap colors={colorPercentages} />
 		</div>
 	);
-}
+};
+
+export default AnalyzePage;

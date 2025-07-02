@@ -20,9 +20,11 @@
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
 		"test:shared": "npm run test --workspace=@artbrushlens/shared",
 		"docker:build": "docker-compose build",
+		"docker:build:main": "docker-compose build main-app",
 		"docker:up": "docker-compose up -d",
+		"docker:up:main": "docker-compose up -d main-app",
 		"docker:down": "docker-compose down",
-		"docker:prune": "docker system prune -a --volumes",
+		"docker:prune": "docker system prune -a --volumes && docker builder prune --all",
 		"supabase:start": "supabase start",
 		"supabase:stop": "supabase stop",
 		"lint": "npm run lint:admin && npm run lint:main && npm run lint:shared",
@@ -32,6 +34,9 @@
 		"postinstall": "npm --workspace packages/shared run build"
 	},
 	"devDependencies": {
-		"concurrently": "^8.2.2"
+		"concurrently": "^8.2.2",
+		"@artanalysis/api-fetchers": "*",
+		"@artanalysis/api-handlers": "*",
+		"@artanalysis/shared-types": "*"
 	}
 }

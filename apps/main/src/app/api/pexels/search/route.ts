@@ -2,7 +2,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
 	const { searchParams } = new URL(req.url);
 	const q = searchParams.get("q");
 
@@ -73,4 +73,4 @@ export async function GET(req: NextRequest) {
 		console.error("❌ Pexel API error:", err);
 		return NextResponse.json({ error: err.message }, { status: 500 });
 	}
-}
+};

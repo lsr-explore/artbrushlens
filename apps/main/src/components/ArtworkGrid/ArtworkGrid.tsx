@@ -1,18 +1,16 @@
 "use client";
 
-import type { Artwork } from "@artbrushlens/shared";
 import Image from "next/image";
-import LoadingSpinner from "./loading";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchArtworks } from "../lib/met/search";
 import Link from "next/link";
+import type { Artwork } from "packages/shared-types/dist/types";
+import { useState } from "react";
+import { NoArtworksFound } from "../Errors";
 
-export function ArtworkGrid() {
+export const ArtworkGrid = ({ artworks }: { artworks: Artwork[] }) => {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
-	async function analyzeArtwork(artwork: Artwork) {
+	const analyzeArtwork = async (artwork: Artwork) => {
 		setAnalyzingId(artwork.id);
 		setAnalyzeResults(null);
 
@@ -34,46 +32,10 @@ export function ArtworkGrid() {
 
 		// You may also want to update the artwork's local state to include the AI result (optional)
 		return data.result;
-	}
+	};
 
-	const { data, isLoading, error } = useQuery({
-		queryKey: ["artworks", "sunflowers"],
-		queryFn: () => fetchArtworks("sunflowers"),
-	});
-
-	if (isLoading) return <LoadingSpinner />;
-
-	if (error)
-		return (
-			<div className="max-w-2xl mx-auto text-center p-8">
-				<div className="bg-red-50 border border-red-200 rounded-lg p-6">
-					<h3 className="text-lg font-medium text-red-800 mb-2">
-						Error loading artworks: {error.message}
-					</h3>
-					<p className="text-red-600 text-sm">{error.message}</p>
-					<button
-						type="button"
-						onClick={() => window.location.reload()}
-						className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-					>
-						Retry
-					</button>
-				</div>
-			</div>
-		);
-
-	if (!data.artworks || data.artworks.length === 0) {
-		return (
-			<div className="text-center p-12">
-				<div className="text-gray-400 text-6xl mb-4">🎨</div>
-				<h3 className="text-lg font-medium text-gray-900 mb-2">
-					No artworks found
-				</h3>
-				<p className="text-gray-500">
-					Check your server connection and try again.
-				</p>
-			</div>
-		);
+	if (!artworks || artworks.length === 0) {
+		return <NoArtworksFound />;
 	}
 
 	return (
@@ -88,7 +50,7 @@ export function ArtworkGrid() {
 			</div>
 
 			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-				{data.artworks.map((artwork: Artwork) => (
+				{artworks.map((artwork: Artwork) => (
 					<div
 						key={artwork.id}
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
@@ -185,7 +147,7 @@ export function ArtworkGrid() {
 								</button>
 
 								<Link
-									href={`/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
+									href={`/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id}`}
 								>
 									<button
 										type="button"
@@ -199,16 +161,16 @@ export function ArtworkGrid() {
 							</div>
 						</div>
 					</div>
-				))}{" "}
+				))}
 			</div>
 
 			{/* Footer */}
 			<div className="mt-12 text-center">
 				<p className="text-gray-500 text-sm">
-					Showing {data.artworks.length} artworks • Powered by Metropolitan
-					Museum of Art API
+					Showing {artworks.length} artworks • Powered by Metropolitan Museum of
+					Art API
 				</p>
 			</div>
 		</div>
 	);
-}
+};

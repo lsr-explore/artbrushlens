@@ -1,4 +1,4 @@
-export default function Loading() {
+const Loading = () => {
 	return (
 		<div className="flex items-center justify-center min-h-64">
 			<div className="text-center">
@@ -7,4 +7,6 @@ export default function Loading() {
 			</div>
 		</div>
 	);
-}
+};
+
+export default Loading;

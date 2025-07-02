@@ -9,14 +9,12 @@ export const metadata: Metadata = {
 	description: "AI-powered art analysis platform",
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+export const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang="en">
 			<body className={inter.className}>{children}</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;

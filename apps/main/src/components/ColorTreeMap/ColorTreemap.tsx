@@ -10,7 +10,7 @@ type ColorData = {
 	percentage: number; // already in 0–1 range
 };
 
-export default function ColorTreemap({ colors }: { colors: ColorData[] }) {
+const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
 	const ref = useRef<SVGSVGElement>(null);
 	const width = 800;
 	const height = 600;
@@ -64,4 +64,6 @@ export default function ColorTreemap({ colors }: { colors: ColorData[] }) {
 	}, [colors]);
 
 	return <svg ref={ref} width={width} height={height} />;
-}
+};
+
+export default ColorTreemap;

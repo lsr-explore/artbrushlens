@@ -1,14 +1,14 @@
 "use client";
 
-import type { Artwork } from "@artbrushlens/shared";
-import Image from "next/image";
-import LoadingSpinner from "../loading";
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchPhotoWorks } from "../../lib/";
+import Image from "next/image";
 import Link from "next/link";
+import type { Artwork } from "packages/shared-types/dist/types";
+import { useState } from "react";
 // import Masonry from "react-masonry-css";
 import Masonry from "../../../../../node_modules/react-masonry-css";
+import LoadingSpinner from "../../../../../packages/palette-studio/src/loading";
+import { fetchPhotoWorks } from "../../lib/";
 
 const breakpointColsObj = {
 	default: 4,
@@ -17,11 +17,11 @@ const breakpointColsObj = {
 	500: 1,
 };
 
-export function PhotoGrid() {
+export const PhotoGrid = () => {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
-	async function analyzeArtwork(artwork: Artwork) {
+	const analyzeArtwork = async (artwork: Artwork) => {
 		setAnalyzingId(artwork.id);
 		setAnalyzeResults(null);
 
@@ -43,7 +43,7 @@ export function PhotoGrid() {
 
 		// You may also want to update the artwork's local state to include the AI result (optional)
 		return data.result;
-	}
+	};
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["photoworks", "cityStreet"],
@@ -224,4 +224,4 @@ export function PhotoGrid() {
 			</div>
 		</div>
 	);
-}
+};

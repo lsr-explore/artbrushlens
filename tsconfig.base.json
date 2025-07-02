@@ -1,0 +1,33 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"target": "ESNext",
+		"allowJs": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"noEmit": true,
+		"incremental": true,
+		"module": "esnext",
+		"esModuleInterop": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"jsx": "preserve",
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
+		"paths": {
+			"@artanalysis/api-handlers/*": ["packages/api-handlers/src/*"],
+			"@artanalysis/api-fetchers/*": ["packages/api-fetchers/src/*"],
+			"@artanalysis/shared-types/*": ["packages/shared-types/src/*"],
+			"@artanalysis/react-query-hooks/*": ["packages/react-query-hooks/src/*"]
+		},
+		"plugins": [
+			{
+				"name": "next"
+			}
+		],
+		"strictNullChecks": true
+	},
+	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}

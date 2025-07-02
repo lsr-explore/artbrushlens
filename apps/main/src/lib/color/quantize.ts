@@ -30,11 +30,11 @@ const hexToRgb = (hex) => {
 // 8 or 4 = buckets similar tones
 
 // This isn't as sophisticated as median cut or [k-means clustering], but it's fast and works well in browsers.
-export function quantizeImageData(
+export const quantizeImageData = (
 	imageData: ImageData,
 	maxColors = 20,
 	colorPrecision = 32, // bits per channel to keep (256 means no quantization, lower = more rounding)
-): ColorCount[] {
+): ColorCount[] => {
 	const { data, width, height } = imageData;
 	const totalPixels = width * height;
 	const colorMap = new Map<string, number>();
@@ -71,8 +71,8 @@ export function quantizeImageData(
 		.slice(0, maxColors);
 
 	return entries;
-}
+};
 
-function rgbToHex(r: number, g: number, b: number): string {
+const rgbToHex = (r: number, g: number, b: number): string => {
 	return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
-}
+};

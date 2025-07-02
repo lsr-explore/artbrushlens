@@ -1,7 +1,7 @@
 // apps/main/src/app/api/proxy-image/route.ts
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export const GET = async (req: NextRequest) => {
 	const url = req.nextUrl.searchParams.get("url");
 
 	if (!url) {
@@ -25,4 +25,4 @@ export async function GET(req: NextRequest) {
 			{ status: 500 },
 		);
 	}
-}
+};

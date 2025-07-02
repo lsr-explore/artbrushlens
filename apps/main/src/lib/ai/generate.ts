@@ -16,9 +16,9 @@ const MOCK_AI_ANALYSES = [
 	"This work represents a significant moment in art history, showcasing the evolution of artistic expression and the artist's mastery of their chosen medium.",
 ];
 
-export async function generateAIResponse(
+export const generateAIResponse = async (
 	artwork: Artwork,
-): Promise<AIResponse> {
+): Promise<AIResponse> => {
 	if (process.env.USE_LOCAL_AI === "true") {
 		console.log(`🤖 Generating mock AI analysis for: ${artwork.title}`);
 
@@ -51,4 +51,4 @@ export async function generateAIResponse(
 
 	const data = await res.json();
 	return { result: data.choices?.[0]?.message?.content || "No response" };
-}
+};

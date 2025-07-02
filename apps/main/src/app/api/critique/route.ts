@@ -1,10 +1,7 @@
 // Vercel API route
 import type { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler(
-	req: NextApiRequest,
-	res: NextApiResponse,
-) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 	const { imageUrl } = req.body;
 
 	const response = await fetch(
@@ -21,4 +18,6 @@ export default async function handler(
 
 	const data = await response.json();
 	res.status(200).json(data);
-}
+};
+
+export default handler;
