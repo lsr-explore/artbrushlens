@@ -1,2 +1,4 @@
 export * from "./fetchArtworks";
-export * from "./postAnalyze";
+export * from "./fetchPhotoWorks";
+export * from "./postAnalyzeArt";
+export * from "./postDetectObjects";

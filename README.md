@@ -1,4 +1,4 @@
-# ArtAnalysis
+# artbrushlens
 
 AI-powered photo and artwork critique with dynamic layouts, color analysis, and template saving.
 

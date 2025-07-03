@@ -1,11 +1,11 @@
 {
-	"name": "@artbrushlens/api-handlers",
+	"name": "@artbrushlens/palette-studio",
 	"version": "1.0.0",
 	"main": "dist/index.js",
-	"types": "dist/met/index.d.ts",
+	"types": "dist/types/index.d.ts",
 	"type": "module",
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc --project tsconfig.json",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
 		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix ."

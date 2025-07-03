@@ -1,7 +1,7 @@
-import { useSearchArtworks } from "@artanalysis/react-query-hooks";
-import { ArtworkGrid } from "./ArtworkGrid";
-import { LoadingSpinner } from "@artanalysis/palette-studio";
+import { LoadingSpinner } from "@artbrushlens/palette-studio";
+import { useSearchArtworks } from "@artbrushlens/react-query-hooks";
 import { LoadingError } from "../Errors";
+import { ArtworkGrid } from "./ArtworkGrid";
 
 export const ArtworkGridDataProvider = () => {
 	const { data, isLoading, error } = useSearchArtworks("sunflowers");

@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
 
-import type { Artwork } from "@artbrushlens/shared";
+import type { Artwork } from "@artbrushlens/shared-types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";

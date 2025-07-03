@@ -10,15 +10,12 @@
 		"dev": "concurrently \"npm run dev:main\" \"npm run dev:admin\"",
 		"dev:main": "npm run dev --workspace=@artbrushlens/main",
 		"dev:admin": "npm run dev --workspace=@artbrushlens/admin",
-		"build": "npm run build:shared && npm run build:main && npm run build:admin",
 		"build:main": "npm run build --workspace=@artbrushlens/main",
 		"build:admin": "npm run build --workspace=@artbrushlens/admin",
-		"build:shared": "npm run build --workspace=@artbrushlens/shared",
-		"clean:all": "rm -rf node_modules && rm -rf packages/shared/node_modules && rm -rf packages/shared/dist && rm -rf apps/main/node_modules && rm -rf apps/admin/node_modules",
+		"clean:all": "rm -rf node_modules && rm -rf packages/*/node_modules && rm -rf packages/*/dist && rm -rf apps/main/node_modules && rm -rf apps/admin/node_modules",
 		"test": "npm run test:main && npm run test:admin && npm run test:shared",
 		"test:main": "npm run test --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
-		"test:shared": "npm run test --workspace=@artbrushlens/shared",
 		"docker:build": "docker-compose build",
 		"docker:build:main": "docker-compose build main-app",
 		"docker:up": "docker-compose up -d",
@@ -30,13 +27,14 @@
 		"lint": "npm run lint:admin && npm run lint:main && npm run lint:shared",
 		"lint:admin": "npm run lint --workspace=@artbrushlens/admin",
 		"lint:main": "npm run lint --workspace=@artbrushlens/main",
-		"lint:shared": "npm run lint --workspace=@artbrushlens/shared",
-		"postinstall": "npm --workspace packages/shared run build"
+		"postinstall": "pnpm run -r --filter './packages/**' build && npm run -r build:main && npm run -r build:admin "
 	},
 	"devDependencies": {
 		"concurrently": "^8.2.2",
-		"@artanalysis/api-fetchers": "*",
-		"@artanalysis/api-handlers": "*",
-		"@artanalysis/shared-types": "*"
+		"@artbrushlens/api-fetchers": "*",
+		"@artbrushlens/api-handlers": "*",
+		"@artbrushlens/shared-types": "*",
+		"@artbrushlens/react-query-hooks": "*",
+		"@artbrushlens/palette-studio": "*"
 	}
 }

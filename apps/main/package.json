@@ -13,7 +13,10 @@
 	},
 	"dependencies": {
 		"@apollo/client": "^3.8.7",
-		"@artbrushlens/shared": "*",
+		"@artbrushlens/shared-types": "*",
+		"@artbrushlens/palette-studio": "*",
+		"@artbrushlens/api-handlers": "*",
+		"@artbrushlens/react-query-hooks": "*",
 		"@huggingface/transformers": "^3.5.2",
 		"@supabase/supabase-js": "^2.38.4",
 		"@tanstack/react-query": "^5.81.2",

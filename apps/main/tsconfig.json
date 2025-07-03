@@ -3,5 +3,10 @@
 	"compilerOptions": {
 		"outDir": ".next"
 	},
-	"include": ["src", "../../packages/palette-studio/src/loading.tsx"]
+	"include": [
+		"src",
+		"../../packages/palette-studio/src/loading.tsx",
+		"../../packages/api-fetchers/src/fetchPhotoWorks.ts",
+		"../../packages/api-fetchers/src/postAnalyzeArtwork.ts"
+	]
 }

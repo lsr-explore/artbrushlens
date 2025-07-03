@@ -2,10 +2,10 @@
 	"name": "@artbrushlens/api-handlers",
 	"version": "1.0.0",
 	"main": "dist/index.js",
-	"types": "dist/met/index.d.ts",
+	"types": "dist/types/index.d.ts",
 	"type": "module",
 	"scripts": {
-		"build": "tsc",
+		"build": "tsc --project tsconfig.json",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
 		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix ."
@@ -14,6 +14,7 @@
 		"@biomejs/biome": "2.0.0",
 		"@testing-library/jest-dom": "^6.1.5",
 		"@testing-library/react": "^14.1.2",
+		"@artbrushlens/shared-types": "*",
 		"@types/node": "^20.10.0",
 		"eslint": "^8.54.0",
 		"eslint-config-next": "^14.0.3",

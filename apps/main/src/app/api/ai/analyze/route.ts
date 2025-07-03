@@ -1,3 +1,3 @@
-import { handleMetSearch } from "@artanalysis/api-handlers";
+import { analyzeArt } from "@artbrushlens/api-handlers";
 
-export const GET = handleMetSearch;
+export const POST = analyzeArt;

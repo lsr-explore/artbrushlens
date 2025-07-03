@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-export const POST = async (req: NextRequest) => {
+export const detectObjects = async (req: NextRequest) => {
 	const { imageUrl, modelId } = await req.json();
 
 	console.log("imageUrl", imageUrl);
@@ -18,8 +18,6 @@ export const POST = async (req: NextRequest) => {
 			body: JSON.stringify({ inputs: imageUrl }),
 		},
 	);
-
-	console.log("response", response);
 
 	const result = await response.json();
 	console.log("result", result);

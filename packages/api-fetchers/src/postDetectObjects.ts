@@ -1,7 +1,7 @@
-import { Artwork } from "@/types";
+import { Artwork } from "@artbrushlens/shared-types";
 
-export const postAnalyze = async (artwork: Artwork) => {
-	const res = await fetch("/api/ai/analyze", {
+export const postDetectObjects = async (artwork: Artwork) => {
+	const res = await fetch("/api/ai/detect-objects", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(artwork),

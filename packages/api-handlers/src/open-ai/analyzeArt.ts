@@ -11,9 +11,7 @@ interface Artwork {
 	description?: string;
 }
 
-export const generateAIResponse = async (
-	artwork: Artwork,
-): Promise<AIResponse> => {
+export const analyzeArt = async (artwork: Artwork): Promise<AIResponse> => {
 	if (process.env.USE_LOCAL_AI === "true") {
 		console.log(`🤖 Generating mock AI analysis for: ${artwork.title}`);
 
