@@ -1,8 +1,8 @@
 {
 	"name": "@artbrushlens/shared-types",
 	"version": "1.0.0",
-	"main": "dist/index.js",
-	"types": "dist/types/index.d.ts",
+	"main": "dist/src/index.js",
+	"types": "dist/src/index.d.ts",
 	"type": "module",
 	"scripts": {
 		"build": "tsc --build tsconfig.json",

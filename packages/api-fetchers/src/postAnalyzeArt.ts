@@ -1,4 +1,4 @@
-import { Artwork } from "@artbrushlens/shared-types";
+import type { Artwork } from "@artbrushlens/shared-types";
 
 export const postAnalyzeArt = async (artwork: Artwork) => {
 	const res = await fetch("/api/ai/analyze", {

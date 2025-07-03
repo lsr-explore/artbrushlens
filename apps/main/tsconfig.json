@@ -1,14 +1,8 @@
 {
-  "extends": "../../tsconfig.base.json",
-  "compilerOptions": {
-    "outDir": ".next",
-    "jsx": "preserve"
-  },
-  "include": [
-    "src",
-    "../../packages/palette-studio/src/loading.tsx",
-    "../../packages/api-fetchers/src/fetchPhotoWorks.ts",
-    "../../packages/api-fetchers/src/postAnalyzeArtwork.ts",
-    ".next/types/**/*.ts"
-  ]
+	"extends": "../../tsconfig.apps.base.json",
+	"compilerOptions": {
+		"outDir": ".next",
+		"jsx": "preserve"
+	},
+	"include": ["src", ".next/types/**/*.ts"]
 }

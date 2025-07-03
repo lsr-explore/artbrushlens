@@ -16,18 +16,19 @@
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
 		"paths": {
-			"@artbrushlens/api-handlers/*": ["packages/api-handlers/src/*"],
-			"@artbrushlens/api-fetchers/*": ["packages/api-fetchers/src/*"],
-			"@artbrushlens/shared-types/*": ["packages/shared-types/src/*"],
-			"@artbrushlens/palette-studio/*": ["packages/palette-studio/src/*"],
-			"@artbrushlens/react-query-hooks/*": ["packages/react-query-hooks/src/*"]
+			"@artbrushlens/api-handlers": ["packages/api-handlers/src/*"],
+			"@artbrushlens/api-fetchers": ["packages/api-fetchers/src/*"],
+			"@artbrushlens/shared-types": ["packages/shared-types/src/*"],
+			"@artbrushlens/palette-studio": ["packages/palette-studio/src/*"],
+			"@artbrushlens/react-query-hooks": ["packages/react-query-hooks/src/*"]
 		},
 		"plugins": [
 			{
 				"name": "next"
 			}
 		],
-		"strictNullChecks": true
+		"strictNullChecks": true,
+		"outDir": "./dist"
 	},
 	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
