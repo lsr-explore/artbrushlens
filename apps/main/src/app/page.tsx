@@ -1,9 +1,8 @@
 "use client";
 
 import { type SetStateAction, useState } from "react";
-import { ArtworkGrid } from "../components/ArtworkGrid/ArtworkGrid";
-import { PhotoGrid } from "../components/PhotoGrid";
-import { Providers } from "../data-providers/Providers";
+import { ArtworkGridDataProvider, PhotoGridDataProvider } from "../components";
+import { Providers } from "../data-providers";
 
 const Home = () => {
 	const [selectedOption, setSelectedOption] = useState("photo");
@@ -23,9 +22,9 @@ const Home = () => {
 					<option value="photo">Pexels Photography</option>
 				</select>
 				{selectedOption === "art" ? (
-					<ArtworkGrid artworks={[]} />
+					<ArtworkGridDataProvider />
 				) : (
-					<PhotoGrid />
+					<PhotoGridDataProvider />
 				)}
 			</Providers>
 		</main>

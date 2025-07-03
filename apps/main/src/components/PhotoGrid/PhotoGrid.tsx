@@ -1,14 +1,10 @@
 "use client";
 
-import { LoadingSpinner } from "@artbrushlens/palette-studio";
 import type { Artwork } from "@artbrushlens/shared-types";
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-// import Masonry from "react-masonry-css";
-import Masonry from "../../../../../node_modules/react-masonry-css";
-import { fetchPhotoWorks } from "../../lib/";
+import Masonry from "react-masonry-css";
 
 const breakpointColsObj = {
 	default: 4,
@@ -17,7 +13,7 @@ const breakpointColsObj = {
 	500: 1,
 };
 
-export const PhotoGrid = () => {
+export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
 	const [analyzeResults, setAnalyzeResults] = useState<string | null>(null);
 
@@ -45,33 +41,7 @@ export const PhotoGrid = () => {
 		return data.result;
 	};
 
-	const { data, isLoading, error } = useQuery({
-		queryKey: ["photoworks", "cityStreet"],
-		queryFn: () => fetchPhotoWorks("people in a city park"),
-	});
-
-	if (isLoading) return <LoadingSpinner />;
-
-	if (error)
-		return (
-			<div className="max-w-2xl mx-auto text-center p-8">
-				<div className="bg-red-50 border border-red-200 rounded-lg p-6">
-					<h3 className="text-lg font-medium text-red-800 mb-2">
-						Error loading artworks: {error.message}
-					</h3>
-					<p className="text-red-600 text-sm">{error.message}</p>
-					<button
-						type="button"
-						onClick={() => window.location.reload()}
-						className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
-					>
-						Retry
-					</button>
-				</div>
-			</div>
-		);
-
-	if (!data.artworks || data.artworks.length === 0) {
+	if (!photos || photos.length === 0) {
 		return (
 			<div className="text-center p-12">
 				<div className="text-gray-400 text-6xl mb-4">🎨</div>
@@ -101,7 +71,7 @@ export const PhotoGrid = () => {
 				className="my-masonry-grid"
 				columnClassName="my-masonry-grid_column"
 			>
-				{data.artworks.map((artwork: Artwork) => (
+				{photos.map((artwork: Artwork) => (
 					<div
 						key={artwork.id}
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
@@ -219,7 +189,7 @@ export const PhotoGrid = () => {
 			{/* Footer */}
 			<div className="mt-12 text-center">
 				<p className="text-gray-500 text-sm">
-					Showing {data.artworks.length} artworks • Powered by Pexel&apos;s API.
+					Showing {photos.length} artworks • Powered by Pexel&apos;s API.
 				</p>
 			</div>
 		</div>

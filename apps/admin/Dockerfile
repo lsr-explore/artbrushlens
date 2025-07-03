@@ -5,10 +5,12 @@ WORKDIR /app
 # Copy root lock and manifest
 COPY package*.json ./
 
+# Copy tsconfig files
+COPY tsconfig*.json ./
 
 # Copy the entire repo (or workspaces + apps)
 COPY packages ./packages
-COPY  apps/admin ./apps/admin 
+COPY apps/admin ./apps/admin 
 
 # Install all workspaces
 RUN npm install
