@@ -1,5 +1,5 @@
 import { LoadingSpinner } from "@artbrushlens/palette-studio";
-import { useMetSearch } from "../../data-providers";
+import { useMetSearch } from "data-providers";
 import { LoadingError } from "../Errors";
 import { ArtworkGrid } from "./ArtworkGrid";
 

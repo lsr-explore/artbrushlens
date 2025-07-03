@@ -1,8 +1,8 @@
 "use client";
 
 import { type SetStateAction, useState } from "react";
-import { ArtworkGridDataProvider, PhotoGridDataProvider } from "../components";
-import { Providers } from "../data-providers";
+import { ArtworkGridDataProvider, PhotoGridDataProvider } from "components";
+import { Providers } from "data-providers";
 
 const Home = () => {
 	const [selectedOption, setSelectedOption] = useState("photo");

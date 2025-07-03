@@ -7,8 +7,8 @@
 import ColorThief from "colorthief";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import ColorTreemap from "../../../components/ColorTreeMap/ColorTreemap";
-import { quantizeImageData } from "../../../lib/color/quantize";
+import { ColorTreemap } from "components/ColorTreeMap";
+import { quantizeImageData } from "lib/color";
 
 const HUGGINGFACE_MODELS = [
 	"facebook/detr-resnet-50",
