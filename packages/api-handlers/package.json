@@ -5,7 +5,7 @@
 	"types": "dist/src/index.d.ts",
 	"type": "module",
 	"scripts": {
-		"build": "tsc --build t0sconfig.json",
+		"build": "tsc --build tsconfig.json",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
 		"lint": "eslint --fix .",
