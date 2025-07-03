@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { fetchAdminArtworks } from "../../lib/api/artworks";
+import { fetchAdminArtworks } from "lib/api/artworks";
 
 const ArtworksPage = () => {
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);

@@ -1,4 +1,4 @@
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export const critiqueImage = async (req: NextRequest): Promise<Response> => {
 	const { imageUrl } = await req.json();

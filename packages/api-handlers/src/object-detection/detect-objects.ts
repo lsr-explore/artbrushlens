@@ -1,4 +1,4 @@
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export const detectObjects = async (req: NextRequest): Promise<Response> => {
 	const { imageUrl, modelId } = await req.json();
