@@ -1,13 +1,13 @@
 "use client";
 
+import { LoadingSpinner } from "@artbrushlens/palette-studio";
+import type { Artwork } from "@artbrushlens/shared-types";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import type { Artwork } from "packages/shared-types/dist/types";
 import { useState } from "react";
 // import Masonry from "react-masonry-css";
 import Masonry from "../../../../../node_modules/react-masonry-css";
-import LoadingSpinner from "../../../../../packages/palette-studio/src/loading";
 import { fetchPhotoWorks } from "../../lib/";
 
 const breakpointColsObj = {

@@ -1,11 +1,7 @@
-// Vercel API route
-import type { NextApiRequest, NextApiResponse } from "next";
+import { type NextRequest } from "next/server";
 
-export const critiqueImage = async (
-	req: NextApiRequest,
-	res: NextApiResponse,
-) => {
-	const { imageUrl } = req.body;
+export const critiqueImage = async (req: NextRequest): Promise<Response> => {
+	const { imageUrl } = await req.json();
 
 	const response = await fetch(
 		"https://api-inference.huggingface.co/models/vinvino02/saliency-model",
@@ -20,5 +16,5 @@ export const critiqueImage = async (
 	);
 
 	const data = await response.json();
-	res.status(200).json(data);
+	return Response.json(data);
 };

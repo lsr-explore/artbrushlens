@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
-export const handleMetSearch = async (req: NextRequest) => {
+export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
 	const { searchParams } = new URL(req.url);
 	const q = searchParams.get("q");
 
 	if (!q) {
-		return NextResponse.json(
+		return Response.json(
 			{ error: "Missing query param `q`" },
 			{ status: 400 },
 		);
@@ -15,7 +15,7 @@ export const handleMetSearch = async (req: NextRequest) => {
 
 	// 🔁 Check for mock mode
 	if (process.env.USE_MOCK_MET_API === "true") {
-		return NextResponse.json({
+		return Response.json({
 			total: 1,
 			artworks: MOCK_ARTWORKS,
 			mock: true,
@@ -30,7 +30,7 @@ export const handleMetSearch = async (req: NextRequest) => {
 		const searchData = await searchRes.json();
 
 		if (!searchData.objectIDs || searchData.objectIDs.length === 0) {
-			return NextResponse.json({ artworks: [] });
+			return Response.json({ artworks: [] });
 		}
 
 		const limitedIds = searchData.objectIDs.slice(0, 30); // limit results for performance
@@ -58,12 +58,12 @@ export const handleMetSearch = async (req: NextRequest) => {
 
 		console.log("🔍 MET API response:", { artworks: filteredArtworks });
 
-		return NextResponse.json({
+		return Response.json({
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
 	} catch (err: any) {
 		console.error("❌ MET API error:", err);
-		return NextResponse.json({ error: err.message }, { status: 500 });
+		return Response.json({ error: err.message }, { status: 500 });
 	}
 };

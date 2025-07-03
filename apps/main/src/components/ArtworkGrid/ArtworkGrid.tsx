@@ -1,8 +1,8 @@
 "use client";
 
+import type { Artwork } from "@artbrushlens/shared-types";
 import Image from "next/image";
 import Link from "next/link";
-import type { Artwork } from "packages/shared-types/dist/types";
 import { useState } from "react";
 import { NoArtworksFound } from "../Errors";
 

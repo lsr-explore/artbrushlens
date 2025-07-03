@@ -91,12 +91,13 @@ const AnalyzePage = () => {
 		const colorThief = new ColorThief();
 		if (img?.complete) {
 			try {
-				const element = document.getElementById("artwork-image");
+				const element = document.getElementById("artwork-image") as HTMLImageElement;
+				if (!element) return;
 				const result = colorThief.getPalette(element, 10);
 				setPalette(result);
 				const color = colorThief.getColor(element, 10);
 				setDominantColor(color);
-				const colorAmounts = getColorPercentages(element as HTMLImageElement);
+				const colorAmounts = getColorPercentages(element);
 				setColorPercentages(colorAmounts);
 			} catch (err) {
 				console.error("ColorThief failed:", err);
@@ -169,7 +170,7 @@ const AnalyzePage = () => {
 					width={400}
 					height={400}
 				/>
-				{analysisResult?.map((objectItem, idx) => {
+				{analysisResult?.map((objectItem: any, idx: number) => {
 					const box = objectItem.box;
 
 					const width = box.xmax - box.xmin;
@@ -195,7 +196,7 @@ const AnalyzePage = () => {
 				})}
 			</div>
 			<div>
-				{analysisResult?.map((objectItem, idx) => {
+				{analysisResult?.map((objectItem: any, idx: number) => {
 					const label = objectItem.label;
 					const score = objectItem.score;
 					if (objectItem.score < 0.9 || !label) return null;
@@ -276,7 +277,7 @@ const AnalyzePage = () => {
 				{/* Palette Chips */}
 				{colorPercentages && (
 					<div className=" mt-4">
-						{colorPercentages.map((colorItem) => {
+						{colorPercentages.map((colorItem: any) => {
 							return (
 								<div key={`${colorItem.color}`}>
 									<div

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
-export const proxyImage = async (req: NextRequest) => {
+export const proxyImage = async (req: NextRequest): Promise<Response> => {
 	const url = req.nextUrl.searchParams.get("url");
 
 	if (!url) {
-		return NextResponse.json({ error: "Missing image URL" }, { status: 400 });
+		return Response.json({ error: "Missing image URL" }, { status: 400 });
 	}
 
 	try {
@@ -14,14 +14,14 @@ export const proxyImage = async (req: NextRequest) => {
 		const contentType = res.headers.get("content-type") || "image/jpeg";
 		const buffer = await res.arrayBuffer();
 
-		return new NextResponse(buffer, {
+		return new Response(buffer, {
 			headers: {
 				"Content-Type": contentType,
 				"Access-Control-Allow-Origin": "*", // 👈 now you can use ColorThief
 			},
 		});
 	} catch (e: any) {
-		return NextResponse.json(
+		return Response.json(
 			{ error: `Failed to proxy image: ${e.message}` },
 			{ status: 500 },
 		);

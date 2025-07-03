@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
-export const handlePhotoSearch = async (req: NextRequest) => {
+export const handlePhotoSearch = async (req: NextRequest): Promise<Response> => {
 	const { searchParams } = new URL(req.url);
 	const q = searchParams.get("q");
 
 	if (!q) {
-		return NextResponse.json(
+		return Response.json(
 			{ error: "Missing query param `q`" },
 			{ status: 400 },
 		);
@@ -16,7 +16,7 @@ export const handlePhotoSearch = async (req: NextRequest) => {
 
 	// 🔁 Check for mock mode
 	if (process.env.USE_MOCK_PEXELS_API === "true") {
-		return NextResponse.json({
+		return Response.json({
 			total: 1,
 			artworks: MOCK_ARTWORKS,
 			mock: true,
@@ -40,7 +40,7 @@ export const handlePhotoSearch = async (req: NextRequest) => {
 		const searchData = await searchRes.json();
 
 		if (searchData.per_page === 0 || searchData.photos.length === 0) {
-			return NextResponse.json({ artworks: [] });
+			return Response.json({ artworks: [] });
 		}
 
 		const artworks = searchData.photos.map((photo: any) => {
@@ -57,7 +57,7 @@ export const handlePhotoSearch = async (req: NextRequest) => {
 		let filteredArtworks = artworks.filter((artwork: any) => artwork.imageUrl);
 
 		if (filteredArtworks.length === 0) {
-			return NextResponse.json({ artworks: [] });
+			return Response.json({ artworks: [] });
 		}
 
 		if (filteredArtworks.length > 10) {
@@ -66,12 +66,12 @@ export const handlePhotoSearch = async (req: NextRequest) => {
 
 		console.log("🔍 Found artworks:", filteredArtworks);
 
-		return NextResponse.json({
+		return Response.json({
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
 	} catch (err: any) {
 		console.error("❌ Pexel API error:", err);
-		return NextResponse.json({ error: err.message }, { status: 500 });
+		return Response.json({ error: err.message }, { status: 500 });
 	}
 };

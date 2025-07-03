@@ -1,10 +1,10 @@
 import { LoadingSpinner } from "@artbrushlens/palette-studio";
-import { useSearchArtworks } from "@artbrushlens/react-query-hooks";
+import { useFetchArtworks } from "@artbrushlens/react-query-hooks";
 import { LoadingError } from "../Errors";
 import { ArtworkGrid } from "./ArtworkGrid";
 
 export const ArtworkGridDataProvider = () => {
-	const { data, isLoading, error } = useSearchArtworks("sunflowers");
+	const { data, isLoading, error } = useFetchArtworks("sunflowers");
 
 	if (isLoading) return <LoadingSpinner />;
 

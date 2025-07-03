@@ -1,4 +1,4 @@
 // app/main/src/features/search/hooks/useMetSearch.ts
-import { useSearchArtworks } from "@artbrushlens/api-fetchers/met/useSearchArtworks";
+import { useFetchArtworks } from "@artbrushlens/react-query-hooks";
 
-export const useMetSearch = useSearchArtworks;
+export const useMetSearch = useFetchArtworks;

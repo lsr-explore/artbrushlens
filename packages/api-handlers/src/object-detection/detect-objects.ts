@@ -1,6 +1,6 @@
-import { type NextRequest, NextResponse } from "next/server";
+import { type NextRequest } from "next/server";
 
-export const detectObjects = async (req: NextRequest) => {
+export const detectObjects = async (req: NextRequest): Promise<Response> => {
 	const { imageUrl, modelId } = await req.json();
 
 	console.log("imageUrl", imageUrl);
@@ -21,5 +21,5 @@ export const detectObjects = async (req: NextRequest) => {
 
 	const result = await response.json();
 	console.log("result", result);
-	return NextResponse.json(result);
+	return Response.json(result);
 };

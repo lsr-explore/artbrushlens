@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = () => {
+export const LoadingSpinner = () => {
 	return (
 		<div className="flex items-center justify-center min-h-64">
 			<div className="text-center">
@@ -10,5 +10,3 @@ const Loading = () => {
 		</div>
 	);
 };
-
-export default Loading;

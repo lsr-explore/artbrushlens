@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // apps/main/src/lib/ai/generate.ts
-import { MOCK_AI_ANALYSES } from "./mockData";
 
-type AIResponse = { result: string };
+import type { NextRequest } from "next/server";
+import { MOCK_AI_ANALYSES } from "./mockData";
 
 interface Artwork {
 	id: string;
@@ -11,7 +11,8 @@ interface Artwork {
 	description?: string;
 }
 
-export const analyzeArt = async (artwork: Artwork): Promise<AIResponse> => {
+export const analyzeArt = async (req: NextRequest): Promise<Response> => {
+	const artwork: Artwork = await req.json();
 	if (process.env.USE_LOCAL_AI === "true") {
 		console.log(`🤖 Generating mock AI analysis for: ${artwork.title}`);
 
@@ -23,9 +24,9 @@ export const analyzeArt = async (artwork: Artwork): Promise<AIResponse> => {
 		console.log(
 			`randomIndex: ${randomIndex} | length: ${MOCK_AI_ANALYSES.length}`,
 		);
-		return {
+		return Response.json({
 			result: `AI Analysis of "${artwork.title}" by ${artwork.artist}: ${MOCK_AI_ANALYSES[randomIndex]}`,
-		};
+		});
 	}
 
 	const prompt = `please provide an analysis of ${artwork.title} by ${artwork.artist}, including its historical context, artistic style, and any notable features.`;
@@ -43,5 +44,7 @@ export const analyzeArt = async (artwork: Artwork): Promise<AIResponse> => {
 	});
 
 	const data = await res.json();
-	return { result: data.choices?.[0]?.message?.content || "No response" };
+	return Response.json({
+		result: data.choices?.[0]?.message?.content || "No response",
+	});
 };
