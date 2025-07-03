@@ -1,6 +1,6 @@
-export * from "./critique-image";
-export * from "./met";
-export * from "./object-detection";
-export * from "./open-ai";
-export * from "./pexels";
-export * from "./proxy-image";
+export { critiqueImage } from "./critique-image/critiqueImage.js";
+export { handleMetSearch } from "./met/handleMetSearch.js";
+export { detectObjects } from "./object-detection/detect-objects.js";
+export { analyzeArt } from "./open-ai/analyzeArt.js";
+export { handlePhotoSearch } from "./pexels/handlePhotoSearch.js";
+export { proxyImage } from "./proxy-image/proxyImage.js";

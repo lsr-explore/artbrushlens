@@ -91,7 +91,9 @@ const AnalyzePage = () => {
 		const colorThief = new ColorThief();
 		if (img?.complete) {
 			try {
-				const element = document.getElementById("artwork-image") as HTMLImageElement;
+				const element = document.getElementById(
+					"artwork-image",
+				) as HTMLImageElement;
 				if (!element) return;
 				const result = colorThief.getPalette(element, 10);
 				setPalette(result);
@@ -124,7 +126,7 @@ const AnalyzePage = () => {
 		if (!artwork.imageUrl) return;
 		setLoading(true);
 		try {
-			const response = await fetch("/api/analyze-image", {
+			const response = await fetch("/api/ai/detect-objects", {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
