@@ -20,6 +20,7 @@
 		"test": "npm run test:main && npm run test:admin && npm run test:shared",
 		"test:main": "npm run test --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
+		"test:packages": "pnpm -r --filter './packages/**' run test",
 		"docker:build": "docker-compose build",
 		"docker:build:main": "docker-compose build main-app",
 		"docker:up": "docker-compose up -d",
