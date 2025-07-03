@@ -7,7 +7,7 @@
 		"prebuild": "npm --workspace ../../packages/shared run build",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
+		"lint": "eslint --fix .",
 		"test": "jest",
 		"test:watch": "jest --watch"
 	},

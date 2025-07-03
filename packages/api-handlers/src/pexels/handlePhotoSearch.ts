@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import { type NextRequest, NextResponse } from "next/server";
 import { MOCK_ARTWORKS } from "./mockResponse";
 
@@ -53,7 +54,7 @@ export const handlePhotoSearch = async (req: NextRequest) => {
 			};
 		});
 
-		let filteredArtworks = artworks.filter((artwork) => artwork.imageUrl);
+		let filteredArtworks = artworks.filter((artwork: any) => artwork.imageUrl);
 
 		if (filteredArtworks.length === 0) {
 			return NextResponse.json({ artworks: [] });

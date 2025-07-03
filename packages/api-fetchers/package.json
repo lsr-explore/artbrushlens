@@ -5,10 +5,10 @@
 	"types": "dist/types/index.d.ts",
 	"type": "module",
 	"scripts": {
-		"build": "tsc --project tsconfig.json",
+		"build": "tsc --build tsconfig.json",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
-		"lint": "eslint --ext .ts,.tsx,.js,.jsx --fix ."
+		"lint": "eslint --fix ."
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.0.0",

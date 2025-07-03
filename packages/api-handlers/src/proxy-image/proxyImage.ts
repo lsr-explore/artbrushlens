@@ -1,4 +1,5 @@
-// apps/main/src/app/api/proxy-image/route.ts
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 import { type NextRequest, NextResponse } from "next/server";
 
 export const proxyImage = async (req: NextRequest) => {
@@ -19,7 +20,7 @@ export const proxyImage = async (req: NextRequest) => {
 				"Access-Control-Allow-Origin": "*", // 👈 now you can use ColorThief
 			},
 		});
-	} catch (e) {
+	} catch (e: any) {
 		return NextResponse.json(
 			{ error: `Failed to proxy image: ${e.message}` },
 			{ status: 500 },
