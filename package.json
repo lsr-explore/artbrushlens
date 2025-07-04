@@ -20,6 +20,8 @@
 		"clean:dist": "rm -rf dist && rm -rf packages/*/dist && rm -rf mocks/dist",
 		"test": "npm run test:main && npm run test:admin && npm run test:shared",
 		"test:main": "npm run test --workspace=@artbrushlens/main",
+		"test:main:watch": "npm run test:watch --workspace=@artbrushlens/main",
+		"test:main:coverage": "npm run test:coverage --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
 		"test:packages": "pnpm -r --filter './packages/**' run test",
 		"test:packages:coverage": "pnpm -r --filter './packages/**' run test:coverage",
