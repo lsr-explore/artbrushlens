@@ -1,0 +1,88 @@
+import { describe, it, expect, waitFor } from 'vitest';
+import { useObjectDetection } from '../useObjectDetection';
+import { renderHookWithQueryClient } from './test-utils';
+import { mockDetectionResult } from '../../../../mocks/dist/data';
+
+describe('useObjectDetection', () => {
+  it('should detect objects successfully', async () => {
+    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+
+    const mockImageData = new ArrayBuffer(8);
+
+    result.current.mutate(mockImageData);
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
+
+    expect(result.current.data).toEqual(mockDetectionResult.objects);
+    expect(result.current.error).toBe(null);
+  });
+
+  it('should handle detection errors', async () => {
+    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+
+    const emptyData = new ArrayBuffer(0);
+
+    result.current.mutate(emptyData);
+
+    await waitFor(() => {
+      expect(result.current.isError).toBe(true);
+    });
+
+    expect(result.current.error).toBeDefined();
+  });
+
+  it('should return valid detection results', async () => {
+    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+
+    const mockImageData = new ArrayBuffer(8);
+
+    result.current.mutate(mockImageData);
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
+
+    const detections = result.current.data;
+    expect(Array.isArray(detections)).toBe(true);
+    
+    if (detections && detections.length > 0) {
+      const detection = detections[0];
+      expect(detection).toHaveProperty('label');
+      expect(detection).toHaveProperty('score');
+      expect(detection).toHaveProperty('box');
+      expect(typeof detection.score).toBe('number');
+      expect(detection.score).toBeGreaterThanOrEqual(0);
+      expect(detection.score).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('should support multiple detections', async () => {
+    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+
+    const mockImageData = new ArrayBuffer(8);
+
+    const mutatePromise = result.current.mutateAsync(mockImageData);
+
+    await expect(mutatePromise).resolves.toEqual(mockDetectionResult.objects);
+  });
+
+  it('should reset mutation state', async () => {
+    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+
+    const mockImageData = new ArrayBuffer(8);
+
+    result.current.mutate(mockImageData);
+
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
+
+    result.current.reset();
+
+    expect(result.current.isIdle).toBe(true);
+    expect(result.current.data).toBeUndefined();
+    expect(result.current.error).toBe(null);
+  });
+});

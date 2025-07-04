@@ -26,10 +26,10 @@ export const handlers = [
       title: artwork.title,
       artistDisplayName: artwork.artist,
       primaryImage: artwork.imageUrl,
-      objectDate: artwork.year?.toString(),
-      medium: artwork.medium,
-      dimensions: artwork.dimensions,
-      repository: artwork.location
+      objectDate: '1889',
+      medium: 'Oil on canvas',
+      dimensions: '73.7 cm × 92.1 cm',
+      repository: 'Museum of Modern Art, New York'
     });
   }),
 
@@ -65,11 +65,30 @@ export const handlers = [
   }),
 
   // Local API routes
-  http.post('/api/ai/analyze', () => {
+  http.post('/api/ai/analyze', async ({ request }) => {
+    const body = await request.text();
+    if (!body) {
+      return HttpResponse.json(mockErrorResponse, { status: 400 });
+    }
+    
+    try {
+      const artwork = JSON.parse(body);
+      if (!artwork.id || !artwork.title || !artwork.artist) {
+        return HttpResponse.json(mockErrorResponse, { status: 400 });
+      }
+    } catch {
+      return HttpResponse.json(mockErrorResponse, { status: 400 });
+    }
+    
     return HttpResponse.json(mockAnalysisResult);
   }),
 
-  http.post('/api/ai/detect-objects', () => {
+  http.post('/api/ai/detect-objects', async ({ request }) => {
+    const body = await request.arrayBuffer();
+    if (!body || body.byteLength === 0) {
+      return HttpResponse.json(mockErrorResponse, { status: 400 });
+    }
+    
     return HttpResponse.json(mockDetectionResult);
   }),
 
@@ -79,11 +98,25 @@ export const handlers = [
     });
   }),
 
-  http.get('/api/met/search', () => {
+  http.get('/api/met/search', ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get('q');
+    
+    if (!query || query.trim() === '') {
+      return HttpResponse.json(mockErrorResponse, { status: 400 });
+    }
+    
     return HttpResponse.json({ artworks: mockArtworks });
   }),
 
-  http.get('/api/pexels/search', () => {
+  http.get('/api/pexels/search', ({ request }) => {
+    const url = new URL(request.url);
+    const query = url.searchParams.get('q');
+    
+    if (!query || query.trim() === '') {
+      return HttpResponse.json(mockErrorResponse, { status: 400 });
+    }
+    
     return HttpResponse.json({ artworks: mockPhotoWorks });
   }),
 

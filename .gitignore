@@ -34,9 +34,7 @@ Thumbs.db
 
 # Test output
 coverage/
-*.test.ts
-*.spec.ts
-__tests__/
+coverage-report.json
 
 # Docker
 *.pid
@@ -55,6 +53,8 @@ docker-compose.override.yml
 apps/*/node_modules/
 packages/*/node_modules/
 
+# Mock files
+mocks/dist/
 
 #Playwrigt/Cypress
 playwright-report/

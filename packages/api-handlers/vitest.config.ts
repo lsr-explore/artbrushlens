@@ -1,28 +1,3 @@
-import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import { createVitestConfig } from '../../vitest.config.shared';
 
-export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: [resolve(__dirname, 'test-setup.ts')],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: [
-        'node_modules/',
-        'dist/',
-        '**/*.d.ts',
-        '**/*.config.*',
-        '**/test-setup.ts',
-        '**/__mocks__/**',
-        '**/__tests__/**'
-      ]
-    }
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    }
-  }
-});
+export default createVitestConfig(__dirname);

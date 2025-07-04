@@ -1,14 +1,16 @@
-import { Artwork } from "@artbrushlens/shared-types";
+export const postDetectObjects = async (imageData: ArrayBuffer) => {
+	if (!imageData || imageData.byteLength === 0) {
+		throw new Error("Invalid image data");
+	}
 
-export const postDetectObjects = async (artwork: Artwork) => {
 	const res = await fetch("/api/ai/detect-objects", {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify(artwork),
+		headers: { "Content-Type": "application/octet-stream" },
+		body: imageData,
 	});
 
 	const data = await res.json();
-	if (!res.ok) throw new Error(data.error || "Failed to analyze artwork");
+	if (!res.ok) throw new Error(data.error || "Failed to detect objects");
 
-	return data.result;
+	return data.objects;
 };

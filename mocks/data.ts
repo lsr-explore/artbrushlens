@@ -6,10 +6,6 @@ export const mockArtwork: Artwork = {
   artist: 'Vincent van Gogh',
   description: 'A famous painting depicting a swirling night sky',
   imageUrl: 'https://example.com/starry-night.jpg',
-  year: 1889,
-  medium: 'Oil on canvas',
-  dimensions: '73.7 cm × 92.1 cm',
-  location: 'Museum of Modern Art, New York',
   aiAnalysis: 'This masterpiece showcases Van Gogh\'s distinctive style with bold brushstrokes and vibrant colors.'
 };
 
@@ -20,22 +16,14 @@ export const mockArtworks: Artwork[] = [
     title: 'Mona Lisa',
     artist: 'Leonardo da Vinci',
     description: 'A portrait painting of Lisa Gherardini',
-    imageUrl: 'https://example.com/mona-lisa.jpg',
-    year: 1503,
-    medium: 'Oil on poplar',
-    dimensions: '77 cm × 53 cm',
-    location: 'Louvre Museum, Paris'
+    imageUrl: 'https://example.com/mona-lisa.jpg'
   },
   {
     id: '3',
     title: 'The Great Wave off Kanagawa',
     artist: 'Katsushika Hokusai',
     description: 'A woodblock print depicting a large wave',
-    imageUrl: 'https://example.com/great-wave.jpg',
-    year: 1831,
-    medium: 'Woodblock print',
-    dimensions: '25.7 cm × 37.9 cm',
-    location: 'Various collections'
+    imageUrl: 'https://example.com/great-wave.jpg'
   }
 ];
 
