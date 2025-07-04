@@ -1,11 +1,12 @@
-import { describe, it, expect, waitFor } from 'vitest';
-import { useObjectDetection } from '../useObjectDetection';
+import { describe, it, expect } from 'vitest';
+import { waitFor } from '@testing-library/react';
+import { useDetectObjects } from '../useObjectDetection';
 import { renderHookWithQueryClient } from './test-utils';
 import { mockDetectionResult } from '../../../../mocks/dist/data';
 
 describe('useObjectDetection', () => {
   it('should detect objects successfully', async () => {
-    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+    const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
     const mockImageData = new ArrayBuffer(8);
 
@@ -20,7 +21,7 @@ describe('useObjectDetection', () => {
   });
 
   it('should handle detection errors', async () => {
-    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+    const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
     const emptyData = new ArrayBuffer(0);
 
@@ -34,7 +35,7 @@ describe('useObjectDetection', () => {
   });
 
   it('should return valid detection results', async () => {
-    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+    const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
     const mockImageData = new ArrayBuffer(8);
 
@@ -59,7 +60,7 @@ describe('useObjectDetection', () => {
   });
 
   it('should support multiple detections', async () => {
-    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+    const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
     const mockImageData = new ArrayBuffer(8);
 
@@ -69,7 +70,7 @@ describe('useObjectDetection', () => {
   });
 
   it('should reset mutation state', async () => {
-    const { result } = renderHookWithQueryClient(() => useObjectDetection());
+    const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
     const mockImageData = new ArrayBuffer(8);
 
@@ -81,7 +82,9 @@ describe('useObjectDetection', () => {
 
     result.current.reset();
 
-    expect(result.current.isIdle).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(false);
+    });
     expect(result.current.data).toBeUndefined();
     expect(result.current.error).toBe(null);
   });

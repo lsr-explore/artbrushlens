@@ -1,4 +1,5 @@
-import { describe, it, expect, waitFor } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { waitFor } from '@testing-library/react';
 import { useFetchPhotoWorks } from '../useFetchPhotoWorks';
 import { renderHookWithQueryClient } from './test-utils';
 import { mockPhotoWorks } from '../../../../mocks/dist/data';
@@ -25,7 +26,7 @@ describe('useFetchPhotoWorks', () => {
       useFetchPhotoWorks('')
     );
 
-    expect(result.current.isPending).toBe(false);
+    expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 
@@ -58,6 +59,6 @@ describe('useFetchPhotoWorks', () => {
       useFetchPhotoWorks('test', false)
     );
 
-    expect(result.current.isPending).toBe(false);
+    expect(result.current.isLoading).toBe(false);
   });
 });

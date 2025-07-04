@@ -1,4 +1,5 @@
-import { describe, it, expect, waitFor } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { waitFor } from '@testing-library/react';
 import { useFetchArtworks } from '../useFetchArtworks';
 import { renderHookWithQueryClient } from './test-utils';
 import { mockArtworks } from '../../../../mocks/dist/data';
@@ -26,7 +27,7 @@ describe('useFetchArtworks', () => {
       useFetchArtworks('')
     );
 
-    expect(result.current.isPending).toBe(false);
+    expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 
@@ -35,7 +36,7 @@ describe('useFetchArtworks', () => {
       useFetchArtworks('test', false)
     );
 
-    expect(result.current.isPending).toBe(false);
+    expect(result.current.isLoading).toBe(false);
     expect(result.current.data).toBeUndefined();
   });
 

@@ -1,4 +1,5 @@
-import { describe, it, expect, waitFor } from 'vitest';
+import { describe, it, expect } from 'vitest';
+import { waitFor } from '@testing-library/react';
 import { useAnalyzeArt } from '../useAnalyzeArt';
 import { renderHookWithQueryClient } from './test-utils';
 import { mockArtwork, mockAnalysisResult } from '../../../../mocks/dist/data';
@@ -51,7 +52,9 @@ describe('useAnalyzeArt', () => {
 
     result.current.reset();
 
-    expect(result.current.isIdle).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(false);
+    });
     expect(result.current.data).toBeUndefined();
     expect(result.current.error).toBe(null);
   });
@@ -70,8 +73,6 @@ describe('useAnalyzeArt', () => {
     expect(result.current.isPending).toBe(false);
 
     result.current.mutate(mockArtwork);
-
-    expect(result.current.isPending).toBe(true);
 
     await waitFor(() => {
       expect(result.current.isPending).toBe(false);

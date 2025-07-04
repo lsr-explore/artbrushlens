@@ -1,9 +1,8 @@
 import { postDetectObjects } from "@artbrushlens/api-fetchers";
-import type { Artwork } from "@artbrushlens/shared-types";
 import { useMutation } from "@tanstack/react-query";
 
 export const useDetectObjects = () => {
 	return useMutation({
-		mutationFn: (artwork: Artwork) => postDetectObjects(artwork),
+		mutationFn: (imageData: ArrayBuffer) => postDetectObjects(imageData),
 	});
 };
