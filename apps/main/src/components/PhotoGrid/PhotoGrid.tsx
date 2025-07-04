@@ -56,7 +56,7 @@ export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 	}
 
 	return (
-		<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="photo-grid">
 			<div className="mb-8">
 				<h1 className="text-3xl font-bold text-gray-900 mb-2">
 					Photo Collection
@@ -75,6 +75,7 @@ export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 					<div
 						key={artwork.id}
 						className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+						data-testid="artwork-card"
 					>
 						{/* Image Container */}
 						<div className="bg-gray-200">
