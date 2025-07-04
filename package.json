@@ -22,6 +22,7 @@
 		"test:main": "npm run test --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
 		"test:packages": "pnpm -r --filter './packages/**' run test",
+		"test:packages:coverage": "pnpm -r --filter './packages/**' run test:coverage",
 		"docker:build": "docker-compose build",
 		"docker:build:main": "docker-compose build main-app",
 		"docker:up": "docker-compose up -d",
