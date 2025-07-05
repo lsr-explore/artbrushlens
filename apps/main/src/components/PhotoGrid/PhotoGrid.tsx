@@ -56,7 +56,10 @@ export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 	}
 
 	return (
-		<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8" data-testid="photo-grid">
+		<div
+			className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8"
+			data-testid="photo-grid"
+		>
 			<div className="mb-8">
 				<h1 className="text-3xl font-bold text-gray-900 mb-2">
 					Photo Collection
@@ -170,7 +173,7 @@ export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 								</button>
 
 								<Link
-									href={`/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
+									href={`/images/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
 								>
 									<button
 										type="button"
