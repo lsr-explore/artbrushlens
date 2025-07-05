@@ -7,6 +7,6 @@ const mockArtworks = [
 	{ id: "2", title: "Starry Night", artist: "Van Gogh" },
 ];
 
-export async function GET() {
+export const GET = async () => {
 	return NextResponse.json({ artworks: mockArtworks });
-}
+};

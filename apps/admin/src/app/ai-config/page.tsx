@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function AIConfigPage() {
+const AIConfigPage = () => {
 	const [config, setConfig] = useState({
 		useOpenAI: false,
 		useLocalAI: true,
@@ -264,4 +264,6 @@ export default function AIConfigPage() {
 			</main>
 		</div>
 	);
-}
+};
+
+export default AIConfigPage;

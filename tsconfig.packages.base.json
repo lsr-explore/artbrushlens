@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "ESNext",
+		"moduleResolution": "node",
+		"lib": ["ES2020"],
+		"declaration": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"noUncheckedIndexedAccess": true,
+		"exactOptionalPropertyTypes": true,
+		"paths": {
+			"@artbrushlens/api-handlers": ["../../../packages/api-handlers/src/*"],
+			"@artbrushlens/api-fetchers": ["../../../packages/api-fetchers/src/*"],
+			"@artbrushlens/shared-types": ["../../../packages/shared-types/src/*"],
+			"@artbrushlens/palette-studio": [
+				"../../../packages/palette-studio/src/*"
+			],
+			"@artbrushlens/react-query-hooks": [
+				"../../../packages/react-query-hooks/src/*"
+			]
+		}
+	},
+	"include": ["./packages/**/*.ts", "./packages/**/*.tsx"],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"**/*.test.*",
+		"**/*.spec.*",
+		"**/test-*",
+		"**/tests/**",
+		"**/__tests__/**",
+		"**/mocks/**",
+		"**/vitest.config.*"
+	]
+}

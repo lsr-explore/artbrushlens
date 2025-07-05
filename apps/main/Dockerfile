@@ -5,6 +5,9 @@ WORKDIR /app
 # Copy root lock and manifest
 COPY package*.json ./
 
+# Copy tsconfig files
+COPY tsconfig*.json ./
+
 # Copy the entire repo (or workspaces + apps)
 COPY packages ./packages
 COPY apps/main ./apps/main 

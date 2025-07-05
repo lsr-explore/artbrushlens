@@ -1,6 +1,7 @@
 // apps/admin/src/app/layout.tsx
-import { ReactQueryProvider } from "./react-query-provider";
+
 import { Inter } from "next/font/google";
+import { ReactQueryProvider } from "./react-query-provider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -10,11 +11,7 @@ export const metadata = {
 	description: "Admin panel for ArtBrushLens",
 };
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang="en">
 			<body className={inter.className}>
@@ -22,4 +19,6 @@ export default function RootLayout({
 			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;

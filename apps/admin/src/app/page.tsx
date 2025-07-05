@@ -11,7 +11,7 @@ const MOCK_USER = {
 	role: "admin",
 };
 
-export default function AdminHome() {
+const AdminHome = () => {
 	const [user] = useState(MOCK_USER); // Mock user for now
 	const [isLoading] = useState(false);
 
@@ -255,4 +255,6 @@ export default function AdminHome() {
 			</main>
 		</div>
 	);
-}
+};
+
+export default AdminHome;
