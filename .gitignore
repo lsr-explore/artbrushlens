@@ -64,3 +64,13 @@ cypress/screenshots/
 TurboRep/Nx
 turbo/
 nx-cache
+
+# Storybook build output
+storybook-static/
+
+# Storybook cache files
+.cache/
+sb-vite/ # For Vite builder
+
+# Log files
+*storybook.log
