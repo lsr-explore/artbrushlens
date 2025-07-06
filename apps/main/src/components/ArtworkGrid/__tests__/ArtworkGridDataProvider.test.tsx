@@ -1,8 +1,7 @@
-import React from 'react';
-import { render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { vi } from "vitest";
+import { render, screen } from "@testing-library/react";
 import React from "react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ArtworkGridDataProvider } from "../ArtworkGridDataProvider";
 
 // Mock Next.js components first
@@ -47,7 +46,9 @@ vi.mock("../../Errors", () => ({
 	LoadingError: ({ error }: { error: Error }) => (
 		<div data-testid="loading-error">Error: {error.message}</div>
 	),
-	NoArtworksFound: () => <div data-testid="no-artworks-found">No artworks found</div>,
+	NoArtworksFound: () => (
+		<div data-testid="no-artworks-found">No artworks found</div>
+	),
 }));
 
 const mockArtworks = [
@@ -81,7 +82,7 @@ const createTestQueryClient = () =>
 const renderWithQueryClient = (component: React.ReactNode) => {
 	const queryClient = createTestQueryClient();
 	return render(
-		<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>
+		<QueryClientProvider client={queryClient}>{component}</QueryClientProvider>,
 	);
 };
 
@@ -116,7 +117,9 @@ describe("ArtworkGridDataProvider", () => {
 		renderWithQueryClient(<ArtworkGridDataProvider />);
 
 		expect(screen.getByTestId("loading-error")).toBeInTheDocument();
-		expect(screen.getByText("Error: Failed to fetch artworks")).toBeInTheDocument();
+		expect(
+			screen.getByText("Error: Failed to fetch artworks"),
+		).toBeInTheDocument();
 	});
 
 	it("renders ArtworkGrid with artworks when data is loaded", async () => {

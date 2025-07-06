@@ -1,10 +1,9 @@
 "use client";
-import React from 'react';
 
 import type { Artwork } from "@artbrushlens/shared-types";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import Masonry from "react-masonry-css";
 
 const breakpointColsObj = {

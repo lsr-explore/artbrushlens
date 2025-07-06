@@ -1,15 +1,13 @@
-import React from 'react';
 /* eslint-disable @next/next/no-img-element */
 /** biome-ignore-all lint/performance/noImgElement: <explanation> */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 "use client";
 
 import ColorThief from "colorthief";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
 import { ColorTreemap } from "components/ColorTreeMap";
 import { quantizeImageData } from "lib/color";
+import { useSearchParams } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
 
 const HUGGINGFACE_MODELS = [
 	"facebook/detr-resnet-50",

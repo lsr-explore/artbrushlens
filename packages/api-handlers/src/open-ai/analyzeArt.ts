@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+ 
 // apps/main/src/lib/ai/generate.ts
 
 import type { NextRequest } from "next/server";

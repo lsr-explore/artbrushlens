@@ -44,11 +44,11 @@
 		"postinstall": "npm run clean:dist && npm run build:packages && npm run build:apps"
 	},
 	"devDependencies": {
-		"concurrently": "^8.2.2",
 		"@artbrushlens/api-fetchers": "*",
 		"@artbrushlens/api-handlers": "*",
-		"@artbrushlens/shared-types": "*",
+		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
-		"@artbrushlens/palette-studio": "*"
+		"@artbrushlens/shared-types": "*",
+		"concurrently": "^8.2.2"
 	}
 }

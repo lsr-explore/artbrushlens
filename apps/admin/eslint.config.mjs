@@ -1,3 +1,3 @@
-import { baseAppConfig } from '../../eslint.config.base.mjs';
+import createNextAppEslintConfig from "../../scripts/createNextAppEslintConfig.mjs";
 
-export default baseAppConfig;
+export default createNextAppEslintConfig(import.meta.url);
