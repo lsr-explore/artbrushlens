@@ -57,7 +57,7 @@ jobs:
       - name: Build all
         run: npm run build:packages && npm run build:apps
 
-  test:packages:
+  test:
     name: Run packages tests
     needs: install
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
       - name: Run test:packages
         run: npm run test:packages
 
-  test:main:
+  test:
     name: Run main tests
     needs: install
     runs-on: ubuntu-latest
