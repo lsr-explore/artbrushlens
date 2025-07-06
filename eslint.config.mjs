@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import pluginNext from "@next/eslint-plugin-next";
 import pluginCypress from "eslint-plugin-cypress";
+import pluginJsxA11y from "eslint-plugin-jsx-a11y";
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import path from "path";
@@ -20,11 +21,13 @@ export default [
 		plugins: {
 			react: pluginReact,
 			"react-hooks": pluginReactHooks,
+			"jsx-a11y": pluginJsxA11y,
 		},
 		rules: {
 			...js.configs.recommended.rules,
 			...pluginReact.configs.recommended.rules,
 			...pluginReactHooks.configs.recommended.rules,
+			...pluginJsxA11y.configs.recommended.rules,
 		},
 		settings: {
 			react: {
