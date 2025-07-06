@@ -1,3 +1,4 @@
+import React from 'react';
 export const NoArtworksFound = () => {
 	return (
 		<div className="text-center p-12">

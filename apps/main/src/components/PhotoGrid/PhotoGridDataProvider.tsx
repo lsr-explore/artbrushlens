@@ -1,3 +1,4 @@
+import React from 'react';
 import { LoadingSpinner } from "@artbrushlens/palette-studio";
 import { useFetchPhotoWorks } from "@artbrushlens/react-query-hooks";
 import { LoadingError } from "../Errors";

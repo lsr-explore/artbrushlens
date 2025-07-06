@@ -1,3 +1,4 @@
+import React from 'react';
 // apps/main/src/components/Providers.tsx
 "use client";
 

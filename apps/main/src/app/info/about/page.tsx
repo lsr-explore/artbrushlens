@@ -1,3 +1,4 @@
+import React from 'react';
 const AboutPage = () => {
 	return (
 		<div className="flex flex-col justify-center items-center m-10">
