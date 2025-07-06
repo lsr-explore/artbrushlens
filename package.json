@@ -23,8 +23,8 @@
 		"test:main:watch": "npm run test:watch --workspace=@artbrushlens/main",
 		"test:main:coverage": "npm run test:coverage --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
-		"test:packages": "pnpm -r --filter './packages/**' run test",
-		"test:packages:coverage": "pnpm -r --filter './packages/**' run test:coverage",
+		"test:packages": "npm run build:packages && pnpm -r --filter './packages/**' run test",
+		"test:packages:coverage": "npm run build:packages && pnpm -r --filter './packages/**' run test:coverage",
 		"test:e2e": "npm run test:e2e --workspace=@artbrushlens/main",
 		"test:e2e:open": "npm run test:e2e:open --workspace=@artbrushlens/main",
 		"cypress:open": "npm run cypress:open --workspace=@artbrushlens/main",
@@ -40,8 +40,7 @@
 		"supabase:stop": "supabase stop",
 		"lint:all": "npm run lint:packages && npm run lint:apps",
 		"lint:apps": "pnpm  -r --filter './apps/**' run lint",
-		"lint:packages": "pnpm -r --filter './packages/**' run lint",
-		"postinstall": "npm run clean:dist && npm run build:packages && npm run build:apps"
+		"lint:packages": "pnpm -r --filter './packages/**' run lint"
 	},
 	"devDependencies": {
 		"@artbrushlens/api-fetchers": "*",
