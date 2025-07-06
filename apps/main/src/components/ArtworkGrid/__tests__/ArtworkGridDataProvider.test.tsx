@@ -6,7 +6,7 @@ import { ArtworkGridDataProvider } from "../ArtworkGridDataProvider";
 
 // Mock Next.js components first
 vi.mock("next/image", () => ({
-	default: ({ src, alt, onError, ...props }: any) => {
+	default: ({ src, alt, onError, fill, ...props }: any) => {
 		const handleError = () => {
 			if (onError) {
 				onError({ currentTarget: { src } });
