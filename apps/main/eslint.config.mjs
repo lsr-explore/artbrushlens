@@ -1,13 +1,3 @@
-import { baseAppConfig } from '../../eslint.config.base.mjs';
+import createNextAppEslintConfig from "../../scripts/createNextAppEslintConfig.mjs";
 
-const config = [
-	...baseAppConfig,
-	{
-		files: ['**/*.config.js', 'jest.config.js'],
-		rules: {
-			'@typescript-eslint/no-require-imports': 'off',
-		},
-	},
-];
-
-export default config;
+export default createNextAppEslintConfig(import.meta.url);
