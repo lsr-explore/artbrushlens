@@ -1,8 +1,7 @@
 "use client";
-import React from 'react';
 
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const AIConfigPage = () => {
 	const [config, setConfig] = useState({

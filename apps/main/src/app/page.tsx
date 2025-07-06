@@ -1,8 +1,7 @@
 "use client";
-import React from 'react';
 
 import Image from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 
 const LandingPage = () => {
 	const [paintingSearch, setPaintingSearch] = useState("");

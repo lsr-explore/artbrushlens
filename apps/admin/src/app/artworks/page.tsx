@@ -1,14 +1,13 @@
-import React from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
 
 import type { Artwork } from "@artbrushlens/shared-types";
 import { useQuery } from "@tanstack/react-query";
+import { fetchAdminArtworks } from "lib/api/artworks";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { fetchAdminArtworks } from "lib/api/artworks";
+import React, { useState } from "react";
 
 const ArtworksPage = () => {
 	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);

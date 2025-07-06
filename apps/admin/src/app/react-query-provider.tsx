@@ -1,9 +1,8 @@
-import React from 'react';
 // apps/admin/src/app/react-query-provider.tsx
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 const queryClient = new QueryClient();
 
