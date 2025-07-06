@@ -17,9 +17,11 @@ export const createTestQueryClient = () => {
 };
 
 export const createWrapper = (queryClient: QueryClient) => {
-	return ({ children }: { children: ReactNode }) => (
+	const Wrapper = ({ children }: { children: ReactNode }) => (
 		<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 	);
+
+	return Wrapper;
 };
 
 export const renderHookWithQueryClient = <T,>(

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";
 
 import type { Artwork } from "@artbrushlens/shared-types";
