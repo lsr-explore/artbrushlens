@@ -7,12 +7,10 @@
 		"build": "next build",
 		"start": "next start -p 3001",
 		"lint": "eslint --fix .",
-		"test": "jest",
-		"test:watch": "jest --watch",
-		"test:vitest": "vitest run",
-		"test:vitest:watch": "vitest",
-		"test:vitest:ui": "vitest --ui",
-		"test:vitest:coverage": "vitest run --coverage"
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:ui": "vitest --ui",
+		"test:coverage": "vitest run --coverage"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.8.7",
