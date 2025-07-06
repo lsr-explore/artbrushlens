@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import type { Artwork } from "@artbrushlens/shared-types";
 import Image from "next/image";

@@ -1,3 +1,4 @@
+import React from 'react';
 import { LoadingSpinner } from "@artbrushlens/palette-studio";
 import { useMetSearch } from "data-providers";
 import { LoadingError } from "../Errors";

@@ -1,3 +1,4 @@
+import React from 'react';
 export const LoadingError = ({ error }: { error: Error }) => {
 	return (
 		<div className="max-w-2xl mx-auto text-center p-8">

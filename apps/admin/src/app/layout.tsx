@@ -1,3 +1,4 @@
+import React from 'react';
 // apps/admin/src/app/layout.tsx
 
 import { Inter } from "next/font/google";

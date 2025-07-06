@@ -1,3 +1,4 @@
+import React from 'react';
 // apps/admin/src/app/react-query-provider.tsx
 "use client";
 

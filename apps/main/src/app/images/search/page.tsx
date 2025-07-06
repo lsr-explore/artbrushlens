@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import { type SetStateAction, useState } from "react";
 import { ArtworkGridDataProvider, PhotoGridDataProvider } from "components";

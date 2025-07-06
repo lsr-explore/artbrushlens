@@ -1,3 +1,4 @@
+import React from 'react';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 "use client";

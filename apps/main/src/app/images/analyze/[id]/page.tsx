@@ -1,3 +1,4 @@
+import React from 'react';
 /* eslint-disable @next/next/no-img-element */
 /** biome-ignore-all lint/performance/noImgElement: <explanation> */
 /* eslint-disable @typescript-eslint/no-explicit-any */
