@@ -3,7 +3,7 @@ export const Header = () => {
 	return (
 		<header className="flex justify-between items-center p-6 border-b">
 			<a href="/" className="flex items-center space-x-3">
-				{/* eslint-disable-next-line @next/next/no-img-element */}
+				{ }
 				<img src="/loupe-logo.svg" alt="Loupe Logo" className="w-8 h-8" />
 				<span className="text-2xl font-semibold">ArtLoupe.ai</span>
 			</a>
