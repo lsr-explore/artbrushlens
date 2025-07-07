@@ -5,11 +5,13 @@ import tsParser from "@typescript-eslint/parser";
 import pluginCypress from "eslint-plugin-cypress";
 import pluginImport from "eslint-plugin-import"; // ✅ Added
 import pluginJsxA11y from "eslint-plugin-jsx-a11y";
+import pluginMarkdown from "eslint-plugin-markdown";
 import pluginNoSecrets from "eslint-plugin-no-secrets"; // ✅ Added
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import pluginReactRefresh from "eslint-plugin-react-refresh"; // ✅ Added
 import pluginUnicorn from "eslint-plugin-unicorn"; // ✅ Added
+
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -141,6 +143,10 @@ export default [
 			...pluginCypress.configs.recommended.rules,
 		},
 	},
+	{
+		files: ["**/*.md"],
+		processor: pluginMarkdown.processors.markdown,
+	},
 
 	// Ignored folders
 	{
@@ -151,7 +157,8 @@ export default [
 			"**/.turbo/**",
 			"**/coverage/**",
 			"**/*.d.ts",
-			"**/*.js",
+			"**/storybook-static/**",
+			"**/coverage/**",
 		],
 	},
 ];

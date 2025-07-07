@@ -44,9 +44,10 @@
 		"docker:prune": "docker system prune -a --volumes && docker builder prune --all",
 		"supabase:start": "supabase start",
 		"supabase:stop": "supabase stop",
-		"lint:all": "npm run lint:packages;  npm run lint:apps",
+		"lint:all": "npm run lint:packages;  npm run lint:apps; npm run lint:md",
 		"lint:packages": "pnpm -r --filter './packages/**' exec eslint .",
 		"lint:apps": "pnpm -r --filter './apps/**' exec eslint .",
+		"lint:md": "pnpm -r --filter './docs/**' exec eslint .",
 		"lint": "eslint ."
 	},
 	"devDependencies": {
@@ -55,6 +56,7 @@
 		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
 		"@artbrushlens/shared-types": "*",
-		"concurrently": "^8.2.2"
+		"concurrently": "^8.2.2",
+		"eslint-plugin-markdown": "^5.1.0"
 	}
 }
