@@ -74,3 +74,7 @@ sb-vite/ # For Vite builder
 
 # Log files
 *storybook.log
+
+# Vitest
+vitest.config*.d.ts
+vitest.config*.js

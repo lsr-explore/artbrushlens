@@ -1,12 +1,14 @@
-import React from 'react';
+import Link from "next/link";
+import React from "react";
+
 export const Header = () => {
 	return (
 		<header className="flex justify-between items-center p-6 border-b">
-			<a href="/" className="flex items-center space-x-3">
-				{/* eslint-disable-next-line @next/next/no-img-element */}
+			<Link href="/" className="flex items-center space-x-3">
+				{}
 				<img src="/loupe-logo.svg" alt="Loupe Logo" className="w-8 h-8" />
 				<span className="text-2xl font-semibold">ArtLoupe.ai</span>
-			</a>
+			</Link>
 			<nav className="space-x-6 text-sm">
 				<a href="/images/search?paintings" className="hover:underline">
 					Paintings

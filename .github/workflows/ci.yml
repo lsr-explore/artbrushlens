@@ -21,8 +21,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '18'
           cache: 'npm'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
 
       - name: Install dependencies
         run: npm install
@@ -36,7 +39,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '18'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
       - name: Install dependencies
         run: npm install
       - name: Lint
@@ -51,14 +56,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '18'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
       - name: Install dependencies
         run: npm install
       - name: Build all
         run: npm run build:packages && npm run build:apps
 
-  test:packages:
-    name: Run packages tests
+  test:
+    name: Run tests
     needs: install
     runs-on: ubuntu-latest
     steps:
@@ -66,25 +73,12 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '18'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3 # docs https://pnpm.io/continuous-integration#github-actions
       - name: Install dependencies
         run: npm install
       - name: Run test:packages
         run: npm run test:packages
-
-  test:main:
-    name: Run main tests
-    needs: install
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-      - name: Install dependencies
-        run: npm install
       - name: Run test:main
         run: npm run test:main
-
-

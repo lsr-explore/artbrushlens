@@ -2,6 +2,7 @@
 	"name": "artbrushlens",
 	"version": "1.0.0",
 	"private": true,
+	"packageManager": "pnpm@10.12.4",
 	"workspaces": [
 		"apps/*",
 		"packages/*"
@@ -10,21 +11,26 @@
 		"dev": "concurrently \"npm run dev:main\" \"npm run dev:admin\"",
 		"dev:main": "npm run dev --workspace=@artbrushlens/main",
 		"dev:admin": "npm run dev --workspace=@artbrushlens/admin",
+		"build:all": "npm run build:packages && npm run build:apps",
 		"build:apps": "concurrently \"npm run build:main\" \"npm run build:admin\"",
 		"build:packages": "npm run clean:dist && tsc --build tsconfig.packages.build.json && npm run build:mocks",
 		"build:main": "npm run build --workspace=@artbrushlens/main",
 		"build:admin": "npm run build --workspace=@artbrushlens/admin",
 		"build:mocks": "tsc --project mocks/tsconfig.json",
-		"clean:all": "npm run clean:node_modules && npm run clean:dist",
+		"clean:all": "npm run clean:node_modules && npm run clean:dist && npm run clean:next && npm run clean:vitest && npm run clean:tsbuild && npm run clean:caches",
 		"clean:node_modules": "rm -rf node_modules && rm -rf packages/*/node_modules  && rm -rf apps/main/node_modules && rm -rf apps/admin/node_modules",
 		"clean:dist": "rm -rf dist && rm -rf packages/*/dist && rm -rf mocks/dist",
-		"test": "npm run test:main && npm run test:admin && npm run test:shared",
+		"clean:next": "rm -rf apps/main/.next; rm -rf apps/admin/.next",
+		"clean:vitest": "find . -type f \\( -name 'vitest.config*.d.ts' -o -name 'vitest.config*.js' \\) -delete",
+		"clean:tsbuild": "find . -type d -name 'tsconfig.tsbuildinfo' -delete",
+		"clean:caches": "rm -rf .turbo .eslintcache .cache .vite .playwright coverage",
+		"test:apps": "npm run test:main ;npm run test:admin",
 		"test:main": "npm run test --workspace=@artbrushlens/main",
 		"test:main:watch": "npm run test:watch --workspace=@artbrushlens/main",
 		"test:main:coverage": "npm run test:coverage --workspace=@artbrushlens/main",
 		"test:admin": "npm run test --workspace=@artbrushlens/admin",
-		"test:packages": "npm run build:packages && pnpm -r --filter './packages/**' run test",
-		"test:packages:coverage": "npm run build:packages && pnpm -r --filter './packages/**' run test:coverage",
+		"test:packages": "npm run build:packages && pnpm -r --filter ./packages run test",
+		"test:packages:coverage": "npm run build:packages && pnpm -r --stream --filter './packages/**' run test:coverage",
 		"test:e2e": "npm run test:e2e --workspace=@artbrushlens/main",
 		"test:e2e:open": "npm run test:e2e:open --workspace=@artbrushlens/main",
 		"cypress:open": "npm run cypress:open --workspace=@artbrushlens/main",
@@ -38,9 +44,11 @@
 		"docker:prune": "docker system prune -a --volumes && docker builder prune --all",
 		"supabase:start": "supabase start",
 		"supabase:stop": "supabase stop",
-		"lint:all": "npm run lint:packages && npm run lint:apps",
-		"lint:apps": "pnpm  -r --filter './apps/**' run lint",
-		"lint:packages": "pnpm -r --filter './packages/**' run lint"
+		"lint:all": "npm run lint:packages;  npm run lint:apps; npm run lint:md",
+		"lint:packages": "pnpm -r --filter './packages/**' exec eslint .",
+		"lint:apps": "pnpm -r --filter './apps/**' exec eslint .",
+		"lint:md": "pnpm -r --filter './docs/**' exec eslint .",
+		"lint": "eslint ."
 	},
 	"devDependencies": {
 		"@artbrushlens/api-fetchers": "*",
@@ -48,6 +56,7 @@
 		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
 		"@artbrushlens/shared-types": "*",
-		"concurrently": "^8.2.2"
+		"concurrently": "^8.2.2",
+		"eslint-plugin-markdown": "^5.1.0"
 	}
 }

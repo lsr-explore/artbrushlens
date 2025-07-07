@@ -1,13 +1,13 @@
-import React from 'react';
+import type { Artwork } from "@artbrushlens/shared-types";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
-import type { Artwork } from "@artbrushlens/shared-types";
+import React from "react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { ArtworkGrid } from "../ArtworkGrid";
 
 // Mock Next.js components
 vi.mock("next/image", () => ({
-	default: ({ src, alt, onError, ...props }: any) => {
+	default: ({ src, alt, onError, fill, ...props }: any) => {
 		const handleError = () => {
 			if (onError) {
 				onError({ currentTarget: { src } });
@@ -35,7 +35,9 @@ vi.mock("next/link", () => ({
 
 // Mock the Errors module
 vi.mock("../../Errors", () => ({
-	NoArtworksFound: () => <div data-testid="no-artworks-found">No artworks found</div>,
+	NoArtworksFound: () => (
+		<div data-testid="no-artworks-found">No artworks found</div>
+	),
 }));
 
 const mockArtworks: Artwork[] = [
@@ -74,14 +76,16 @@ describe("ArtworkGrid", () => {
 
 	it("renders artwork grid with correct structure", () => {
 		render(<ArtworkGrid artworks={mockArtworks} />);
-		
+
 		expect(screen.getByText("Art Collection")).toBeInTheDocument();
-		expect(screen.getByText("Discover and analyze beautiful artworks with AI")).toBeInTheDocument();
+		expect(
+			screen.getByText("Discover and analyze beautiful artworks with AI"),
+		).toBeInTheDocument();
 	});
 
 	it("renders all artworks with correct information", () => {
 		render(<ArtworkGrid artworks={mockArtworks} />);
-		
+
 		expect(screen.getByText("Sunflowers")).toBeInTheDocument();
 		expect(screen.getByText("Starry Night")).toBeInTheDocument();
 		expect(screen.getAllByText("Vincent van Gogh")).toHaveLength(2);
@@ -89,7 +93,7 @@ describe("ArtworkGrid", () => {
 
 	it("renders analyze button for each artwork", () => {
 		render(<ArtworkGrid artworks={mockArtworks} />);
-		
+
 		const analyzeButtons = screen.getAllByText("🤖 AI Analysis");
 		expect(analyzeButtons).toHaveLength(2);
 	});
@@ -97,10 +101,10 @@ describe("ArtworkGrid", () => {
 	it("handles AI analysis button click", async () => {
 		const user = userEvent.setup();
 		render(<ArtworkGrid artworks={[mockArtworks[0]]} />);
-		
+
 		const analyzeButton = screen.getByText("🤖 AI Analysis");
 		await user.click(analyzeButton);
-		
+
 		expect(global.fetch).toHaveBeenCalledWith("/api/ai/analyze", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -111,10 +115,10 @@ describe("ArtworkGrid", () => {
 	it("displays AI analysis result", async () => {
 		const user = userEvent.setup();
 		render(<ArtworkGrid artworks={[mockArtworks[0]]} />);
-		
+
 		const analyzeButton = screen.getByText("🤖 AI Analysis");
 		await user.click(analyzeButton);
-		
+
 		await waitFor(() => {
 			expect(screen.getByText("AI Analysis")).toBeInTheDocument();
 			expect(screen.getByText("AI analysis result")).toBeInTheDocument();
@@ -123,8 +127,12 @@ describe("ArtworkGrid", () => {
 
 	it("shows footer with artwork count", () => {
 		render(<ArtworkGrid artworks={mockArtworks} />);
-		
-		expect(screen.getByText("Showing 2 artworks • Powered by Metropolitan Museum of Art API")).toBeInTheDocument();
+
+		expect(
+			screen.getByText(
+				"Showing 2 artworks • Powered by Metropolitan Museum of Art API",
+			),
+		).toBeInTheDocument();
 	});
 
 	it("renders artwork without imageUrl with emoji placeholder", () => {
@@ -132,18 +140,18 @@ describe("ArtworkGrid", () => {
 			...mockArtworks[0],
 			imageUrl: "",
 		};
-		
+
 		render(<ArtworkGrid artworks={[artworkWithoutImage]} />);
-		
+
 		expect(screen.getByText("🎨")).toBeInTheDocument();
 	});
 
 	it("handles image load error correctly", () => {
 		render(<ArtworkGrid artworks={[mockArtworks[0]]} />);
-		
+
 		const image = screen.getByTestId("artwork-image");
 		fireEvent.error(image);
-		
+
 		// Check that the error handler was called by verifying the src attribute doesn't change
 		// (since we mocked the onError to just call the function)
 		expect(image).toBeInTheDocument();
