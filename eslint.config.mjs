@@ -1,11 +1,16 @@
 import js from "@eslint/js";
 import pluginNext from "@next/eslint-plugin-next";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
 import pluginCypress from "eslint-plugin-cypress";
+import pluginImport from "eslint-plugin-import"; // ✅ Added
 import pluginJsxA11y from "eslint-plugin-jsx-a11y";
+import pluginNoSecrets from "eslint-plugin-no-secrets"; // ✅ Added
 import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
+import pluginReactRefresh from "eslint-plugin-react-refresh"; // ✅ Added
+import pluginUnicorn from "eslint-plugin-unicorn"; // ✅ Added
 import path from "path";
-import tseslint from "typescript-eslint";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -19,15 +24,23 @@ export default [
 			sourceType: "module",
 		},
 		plugins: {
+			import: pluginImport,
+			unicorn: pluginUnicorn,
+			"no-secrets": pluginNoSecrets,
 			react: pluginReact,
 			"react-hooks": pluginReactHooks,
 			"jsx-a11y": pluginJsxA11y,
+			"react-refresh": pluginReactRefresh,
 		},
 		rules: {
 			...js.configs.recommended.rules,
 			...pluginReact.configs.recommended.rules,
 			...pluginReactHooks.configs.recommended.rules,
 			...pluginJsxA11y.configs.recommended.rules,
+			...pluginReactRefresh.configs.recommended.rules,
+			...pluginUnicorn.configs.recommended.rules,
+			...pluginImport.configs.recommended.rules,
+			"no-secrets/no-secrets": "error",
 		},
 		settings: {
 			react: {
@@ -36,25 +49,39 @@ export default [
 		},
 	},
 
-	// TypeScript config for packages and apps
+	// TypeScript config for apps
 	{
 		files: ["apps/**/*.{ts,tsx}"],
 		languageOptions: {
-			parser: tseslint.parser,
+			parser: tsParser,
+			ecmaVersion: "latest",
+			sourceType: "module",
 			parserOptions: {
 				project: path.resolve(__dirname, "tsconfig.apps.eslint.json"),
 				tsconfigRootDir: __dirname,
 			},
 		},
 		plugins: {
-			"@typescript-eslint": tseslint.plugin,
+			"@typescript-eslint": tseslint,
 			react: pluginReact,
 			"react-hooks": pluginReactHooks,
+			"jsx-a11y": pluginJsxA11y,
+			"react-refresh": pluginReactRefresh,
+			import: pluginImport,
+			unicorn: pluginUnicorn,
+			"no-secrets": pluginNoSecrets,
+			"@next/next": pluginNext,
 		},
 		rules: {
-			...tseslint.configs.recommendedTypeChecked[1].rules,
+			...tseslint.configs.recommended.rules,
 			...pluginReact.configs.recommended.rules,
 			...pluginReactHooks.configs.recommended.rules,
+			...pluginJsxA11y.configs.recommended.rules,
+			...pluginReactRefresh.configs.recommended.rules,
+			...pluginUnicorn.configs.recommended.rules,
+			...pluginImport.configs.recommended.rules,
+			"no-secrets/no-secrets": "error",
+			...pluginNext.configs["core-web-vitals"].rules,
 		},
 		settings: {
 			react: {
@@ -63,40 +90,41 @@ export default [
 		},
 	},
 
+	// TypeScript config for packages
 	{
 		files: ["packages/**/*.{ts,tsx}"],
 		languageOptions: {
-			parser: tseslint.parser,
+			parser: tsParser,
+			ecmaVersion: "latest",
 			parserOptions: {
 				project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
 				tsconfigRootDir: __dirname,
 			},
 		},
 		plugins: {
-			"@typescript-eslint": tseslint.plugin,
+			"@typescript-eslint": tseslint,
 			react: pluginReact,
 			"react-hooks": pluginReactHooks,
+			"jsx-a11y": pluginJsxA11y,
+			"react-refresh": pluginReactRefresh,
+			import: pluginImport,
+			unicorn: pluginUnicorn,
+			"no-secrets": pluginNoSecrets,
 		},
 		rules: {
-			...tseslint.configs.recommendedTypeChecked[1].rules,
+			...tseslint.configs.recommended.rules,
 			...pluginReact.configs.recommended.rules,
 			...pluginReactHooks.configs.recommended.rules,
+			...pluginJsxA11y.configs.recommended.rules,
+			...pluginReactRefresh.configs.recommended.rules,
+			...pluginUnicorn.configs.recommended.rules,
+			...pluginImport.configs.recommended.rules,
+			"no-secrets/no-secrets": "error",
 		},
 		settings: {
 			react: {
 				version: "detect",
 			},
-		},
-	},
-
-	// Next.js config for apps
-	{
-		files: ["apps/**/*.{ts,tsx}"],
-		plugins: {
-			"@next/next": pluginNext,
-		},
-		rules: {
-			...pluginNext.configs["core-web-vitals"].rules,
 		},
 	},
 
