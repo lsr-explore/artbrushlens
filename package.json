@@ -8,7 +8,7 @@
 		"packages/*"
 	],
 	"scripts": {
-		"dev": "concurrently \"npm run dev:main\" \"npm run dev:admin\"",
+		"dev": "npm run build:packages && concurrently \"npm run dev:main\" \"npm run dev:admin\"",
 		"dev:main": "npm run dev --workspace=@artbrushlens/main",
 		"dev:admin": "npm run dev --workspace=@artbrushlens/admin",
 		"build:all": "npm run build:packages && npm run build:apps",

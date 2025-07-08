@@ -45,6 +45,12 @@ export default [
 			"no-secrets/no-secrets": "error",
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: ["packages/*/tsconfig.json", "apps/*/tsconfig.json"],
+				},
+			},
 			react: {
 				version: "detect",
 			},
@@ -86,6 +92,12 @@ export default [
 			...pluginNext.configs["core-web-vitals"].rules,
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: path.resolve(__dirname, "tsconfig.apps.eslint.json"),
+				},
+			},
 			react: {
 				version: "detect",
 			},
@@ -124,6 +136,12 @@ export default [
 			"no-secrets/no-secrets": "error",
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+				},
+			},
 			react: {
 				version: "detect",
 			},
