@@ -3,14 +3,14 @@ export const postDetectObjects = async (imageData: ArrayBuffer) => {
 		throw new Error("Invalid image data");
 	}
 
-	const res = await fetch("/api/ai/detect-objects", {
+	const response = await fetch("/api/ai/detect-objects", {
 		method: "POST",
 		headers: { "Content-Type": "application/octet-stream" },
 		body: imageData,
 	});
 
-	const data = await res.json();
-	if (!res.ok) throw new Error(data.error || "Failed to detect objects");
+	const data = await response.json();
+	if (!response.ok) throw new Error(data.error || "Failed to detect objects");
 
 	return data.objects;
 };

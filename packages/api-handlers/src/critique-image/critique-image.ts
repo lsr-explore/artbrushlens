@@ -3,37 +3,57 @@ import type { NextRequest } from "next/server";
 const MOCK_CRITIQUE_RESULTS = [
 	{
 		score: 0.92,
-		analysis: "High compositional quality with strong focal points and balanced visual elements.",
-		strengths: ["Strong composition", "Good color balance", "Clear focal point"],
-		areas_for_improvement: ["Could benefit from more dynamic lighting", "Consider rule of thirds"]
+		analysis:
+			"High compositional quality with strong focal points and balanced visual elements.",
+		strengths: [
+			"Strong composition",
+			"Good color balance",
+			"Clear focal point",
+		],
+		areas_for_improvement: [
+			"Could benefit from more dynamic lighting",
+			"Consider rule of thirds",
+		],
 	},
 	{
 		score: 0.85,
 		analysis: "Good technical execution with room for creative enhancement.",
 		strengths: ["Sharp focus", "Good exposure", "Interesting subject matter"],
-		areas_for_improvement: ["Composition could be more dynamic", "Background could be less cluttered"]
+		areas_for_improvement: [
+			"Composition could be more dynamic",
+			"Background could be less cluttered",
+		],
 	},
 	{
 		score: 0.78,
-		analysis: "Decent image quality with potential for improvement in several areas.",
+		analysis:
+			"Decent image quality with potential for improvement in several areas.",
 		strengths: ["Clear subject", "Adequate lighting"],
-		areas_for_improvement: ["Improve composition", "Better color grading", "Consider different angle"]
-	}
+		areas_for_improvement: [
+			"Improve composition",
+			"Better color grading",
+			"Consider different angle",
+		],
+	},
 ];
 
-export const critiqueImage = async (req: NextRequest): Promise<Response> => {
-	const { imageUrl } = await req.json();
+export const critiqueImage = async (
+	request: NextRequest,
+): Promise<Response> => {
+	const { imageUrl } = await request.json();
 
 	console.log("critiqueImage imageUrl:", imageUrl);
 
 	if (process.env.USE_MOCK_CRITIQUE === "true") {
 		console.log("🎨 Using mock image critique data");
-		
+
 		// Simulate API delay
 		await new Promise((resolve) => setTimeout(resolve, 800));
-		
+
 		// Return a random mock result
-		const randomIndex = Math.floor(Math.random() * MOCK_CRITIQUE_RESULTS.length);
+		const randomIndex = Math.floor(
+			Math.random() * MOCK_CRITIQUE_RESULTS.length,
+		);
 		return Response.json(MOCK_CRITIQUE_RESULTS[randomIndex]);
 	}
 
@@ -55,11 +75,11 @@ export const critiqueImage = async (req: NextRequest): Promise<Response> => {
 
 	const data = await response.json();
 	console.log("critiqueImage result:", data);
-	
+
 	// Check if the result contains an error
 	if (data.error) {
 		throw new Error(data.error);
 	}
-	
+
 	return Response.json(data);
 };

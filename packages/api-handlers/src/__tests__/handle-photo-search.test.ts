@@ -16,8 +16,8 @@ describe("handlePhotoSearch", () => {
 		vi.clearAllMocks();
 	});
 	it("should return error when query param is missing", async () => {
-		const req = mockRequest("http://localhost/api/pexels");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels");
+		const response = await handlePhotoSearch(request);
 		const data = await response.json();
 
 		expect(response.status).toBe(400);
@@ -27,8 +27,8 @@ describe("handlePhotoSearch", () => {
 	it("should return mock data when USE_MOCK_PEXELS_API is true", async () => {
 		process.env.USE_MOCK_PEXELS_API = "true";
 
-		const req = mockRequest("http://localhost/api/pexels?q=art");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels?q=art");
+		const response = await handlePhotoSearch(request);
 		const data = await response.json();
 
 		expect(data.mock).toBe(true);
@@ -60,8 +60,8 @@ describe("handlePhotoSearch", () => {
 			json: vi.fn().mockResolvedValue(mockPexelsResponse),
 		});
 
-		const req = mockRequest("http://localhost/api/pexels?q=art");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels?q=art");
+		const response = await handlePhotoSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -81,8 +81,8 @@ describe("handlePhotoSearch", () => {
 			json: vi.fn().mockResolvedValue(mockPexelsResponse),
 		});
 
-		const req = mockRequest("http://localhost/api/pexels?q=test");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels?q=test");
+		const response = await handlePhotoSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -109,8 +109,8 @@ describe("handlePhotoSearch", () => {
 			json: vi.fn().mockResolvedValue(mockPexelsResponse),
 		});
 
-		const req = mockRequest("http://localhost/api/pexels?q=art");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels?q=art");
+		const response = await handlePhotoSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -123,8 +123,8 @@ describe("handlePhotoSearch", () => {
 
 		mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
-		const req = mockRequest("http://localhost/api/pexels?q=art");
-		const response = await handlePhotoSearch(req);
+		const request = mockRequest("http://localhost/api/pexels?q=art");
+		const response = await handlePhotoSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 

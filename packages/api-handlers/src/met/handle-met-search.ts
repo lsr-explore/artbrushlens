@@ -1,8 +1,10 @@
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { MOCK_ARTWORKS } from "./mock-response";
 
-export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
-	const { searchParams } = new URL(req.url);
+export const handleMetSearch = async (
+	request: NextRequest,
+): Promise<Response> => {
+	const { searchParams } = new URL(request.url);
 	const q = searchParams.get("q");
 
 	if (!q) {
@@ -20,10 +22,10 @@ export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
 
 	try {
 		// 🔍 Search for object IDs
-		const searchRes = await fetch(
+		const searchResponse = await fetch(
 			`${process.env.MET_API_BASE_URL}/search?q=${encodeURIComponent(q)}`,
 		);
-		const searchData = await searchRes.json();
+		const searchData = await searchResponse.json();
 
 		if (!searchData.objectIDs || searchData.objectIDs.length === 0) {
 			return Response.json({ artworks: [] });
@@ -33,17 +35,17 @@ export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
 
 		// 🖼️ Fetch artwork details in parallel
 		const detailPromises = limitedIds.map(async (id: number) => {
-			const objRes = await fetch(
+			const objectResponse = await fetch(
 				`${process.env.MET_API_BASE_URL}/objects/${id}`,
 			);
-			const objData = await objRes.json();
+			const objectData = await objectResponse.json();
 
 			return {
-				id: String(objData.objectID),
-				title: objData.title || "Untitled",
-				artist: objData.artistDisplayName || "Unknown Artist",
-				imageUrl: objData.primaryImageSmall || null,
-				description: objData.objectDate || "",
+				id: String(objectData.objectID),
+				title: objectData.title || "Untitled",
+				artist: objectData.artistDisplayName || "Unknown Artist",
+				imageUrl: objectData.primaryImageSmall || null,
+				description: objectData.objectDate || "",
 				aiAnalysis: null, // initially null
 			};
 		});
@@ -58,8 +60,8 @@ export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
-	} catch (err: any) {
-		console.error("❌ MET API error:", err);
-		return Response.json({ error: err.message }, { status: 500 });
+	} catch (error: any) {
+		console.error("❌ MET API error:", error);
+		return Response.json({ error: error.message }, { status: 500 });
 	}
 };

@@ -20,8 +20,8 @@ describe("proxyImage", () => {
 		vi.clearAllMocks();
 	});
 	it("should return error when URL parameter is missing", async () => {
-		const req = mockRequest(null);
-		const response = await proxyImage(req);
+		const request = mockRequest(null);
+		const response = await proxyImage(request);
 		const data = await response.json();
 
 		expect(response.status).toBe(400);
@@ -41,8 +41,8 @@ describe("proxyImage", () => {
 
 		mockFetch.mockResolvedValueOnce(mockResponse);
 
-		const req = mockRequest(testUrl);
-		const response = await proxyImage(req);
+		const request = mockRequest(testUrl);
+		const response = await proxyImage(request);
 
 		expect(mockFetch).toHaveBeenCalled();
 		expect(response).toBeInstanceOf(Response);
@@ -61,8 +61,8 @@ describe("proxyImage", () => {
 
 		mockFetch.mockResolvedValueOnce(mockResponse);
 
-		const req = mockRequest(testUrl);
-		const response = await proxyImage(req);
+		const request = mockRequest(testUrl);
+		const response = await proxyImage(request);
 
 		expect(response).toBeInstanceOf(Response);
 		expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -73,8 +73,8 @@ describe("proxyImage", () => {
 
 		mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
-		const req = mockRequest(testUrl);
-		const response = await proxyImage(req);
+		const request = mockRequest(testUrl);
+		const response = await proxyImage(request);
 		const data = await response.json();
 
 		expect(response.status).toBe(500);

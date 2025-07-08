@@ -1,10 +1,9 @@
 "use client";
-import React from 'react';
 
 import type { Artwork } from "@artbrushlens/shared-types";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import { NoArtworksFound } from "../Errors";
 
 export const ArtworkGrid = ({ artworks }: { artworks: Artwork[] }) => {
@@ -15,15 +14,15 @@ export const ArtworkGrid = ({ artworks }: { artworks: Artwork[] }) => {
 		setAnalyzingId(artwork.id);
 		setAnalyzeResults(null);
 
-		const res = await fetch("/api/ai/analyze", {
+		const response = await fetch("/api/ai/analyze", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(artwork),
 		});
 
-		const data = await res.json();
+		const data = await response.json();
 
-		if (!res.ok) {
+		if (!response.ok) {
 			setAnalyzingId(null);
 			throw new Error(data.error || "Failed to analyze artwork");
 		}

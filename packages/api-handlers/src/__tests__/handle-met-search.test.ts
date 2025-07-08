@@ -17,8 +17,8 @@ describe("handleMetSearch", () => {
 	});
 
 	it("should return error when query param is missing", async () => {
-		const req = mockRequest("http://localhost/api/met");
-		const response = await handleMetSearch(req);
+		const request = mockRequest("http://localhost/api/met");
+		const response = await handleMetSearch(request);
 		const data = await response.json();
 
 		expect(response.status).toBe(400);
@@ -28,8 +28,8 @@ describe("handleMetSearch", () => {
 	it("should return mock data when USE_MOCK_MET_API is true", async () => {
 		process.env.USE_MOCK_MET_API = "true";
 
-		const req = mockRequest("http://localhost/api/met?q=painting");
-		const response = await handleMetSearch(req);
+		const request = mockRequest("http://localhost/api/met?q=painting");
+		const response = await handleMetSearch(request);
 		const data = await response.json();
 
 		expect(data.mock).toBe(true);
@@ -63,8 +63,8 @@ describe("handleMetSearch", () => {
 				json: vi.fn().mockResolvedValue(mockObjectResponse),
 			});
 
-		const req = mockRequest("http://localhost/api/met?q=painting");
-		const response = await handleMetSearch(req);
+		const request = mockRequest("http://localhost/api/met?q=painting");
+		const response = await handleMetSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -81,8 +81,8 @@ describe("handleMetSearch", () => {
 			json: vi.fn().mockResolvedValue({ objectIDs: [] }),
 		});
 
-		const req = mockRequest("http://localhost/api/met?q=test");
-		const response = await handleMetSearch(req);
+		const request = mockRequest("http://localhost/api/met?q=test");
+		const response = await handleMetSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -95,8 +95,8 @@ describe("handleMetSearch", () => {
 
 		mockFetch.mockRejectedValueOnce(new Error("Network error"));
 
-		const req = mockRequest("http://localhost/api/met?q=painting");
-		const response = await handleMetSearch(req);
+		const request = mockRequest("http://localhost/api/met?q=painting");
+		const response = await handleMetSearch(request);
 
 		expect(response).toBeInstanceOf(Response);
 

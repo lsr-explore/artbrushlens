@@ -1,11 +1,11 @@
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import { MOCK_ARTWORKS } from "./mock-response";
 
 export const handlePhotoSearch = async (
-	req: NextRequest,
+	request: NextRequest,
 ): Promise<Response> => {
-	const { searchParams } = new URL(req.url);
+	const { searchParams } = new URL(request.url);
 	const q = searchParams.get("q");
 
 	if (!q) {
@@ -24,7 +24,7 @@ export const handlePhotoSearch = async (
 	try {
 		// 🔍 Search for object IDs
 
-		const searchRes = await fetch(
+		const searchResponse = await fetch(
 			`${process.env.PEXELS_API_BASE_URL}/search?query=${encodeURIComponent(q)}`,
 			{
 				method: "GET",
@@ -35,7 +35,7 @@ export const handlePhotoSearch = async (
 				},
 			},
 		);
-		const searchData = await searchRes.json();
+		const searchData = await searchResponse.json();
 
 		if (searchData.per_page === 0 || searchData.photos.length === 0) {
 			return Response.json({ artworks: [] });
@@ -68,8 +68,8 @@ export const handlePhotoSearch = async (
 			total: filteredArtworks.length,
 			artworks: filteredArtworks,
 		});
-	} catch (err: any) {
-		console.error("❌ Pexel API error:", err);
-		return Response.json({ error: err.message }, { status: 500 });
+	} catch (error: any) {
+		console.error("❌ Pexel API error:", error);
+		return Response.json({ error: error.message }, { status: 500 });
 	}
 };

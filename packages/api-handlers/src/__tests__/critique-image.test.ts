@@ -20,8 +20,8 @@ describe("critiqueImage", () => {
 
 		const mockImageUrl = "https://example.com/test-image.jpg";
 
-		const req = mockRequest({ imageUrl: mockImageUrl });
-		const result = await critiqueImage(req);
+		const request = mockRequest({ imageUrl: mockImageUrl });
+		const result = await critiqueImage(request);
 
 		expect(result).toBeInstanceOf(Response);
 
@@ -56,8 +56,8 @@ describe("critiqueImage", () => {
 			),
 		);
 
-		const req = mockRequest({ imageUrl: mockImageUrl });
-		const result = await critiqueImage(req);
+		const request = mockRequest({ imageUrl: mockImageUrl });
+		const result = await critiqueImage(request);
 
 		expect(result).toBeInstanceOf(Response);
 		const data = await result.json();
@@ -84,8 +84,8 @@ describe("critiqueImage", () => {
 			),
 		);
 
-		const req = mockRequest({ imageUrl: mockImageUrl });
-		const result = await critiqueImage(req);
+		const request = mockRequest({ imageUrl: mockImageUrl });
+		const result = await critiqueImage(request);
 
 		expect(result).toBeInstanceOf(Response);
 
@@ -112,9 +112,9 @@ describe("critiqueImage", () => {
 			),
 		);
 
-		const req = mockRequest({ imageUrl: mockImageUrl });
+		const request = mockRequest({ imageUrl: mockImageUrl });
 
-		await expect(critiqueImage(req)).rejects.toThrow();
+		await expect(critiqueImage(request)).rejects.toThrow();
 
 		// Restore original value
 		process.env.USE_MOCK_CRITIQUE = originalValue;

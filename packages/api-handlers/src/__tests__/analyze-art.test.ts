@@ -27,8 +27,8 @@ describe("analyzeArt", () => {
 			description: "A test artwork",
 		};
 
-		const req = mockRequest(mockArtwork);
-		const response = await analyzeArt(req);
+		const request = mockRequest(mockArtwork);
+		const response = await analyzeArt(request);
 		const data = await response.json();
 
 		expect(data.result).toContain(
@@ -64,8 +64,8 @@ describe("analyzeArt", () => {
 			}),
 		});
 
-		const req = mockRequest(mockArtwork);
-		const response = await analyzeArt(req);
+		const request = mockRequest(mockArtwork);
+		const response = await analyzeArt(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -83,8 +83,8 @@ describe("analyzeArt", () => {
 			artist: "Vincent van Gogh",
 		};
 
-		const req = mockRequest(mockArtwork);
-		const response = await analyzeArt(req);
+		const request = mockRequest(mockArtwork);
+		const response = await analyzeArt(request);
 
 		expect(response).toBeInstanceOf(Response);
 
@@ -106,8 +106,8 @@ describe("analyzeArt", () => {
 			title: "Unknown Artwork",
 		};
 
-		const req = mockRequest(mockArtwork);
-		const response = await analyzeArt(req);
+		const request = mockRequest(mockArtwork);
+		const response = await analyzeArt(request);
 		const data = await response.json();
 
 		expect(data.result).toContain('AI Analysis of "Unknown Artwork"');

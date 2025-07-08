@@ -21,15 +21,15 @@ export const PhotoGrid = ({ photos }: { photos: Artwork[] }) => {
 		setAnalyzingId(artwork.id);
 		setAnalyzeResults(null);
 
-		const res = await fetch("/api/ai/analyze", {
+		const response = await fetch("/api/ai/analyze", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify(artwork),
 		});
 
-		const data = await res.json();
+		const data = await response.json();
 
-		if (!res.ok) {
+		if (!response.ok) {
 			setAnalyzingId(null);
 			throw new Error(data.error || "Failed to analyze artwork");
 		}

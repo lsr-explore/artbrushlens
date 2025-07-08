@@ -10,8 +10,8 @@ interface Artwork {
 	description?: string;
 }
 
-export const analyzeArt = async (req: NextRequest): Promise<Response> => {
-	const artwork: Artwork = await req.json();
+export const analyzeArt = async (request: NextRequest): Promise<Response> => {
+	const artwork: Artwork = await request.json();
 	if (process.env.USE_LOCAL_AI === "true") {
 		console.log(`🤖 Generating mock AI analysis for: ${artwork.title}`);
 
@@ -30,7 +30,7 @@ export const analyzeArt = async (req: NextRequest): Promise<Response> => {
 
 	const prompt = `please provide an analysis of ${artwork.title} by ${artwork.artist}, including its historical context, artistic style, and any notable features.`;
 
-	const res = await fetch("https://api.openai.com/v1/chat/completions", {
+	const response = await fetch("https://api.openai.com/v1/chat/completions", {
 		method: "POST",
 		headers: {
 			Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
@@ -42,7 +42,7 @@ export const analyzeArt = async (req: NextRequest): Promise<Response> => {
 		}),
 	});
 
-	const data = await res.json();
+	const data = await response.json();
 	return Response.json({
 		result: data.choices?.[0]?.message?.content || "No response",
 	});

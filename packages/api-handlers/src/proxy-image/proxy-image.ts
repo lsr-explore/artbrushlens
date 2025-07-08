@@ -1,18 +1,17 @@
- 
 /** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
-import { type NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
-export const proxyImage = async (req: NextRequest): Promise<Response> => {
-	const url = req.nextUrl.searchParams.get("url");
+export const proxyImage = async (request: NextRequest): Promise<Response> => {
+	const url = request.nextUrl.searchParams.get("url");
 
 	if (!url) {
 		return Response.json({ error: "Missing image URL" }, { status: 400 });
 	}
 
 	try {
-		const res = await fetch(url);
-		const contentType = res.headers.get("content-type") || "image/jpeg";
-		const buffer = await res.arrayBuffer();
+		const response = await fetch(url);
+		const contentType = response.headers.get("content-type") || "image/jpeg";
+		const buffer = await response.arrayBuffer();
 
 		return new Response(buffer, {
 			headers: {
@@ -20,9 +19,9 @@ export const proxyImage = async (req: NextRequest): Promise<Response> => {
 				"Access-Control-Allow-Origin": "*", // 👈 now you can use ColorThief
 			},
 		});
-	} catch (e: any) {
+	} catch (error: any) {
 		return Response.json(
-			{ error: `Failed to proxy image: ${e.message}` },
+			{ error: `Failed to proxy image: ${error.message}` },
 			{ status: 500 },
 		);
 	}
