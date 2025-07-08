@@ -1,8 +1,7 @@
- 
 // apps/main/src/lib/ai/generate.ts
 
 import type { NextRequest } from "next/server";
-import { MOCK_AI_ANALYSES } from "./mockData";
+import { MOCK_AI_ANALYSES } from "./mock-data";
 
 interface Artwork {
 	id: string;

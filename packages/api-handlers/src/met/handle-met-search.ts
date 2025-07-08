@@ -1,16 +1,12 @@
- 
 import { type NextRequest } from "next/server";
-import { MOCK_ARTWORKS } from "./mockResponse";
+import { MOCK_ARTWORKS } from "./mock-response";
 
 export const handleMetSearch = async (req: NextRequest): Promise<Response> => {
 	const { searchParams } = new URL(req.url);
 	const q = searchParams.get("q");
 
 	if (!q) {
-		return Response.json(
-			{ error: "Missing query param `q`" },
-			{ status: 400 },
-		);
+		return Response.json({ error: "Missing query param `q`" }, { status: 400 });
 	}
 
 	// 🔁 Check for mock mode

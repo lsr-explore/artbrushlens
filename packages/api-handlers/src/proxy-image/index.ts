@@ -1,1 +1,1 @@
-export * from "./proxyImage";
+export * from "./proxy-image";

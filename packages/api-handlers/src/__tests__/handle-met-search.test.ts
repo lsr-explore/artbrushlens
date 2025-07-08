@@ -1,10 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { handleMetSearch } from "../met/handleMetSearch";
+import { handleMetSearch } from "../met/handle-met-search";
 
 // Mock NextRequest
-const mockRequest = (url: string) => ({
-	url,
-}) as any;
+const mockRequest = (url: string) =>
+	({
+		url,
+	}) as any;
 
 // Mock fetch
 const mockFetch = vi.fn();
@@ -66,7 +67,7 @@ describe("handleMetSearch", () => {
 		const response = await handleMetSearch(req);
 
 		expect(response).toBeInstanceOf(Response);
-		
+
 		process.env.USE_MOCK_MET_API = originalValue;
 	});
 
@@ -84,7 +85,7 @@ describe("handleMetSearch", () => {
 		const response = await handleMetSearch(req);
 
 		expect(response).toBeInstanceOf(Response);
-		
+
 		process.env.USE_MOCK_MET_API = originalValue;
 	});
 
@@ -98,7 +99,7 @@ describe("handleMetSearch", () => {
 		const response = await handleMetSearch(req);
 
 		expect(response).toBeInstanceOf(Response);
-		
+
 		process.env.USE_MOCK_MET_API = originalValue;
 	});
 });
