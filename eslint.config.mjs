@@ -45,6 +45,12 @@ export default [
 			"no-secrets/no-secrets": "error",
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: ["packages/*/tsconfig.json", "apps/*/tsconfig.json"],
+				},
+			},
 			react: {
 				version: "detect",
 			},
@@ -86,6 +92,15 @@ export default [
 			...pluginNext.configs["core-web-vitals"].rules,
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: [
+						path.resolve(__dirname, "tsconfig.apps.eslint.json"),
+						path.resolve(__dirname, "apps/*/tsconfig.json"),
+					],
+				},
+			},
 			react: {
 				version: "detect",
 			},
@@ -99,7 +114,10 @@ export default [
 			parser: tsParser,
 			ecmaVersion: "latest",
 			parserOptions: {
-				project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+				project: [
+					path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+					path.resolve(__dirname, "packages/*/tsconfig.json"),
+				],
 				tsconfigRootDir: __dirname,
 			},
 		},
@@ -124,6 +142,12 @@ export default [
 			"no-secrets/no-secrets": "error",
 		},
 		settings: {
+			"import/resolver": {
+				typescript: {
+					alwaysTryTypes: true,
+					project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+				},
+			},
 			react: {
 				version: "detect",
 			},

@@ -133,8 +133,8 @@ const AIConfigPage = () => {
 											type="text"
 											id="local-url"
 											value={config.localAiUrl}
-											onChange={(e) =>
-												setConfig({ ...config, localAiUrl: e.target.value })
+											onChange={(error) =>
+												setConfig({ ...config, localAiUrl: error.target.value })
 											}
 											className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2 border"
 											placeholder="http://localhost:8080"
@@ -182,8 +182,8 @@ const AIConfigPage = () => {
 											<select
 												id="model"
 												value={config.model}
-												onChange={(e) =>
-													setConfig({ ...config, model: e.target.value })
+												onChange={(error) =>
+													setConfig({ ...config, model: error.target.value })
 												}
 												className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2 border"
 											>
@@ -204,10 +204,10 @@ const AIConfigPage = () => {
 													type="number"
 													id="max-tokens"
 													value={config.maxTokens}
-													onChange={(e) =>
+													onChange={(error) =>
 														setConfig({
 															...config,
-															maxTokens: parseInt(e.target.value),
+															maxTokens: Number.parseInt(error.target.value),
 														})
 													}
 													className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2 border"
@@ -227,10 +227,12 @@ const AIConfigPage = () => {
 													min="0"
 													max="2"
 													value={config.temperature}
-													onChange={(e) =>
+													onChange={(error) =>
 														setConfig({
 															...config,
-															temperature: parseFloat(e.target.value),
+															temperature: Number.parseFloat(
+																error.target.value,
+															),
 														})
 													}
 													className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm p-2 border"

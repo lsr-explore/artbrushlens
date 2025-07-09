@@ -1,6 +1,3 @@
- 
-/** biome-ignore-all lint/performance/noImgElement: <explanation> */
- 
 "use client";
 
 import ColorThief from "colorthief";

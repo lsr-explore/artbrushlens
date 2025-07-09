@@ -6,6 +6,7 @@
 		{ "path": "packages/api-fetchers" },
 		{ "path": "packages/api-handlers" },
 		{ "path": "packages/react-query-hooks" },
-		{ "path": "packages/palette-studio" }
+		{ "path": "packages/palette-studio" },
+		{ "path": "packages/media-display" }
 	]
 }

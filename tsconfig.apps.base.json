@@ -20,7 +20,8 @@
 			"@artbrushlens/api-fetchers": ["packages/api-fetchers/src/*"],
 			"@artbrushlens/shared-types": ["packages/shared-types/src/*"],
 			"@artbrushlens/palette-studio": ["packages/palette-studio/src/*"],
-			"@artbrushlens/react-query-hooks": ["packages/react-query-hooks/src/*"]
+			"@artbrushlens/react-query-hooks": ["packages/react-query-hooks/src/*"],
+			"@artbrushlens/media-display": ["packages/media-display/src/*"]
 		},
 		"plugins": [
 			{

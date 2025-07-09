@@ -1,9 +1,10 @@
 "use client";
-import React from 'react';
-
-import { type SetStateAction, useState } from "react";
-import { ArtworkGridDataProvider, PhotoGridDataProvider } from "components";
+import {
+	MediaArtContainer,
+	MediaSourceProvider,
+} from "@artbrushlens/media-display";
 import { Providers } from "data-providers";
+import React, { type SetStateAction, useState } from "react";
 
 const Home = () => {
 	const [selectedOption, setSelectedOption] = useState("photo");
@@ -22,11 +23,9 @@ const Home = () => {
 					<option value="art">Museum Artwork</option>
 					<option value="photo">Pexels Photography</option>
 				</select>
-				{selectedOption === "art" ? (
-					<ArtworkGridDataProvider />
-				) : (
-					<PhotoGridDataProvider />
-				)}
+				<MediaSourceProvider>
+					<MediaArtContainer />
+				</MediaSourceProvider>
 			</Providers>
 		</main>
 	);

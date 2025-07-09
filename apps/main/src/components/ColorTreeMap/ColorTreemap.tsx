@@ -1,7 +1,6 @@
- 
 "use client";
 import * as d3 from "d3";
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 type ColorData = {
 	color: string;

@@ -1,4 +1,4 @@
 export * from "./fetch-artworks";
-export * from "./fetchPhotoWorks";
-export * from "./postAnalyzeArt";
-export * from "./postDetectObjects";
+export * from "./fetch-photo-works";
+export * from "./post-analyze-art";
+export * from "./post-detect-objects";
