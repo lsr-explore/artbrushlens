@@ -22,6 +22,7 @@
 		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
 		"@artbrushlens/shared-types": "*",
+		"@artbrushlens/media-display": "*",
 		"@huggingface/transformers": "^3.5.2",
 		"@supabase/supabase-js": "^2.38.4",
 		"@tanstack/react-query": "^5.81.2",

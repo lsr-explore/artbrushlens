@@ -20,7 +20,8 @@
 			],
 			"@artbrushlens/react-query-hooks": [
 				"../../../packages/react-query-hooks/src/*"
-			]
+			],
+			"@artbrushlens/media-display": ["../../../packages/media-display/src/*"]
 		}
 	},
 	"include": ["./packages/**/*.ts", "./packages/**/*.tsx"],

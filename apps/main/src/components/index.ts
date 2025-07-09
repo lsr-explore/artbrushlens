@@ -1,4 +1,3 @@
-export * from "./ArtworkGrid";
+export * from "./ColorTreeMap";
 export * from "./Errors";
-export * from "./PhotoGrid";
 export * from "./Site";

@@ -56,6 +56,7 @@
 		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
 		"@artbrushlens/shared-types": "*",
+		"@artbrushlens/media-display": "*",
 		"concurrently": "^8.2.2",
 		"eslint-plugin-markdown": "^5.1.0"
 	}

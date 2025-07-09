@@ -8,9 +8,11 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 const ArtworksPage = () => {
-	const [expandedAnalysis, setExpandedAnalysis] = useState<string | null>(null);
-	const [analyzingId, setAnalyzingId] = useState<string | null>(null);
-	// const [, setAnalyzeResults] = useState<string | null>(null);
+	const [expandedAnalysis, setExpandedAnalysis] = useState<
+		string | undefined
+	>();
+	const [analyzingId, setAnalyzingId] = useState<string | undefined>();
+	// const [, setAnalyzeResults] = useState<string | undefined>();
 
 	const { data, isLoading, error } = useQuery({
 		queryKey: ["admin-artworks"],
@@ -23,7 +25,7 @@ const ArtworksPage = () => {
 	};
 
 	const toggleAnalysis = (artworkId: string) => {
-		setExpandedAnalysis(expandedAnalysis === artworkId ? null : artworkId);
+		setExpandedAnalysis(expandedAnalysis === artworkId ? undefined : artworkId);
 	};
 
 	if (isLoading) return <div className="p-8">Loading artworks...</div>;
