@@ -95,7 +95,10 @@ export default [
 			"import/resolver": {
 				typescript: {
 					alwaysTryTypes: true,
-					project: path.resolve(__dirname, "tsconfig.apps.eslint.json"),
+					project: [
+						path.resolve(__dirname, "tsconfig.apps.eslint.json"),
+						path.resolve(__dirname, "apps/*/tsconfig.json"),
+					],
 				},
 			},
 			react: {
@@ -111,7 +114,10 @@ export default [
 			parser: tsParser,
 			ecmaVersion: "latest",
 			parserOptions: {
-				project: path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+				project: [
+					path.resolve(__dirname, "tsconfig.packages.eslint.json"),
+					path.resolve(__dirname, "packages/*/tsconfig.json"),
+				],
 				tsconfigRootDir: __dirname,
 			},
 		},

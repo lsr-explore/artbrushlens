@@ -4,6 +4,12 @@
 	"main": "dist/src/index.js",
 	"types": "dist/src/index.d.ts",
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"require": "./src/index.ts"
+		}
+	},
 	"scripts": {
 		"build": "tsc --build tsconfig.json",
 		"dev": "tsc --watch",

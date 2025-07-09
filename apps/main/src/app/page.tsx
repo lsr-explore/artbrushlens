@@ -21,7 +21,7 @@ const LandingPage = () => {
 				</div>
 
 				{/* Search Panels */}
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+				<div className="grid md:grid-cols-2 grid-cols-1  gap-8 w-full">
 					{/* Painting Panel */}
 					<div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
 						<div className="relative h-[300px] w-full max-w-[600px] mx-auto">

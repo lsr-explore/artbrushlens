@@ -25,6 +25,11 @@ const nextConfig = {
 		};
 		return config;
 	},
+	transpilePackages: [
+		"@artbrushlens/media-display",
+		"@artbrushlens/palette-studio",
+		"@artbrushlens/shared-types",
+	], // Example for a monorepo package
 };
 
 module.exports = nextConfig;

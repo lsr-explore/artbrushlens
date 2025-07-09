@@ -4,8 +4,15 @@
 	"main": "dist/src/index.js",
 	"types": "dist/src/index.d.ts",
 	"type": "module",
+	"exports": {
+		".": {
+			"import": "./src/index.ts",
+			"require": "./src/index.ts"
+		}
+	},
 	"scripts": {
-		"build": "tsc --build tsconfig.json",
+		"build": "tsc --build tsconfig.json && npm run copy:css",
+		"copy:css": "cpx \"src/**/*.css\" dist/src",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
 		"lint": "eslint --fix .",

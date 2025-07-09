@@ -1,9 +1,8 @@
 "use client";
-
-import { Artwork } from "@artbrushlens/shared-types";
 import React from "react";
 import Masonry from "react-masonry-css";
-import { useMediaSource } from "../media-source-hook";
+
+import "./media-layout.css";
 
 const breakpointColsObj = {
 	default: 4,
@@ -53,7 +52,7 @@ export const MediaLayout = <T,>({
 				className="my-masonry-grid"
 				columnClassName="my-masonry-grid_column"
 			>
-				<div className="my-masonry-grid">{artworks.map(renderItem)}</div>
+				{artworks.map(renderItem)}
 			</Masonry>
 
 			<div className="mt-12 text-center">

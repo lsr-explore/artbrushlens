@@ -13,7 +13,7 @@ export const PhotoPanel = ({ artwork }: { artwork: Artwork }) => {
 			data-testid="artwork-card"
 		>
 			{/* Image Container */}
-			<div className="bg-gray-200">
+			<div className="bg-red-500 p-4">
 				{artwork.imageUrl ? (
 					<Image
 						width={600}
@@ -47,18 +47,17 @@ export const PhotoPanel = ({ artwork }: { artwork: Artwork }) => {
 
 				{/* Action Button */}
 				<div className="flex justify-between items-center">
+					<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 					<Link
 						href={`/images/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
 					>
 						<button
 							type="button"
-							className="bg-indigo-500 text-white text-xs px-3 py-1 rounded hover:bg-indigo-600"
+							className="button-background text-white text-xs px-4 py-2 rounded hover:bg-indigo-600"
 						>
 							Analyze Image
 						</button>
 					</Link>
-
-					<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 				</div>
 			</div>
 		</div>

@@ -13,7 +13,7 @@
 		"dev:admin": "npm run dev --workspace=@artbrushlens/admin",
 		"build:all": "npm run build:packages && npm run build:apps",
 		"build:apps": "concurrently \"npm run build:main\" \"npm run build:admin\"",
-		"build:packages": "npm run clean:dist && tsc --build tsconfig.packages.build.json && npm run build:mocks",
+		"build:packages": "npm run clean:dist && pnpm -r --filter './packages/**' run build && npm run build:mocks",
 		"build:main": "npm run build --workspace=@artbrushlens/main",
 		"build:admin": "npm run build --workspace=@artbrushlens/admin",
 		"build:mocks": "tsc --project mocks/tsconfig.json",
@@ -53,11 +53,12 @@
 	"devDependencies": {
 		"@artbrushlens/api-fetchers": "*",
 		"@artbrushlens/api-handlers": "*",
+		"@artbrushlens/media-display": "*",
 		"@artbrushlens/palette-studio": "*",
 		"@artbrushlens/react-query-hooks": "*",
 		"@artbrushlens/shared-types": "*",
-		"@artbrushlens/media-display": "*",
 		"concurrently": "^8.2.2",
+		"cpx": "^1.5.0",
 		"eslint-plugin-markdown": "^5.1.0"
 	}
 }

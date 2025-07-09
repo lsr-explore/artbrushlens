@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Test if Tailwind is working */
 .test-tailwind {
@@ -44,18 +47,4 @@ img {
 
 .animate-spin {
 	animation: spin 1s linear infinite;
-}
-
-/* Masonry grid */
-.my-masonry-grid {
-	display: flex;
-	margin-left: -16px; /* gutter size offset */
-	width: auto;
-}
-.my-masonry-grid_column {
-	padding-left: 16px; /* gutter size */
-	background-clip: padding-box;
-}
-.my-masonry-grid_column > div {
-	margin-bottom: 16px;
 }
