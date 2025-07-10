@@ -1,0 +1,20 @@
+{
+	"extends": "../tsconfig.apps.base.json",
+	"compilerOptions": {
+		"baseUrl": "..",
+		"paths": {
+			"@artbrushlens/palette-studio": ["packages/palette-studio/src"],
+			"@artbrushlens/media-display": ["packages/media-display/src"],
+			"@artbrushlens/shared-types": ["packages/shared-types/src"],
+			"@artbrushlens/api-fetchers": ["packages/api-fetchers/src"],
+			"@artbrushlens/api-handlers": ["packages/api-handlers/src"],
+			"@artbrushlens/react-query-hooks": ["packages/react-query-hooks/src"]
+		}
+	},
+	"include": [
+		"**/*",
+		"../packages/*/src/**/*",
+		"../packages/*/src/**/*.stories.*"
+	],
+	"exclude": ["node_modules"]
+}
