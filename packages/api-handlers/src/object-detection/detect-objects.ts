@@ -44,9 +44,6 @@ export const detectObjects = async (
 ): Promise<Response> => {
 	const { imageUrl, modelId } = await request.json();
 
-	console.log("imageUrl", imageUrl);
-	console.log("modelId", modelId);
-
 	if (process.env.USE_MOCK_DETECTION === "true") {
 		console.log("🔍 Using mock object detection data");
 
@@ -78,7 +75,6 @@ export const detectObjects = async (
 	}
 
 	const result = await response.json();
-	console.log("result", result);
 
 	// Check if the result contains an error
 	if (result.error) {

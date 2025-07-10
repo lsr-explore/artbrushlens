@@ -3,7 +3,7 @@
 import type { Artwork } from "@artbrushlens/shared-types";
 import { createContext } from "react";
 
-type SourceType = "met" | "pexels";
+type SourceType = "paintings" | "photos";
 
 type MediaSourceContextType = {
 	source: SourceType;

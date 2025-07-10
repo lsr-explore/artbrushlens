@@ -17,22 +17,20 @@ export const MediaArtContainer = () => {
 	if (!data || data.artworks.length === 0)
 		return <p className="p-6 text-center">No results found.</p>;
 
-	console.log("container....data =", data);
-	console.log("container....typeof data =", typeof data);
-	console.log("container....Object.keys(data) =", Object.keys(data));
-
 	return (
 		<MediaLayout
 			artworks={data.artworks}
 			renderItem={(item) =>
-				source === "met" ? (
+				source === "paintings" ? (
 					<ArtworkPanel key={item.id} artwork={item} />
 				) : (
 					<PhotoPanel key={item.id} artwork={item} />
 				)
 			}
 			title={
-				source === "met" ? "Met Art Collection" : "Pexels Photo Collection"
+				source === "paintings"
+					? "Metropolitan Museum of Art Collection"
+					: "Pexels Photo Collection"
 			}
 			subtitle="Discover and analyze beautiful imagery with AI"
 		/>
