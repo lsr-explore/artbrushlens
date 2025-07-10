@@ -1,3 +1,5 @@
-import { critiqueImage } from "@artbrushlens/api-handlers";
 
-export const POST = critiqueImage;
+
+
+
+export {critiqueImage as POST} from "@artbrushlens/api-handlers";

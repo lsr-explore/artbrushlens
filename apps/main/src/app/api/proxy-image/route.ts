@@ -1,3 +1,5 @@
-import { proxyImage } from "@artbrushlens/api-handlers";
 
-export const GET = proxyImage;
+
+
+
+export {proxyImage as GET} from "@artbrushlens/api-handlers";

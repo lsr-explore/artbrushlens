@@ -1,3 +1,5 @@
-import { handlePhotoSearch } from "@artbrushlens/api-handlers";
 
-export const GET = handlePhotoSearch;
+
+
+
+export {handlePhotoSearch as GET} from "@artbrushlens/api-handlers";

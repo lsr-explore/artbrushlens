@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { render, type RenderOptions } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactElement } from "react";
 
 // Create a custom render function that includes providers
 const createTestQueryClient = () =>
@@ -40,14 +39,14 @@ export const createMockArtwork = (overrides = {}) => ({
 });
 
 export const createMockArtworks = (count = 3) => 
-	Array.from({ length: count }, (_, i) => 
+	Array.from({ length: count }, (_, index) => 
 		createMockArtwork({
-			id: String(i + 1),
-			title: `Test Artwork ${i + 1}`,
-			artist: `Test Artist ${i + 1}`,
-			imageUrl: `https://example.com/image${i + 1}.jpg`,
-			description: `Test description ${i + 1}`,
-			metId: String(100 + i),
+			id: String(index + 1),
+			title: `Test Artwork ${index + 1}`,
+			artist: `Test Artist ${index + 1}`,
+			imageUrl: `https://example.com/image${index + 1}.jpg`,
+			description: `Test description ${index + 1}`,
+			metId: String(100 + index),
 		})
 	);
 

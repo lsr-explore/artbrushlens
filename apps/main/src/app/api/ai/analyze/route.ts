@@ -1,3 +1,5 @@
-import { analyzeArt } from "@artbrushlens/api-handlers";
 
-export const POST = analyzeArt;
+
+
+
+export {analyzeArt as POST} from "@artbrushlens/api-handlers";

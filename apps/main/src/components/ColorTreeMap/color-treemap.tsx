@@ -1,6 +1,6 @@
 "use client";
 import * as d3 from "d3";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 type ColorData = {
 	color: string;
@@ -10,12 +10,12 @@ type ColorData = {
 };
 
 const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
-	const ref = useRef<SVGSVGElement>(null);
+	const reference = useRef<SVGSVGElement>(null);
 	const width = 800;
 	const height = 600;
 
 	useEffect(() => {
-		if (!ref.current) return;
+		if (!reference.current) return;
 
 		const normalizedColors = colors?.map((c) => ({
 			...c,
@@ -23,7 +23,7 @@ const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
 			percentage: c.percentage / 100,
 		}));
 
-		const svg = d3.select(ref.current);
+		const svg = d3.select(reference.current);
 		svg.selectAll("*").remove(); // Clear previous render
 
 		// Build hierarchical data
@@ -62,7 +62,7 @@ const ColorTreemap = ({ colors }: { colors: ColorData[] }) => {
 			.text((d: any) => d.data.color);
 	}, [colors]);
 
-	return <svg ref={ref} width={width} height={height} />;
+	return <svg ref={reference} width={width} height={height} />;
 };
 
 export default ColorTreemap;

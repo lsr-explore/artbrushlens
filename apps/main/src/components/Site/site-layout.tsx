@@ -1,7 +1,7 @@
-import React from 'react';
 import type { Metadata } from "next";
-import { Footer } from "./Footer";
-import { Header } from "./Header";
+import React from "react";
+import { Footer } from "./footer";
+import { Header } from "./header";
 
 export const metadata: Metadata = {
 	title: "ArtLoupe",
