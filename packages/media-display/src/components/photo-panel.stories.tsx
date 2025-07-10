@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockPhotoArtworks } from "../__stories__/mock-data";
-import { PhotoPanel } from "./photo-panel";
+import { PhotoPanelStory } from "../__stories__/story-components";
 
-const meta: Meta<typeof PhotoPanel> = {
+const meta: Meta<typeof PhotoPanelStory> = {
 	title: "Components/PhotoPanel",
-	component: PhotoPanel,
+	component: PhotoPanelStory,
 	parameters: {
 		layout: "centered",
 	},
@@ -77,7 +77,7 @@ export const MultiplePhotos: Story = {
 	render: () => (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
 			{mockPhotoArtworks.map((artwork) => (
-				<PhotoPanel key={artwork.id} artwork={artwork} />
+				<PhotoPanelStory key={artwork.id} artwork={artwork} />
 			))}
 		</div>
 	),

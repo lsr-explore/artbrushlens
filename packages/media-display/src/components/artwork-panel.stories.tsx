@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks } from "../__stories__/mock-data";
-import { ArtworkPanel } from "./artwork-panel";
+import { ArtworkPanelStory } from "../__stories__/story-components";
 
-const meta: Meta<typeof ArtworkPanel> = {
+const meta: Meta<typeof ArtworkPanelStory> = {
 	title: "Components/ArtworkPanel",
-	component: ArtworkPanel,
+	component: ArtworkPanelStory,
 	parameters: {
 		layout: "centered",
 	},
@@ -77,7 +77,7 @@ export const MultipleArtworks: Story = {
 	render: () => (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
 			{mockArtworks.slice(0, 3).map((artwork) => (
-				<ArtworkPanel key={artwork.id} artwork={artwork} />
+				<ArtworkPanelStory key={artwork.id} artwork={artwork} />
 			))}
 		</div>
 	),

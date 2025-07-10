@@ -2,9 +2,11 @@ import type { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks, mockPhotoArtworks } from "../__stories__/mock-data";
-import { ArtworkPanel } from "./artwork-panel";
+import {
+	ArtworkPanelStory,
+	PhotoPanelStory,
+} from "../__stories__/story-components";
 import { MediaLayout } from "./media-layout";
-import { PhotoPanel } from "./photo-panel";
 
 const meta: Meta<typeof MediaLayout> = {
 	title: "Components/MediaLayout",
@@ -36,7 +38,7 @@ export const WithArtworks: Story = {
 	args: {
 		artworks: mockArtworks,
 		renderItem: (artwork: Artwork) => (
-			<ArtworkPanel key={artwork.id} artwork={artwork} />
+			<ArtworkPanelStory key={artwork.id} artwork={artwork} />
 		),
 		title: "Metropolitan Museum Collection",
 		subtitle: "Discover and analyze beautiful artworks with AI",
@@ -47,7 +49,7 @@ export const WithPhotos: Story = {
 	args: {
 		artworks: mockPhotoArtworks,
 		renderItem: (artwork: Artwork) => (
-			<PhotoPanel key={artwork.id} artwork={artwork} />
+			<PhotoPanelStory key={artwork.id} artwork={artwork} />
 		),
 		title: "Pexels Photo Collection",
 		subtitle: "Explore stunning photography from around the world",
@@ -79,7 +81,7 @@ export const WithoutTitle: Story = {
 	args: {
 		artworks: mockArtworks.slice(0, 3),
 		renderItem: (artwork: Artwork) => (
-			<ArtworkPanel key={artwork.id} artwork={artwork} />
+			<ArtworkPanelStory key={artwork.id} artwork={artwork} />
 		),
 	},
 };
@@ -88,7 +90,7 @@ export const WithLongTitle: Story = {
 	args: {
 		artworks: mockArtworks,
 		renderItem: (artwork: Artwork) => (
-			<ArtworkPanel key={artwork.id} artwork={artwork} />
+			<ArtworkPanelStory key={artwork.id} artwork={artwork} />
 		),
 		title:
 			"This is a very long title that should demonstrate how the MediaLayout component handles long titles in the UI",
