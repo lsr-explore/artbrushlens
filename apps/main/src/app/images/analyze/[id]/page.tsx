@@ -42,6 +42,12 @@ const getColorPercentages = (element: HTMLImageElement | null) => {
 	return topColors;
 };
 
+const getRandomColor = (): string => {
+	return `#${Math.floor(Math.random() * 16_777_215)
+		.toString(16)
+		.padStart(6, "0")}`;
+};
+
 const AnalyzePage = () => {
 	const searchParams = useSearchParams();
 	const artwork = {
@@ -55,14 +61,14 @@ const AnalyzePage = () => {
 	const [dominantColor, setDominantColor] = useState<number[] | null>(null);
 	const [colorPercentages, setColorPercentages] = useState<any>(null);
 	const [palette, setPalette] = useState<number[][] | null>(null);
-	const imageRef = useRef<HTMLImageElement | null>(null);
+	const imageReference = useRef<HTMLImageElement | null>(null);
 	const [imageLoaded, setImageLoaded] = useState(false);
 
 	const [analysisResult, setAnalysisResult] = useState<any>(null);
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		const img = imageRef.current;
+		const img = imageReference.current;
 		if (!img) return;
 
 		const handleLoad = () => {
@@ -82,7 +88,7 @@ const AnalyzePage = () => {
 	useEffect(() => {
 		if (!imageLoaded) return;
 		console.log("Image loaded");
-		const img = imageRef.current;
+		const img = imageReference.current;
 
 		const colorThief = new ColorThief();
 		if (img?.complete) {
@@ -112,12 +118,6 @@ const AnalyzePage = () => {
 		return colorMap[label];
 	};
 
-	const getRandomColor = (): string => {
-		return `#${Math.floor(Math.random() * 16777215)
-			.toString(16)
-			.padStart(6, "0")}`;
-	};
-
 	const handleAnalyze = async () => {
 		if (!artwork.imageUrl) return;
 		setLoading(true);
@@ -132,7 +132,6 @@ const AnalyzePage = () => {
 			});
 
 			const result = await response.json();
-			console.log("......", result);
 
 			const colorCodedResult = result.map((item: any) => {
 				const color = getColorForLabel(item.label);
@@ -161,14 +160,14 @@ const AnalyzePage = () => {
 			<div className="relative inline-block mt-6">
 				<img
 					id={"artwork-image"}
-					ref={imageRef}
+					ref={imageReference}
 					src={`/api/proxy-image?url=${encodeURIComponent(artwork.imageUrl || "")}`}
 					alt="Artwork"
 					className="w-full max-w-lg rounded mb-4 shadow"
 					width={400}
 					height={400}
 				/>
-				{analysisResult?.map((objectItem: any, idx: number) => {
+				{analysisResult?.map((objectItem: any, index: number) => {
 					const box = objectItem.box;
 
 					const width = box.xmax - box.xmin;
@@ -178,7 +177,7 @@ const AnalyzePage = () => {
 
 					return (
 						<div
-							key={idx}
+							key={index}
 							className="absolute border-2  text-xs text-white  px-1"
 							style={{
 								left: `${box.xmin}px`,
@@ -194,13 +193,13 @@ const AnalyzePage = () => {
 				})}
 			</div>
 			<div>
-				{analysisResult?.map((objectItem: any, idx: number) => {
+				{analysisResult?.map((objectItem: any, index: number) => {
 					const label = objectItem.label;
 					const score = objectItem.score;
 					if (objectItem.score < 0.9 || !label) return null;
 
 					return (
-						<div key={`analysis-${idx}`}>
+						<div key={`analysis-${index}`}>
 							<span> {label} </span>
 							<span> ({score}) </span>
 							<div

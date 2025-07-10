@@ -1,11 +1,18 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const LandingPage = () => {
-	const [paintingSearch, setPaintingSearch] = useState("");
 	const [photoSearch, setPhotoSearch] = useState("");
+	const [selectedSearchType, setSelectedSearchType] = useState("paintings");
+
+	const handleSearchTypeChange = (event: {
+		target: { value: React.SetStateAction<string> };
+	}) => {
+		setSelectedSearchType(event.target.value);
+	};
 
 	return (
 		<div className="flex flex-col">
@@ -69,22 +76,6 @@ const LandingPage = () => {
 								</div>
 							</div>
 						</figcaption>
-						<div className="mt-4 w-full flex items-center gap-2">
-							<input
-								type="text"
-								maxLength={25}
-								placeholder="Filter by keyword..."
-								value={paintingSearch}
-								onChange={(e) => setPaintingSearch(e.target.value)}
-								className="flex-grow border rounded px-3 py-2 text-sm"
-							/>
-							<button
-								type="button"
-								className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded hover:bg-blue-700"
-							>
-								Explore Art
-							</button>
-						</div>
 					</div>
 
 					{/* Photo Panel */}
@@ -125,22 +116,71 @@ const LandingPage = () => {
 								height={16}
 							/>
 						</figcaption>
-						<div className="mt-4 w-full flex items-center gap-2">
-							<input
-								type="text"
-								maxLength={25}
-								placeholder="Filter by keyword..."
-								value={photoSearch}
-								onChange={(e) => setPhotoSearch(e.target.value)}
-								className="flex-grow border rounded px-3 py-2 text-sm"
-							/>
+					</div>
+				</div>
+				<div className="flex flex-col gap-4 w-1/2 mt-4">
+					<h2 className="text-2xl font-bold">Explore</h2>
+					<div className="flex space-x-4">
+						<div>
+							<label className="flex items-center cursor-pointer">
+								<input
+									type="radio"
+									name="paintings"
+									value="paintings"
+									checked={selectedSearchType === "paintings"}
+									onChange={handleSearchTypeChange}
+									className="peer hidden" // Hide the native radio button
+								/>
+								<div className="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center">
+									{selectedSearchType === "paintings" && (
+										<div className="w-2 h-2 rounded-full bg-white"></div>
+									)}
+								</div>
+								<span className="ml-2 text-gray-700 peer-checked:text-blue-700">
+									Paintings from the Metropolitan Museum of Art
+								</span>
+							</label>
+							<label className="flex items-center cursor-pointer">
+								<input
+									type="radio"
+									name="photos"
+									value="photos"
+									checked={selectedSearchType === "photos"}
+									onChange={handleSearchTypeChange}
+									className="peer hidden" // Hide the native radio button
+								/>
+								<div className="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:bg-blue-500 peer-checked:border-blue-500 flex items-center justify-center">
+									{selectedSearchType === "photos" && (
+										<div className="w-2 h-2 rounded-full bg-white"></div>
+									)}
+								</div>
+								<span className="ml-2 text-gray-700 peer-checked:text-blue-700">
+									Photos from Pexels
+								</span>
+							</label>
+						</div>
+					</div>
+					<div className="mt-4 w-full flex items-center gap-2">
+						<input
+							type="text"
+							maxLength={25}
+							placeholder="Enter search terms..."
+							value={photoSearch}
+							onChange={(event) => setPhotoSearch(event.target.value)}
+							className="flex-grow text-sm px-3 py-2 border-b-2 border-gray-400"
+							aria-label="Enter search terms..."
+						/>
+						<Link
+							href={`/images/search?search=${encodeURIComponent(photoSearch || "")}&searchtype=${encodeURIComponent(selectedSearchType || "")}`}
+						>
 							<button
 								type="button"
-								className="px-4 py-2 text-sm font-semibold bg-green-600 text-white rounded hover:bg-green-700"
+								className="px-4 py-2 text-sm font-semibold bg-blue-600 text-white rounded hover:bg-blue-700"
 							>
-								Explore Photos
+								Explore{" "}
+								{selectedSearchType === "paintings" ? "Paintings" : "Photos"}
 							</button>
-						</div>
+						</Link>
 					</div>
 				</div>
 			</div>

@@ -4,33 +4,46 @@ import {
 	useFetchArtworks,
 	useFetchPhotoWorks,
 } from "@artbrushlens/react-query-hooks";
-import React, { type ReactNode, useMemo, useState } from "react";
+import React, { type ReactNode, useEffect, useMemo, useState } from "react";
 import { MediaSourceContext } from "./media-source-context";
 
-type SourceType = "met" | "pexels";
+type SourceType = "paintings" | "photos";
 
-export const MediaSourceProvider = ({ children }: { children: ReactNode }) => {
-	const [source, setSource] = useState<SourceType>("pexels");
-	const [query, setQuery] = useState<string>("sunflowers");
+export const MediaSourceProvider = ({
+	children,
+	searchType,
+	searchQuery,
+	shouldSearch = false,
+}: {
+	children: ReactNode;
+	searchType: string;
+	searchQuery: string;
+	shouldSearch?: boolean;
+}) => {
+	const [source, setSource] = useState<SourceType>(searchType as SourceType);
+	const [query, setQuery] = useState<string>(searchQuery);
+
+	// Sync internal state with props when they change
+	useEffect(() => {
+		setSource(searchType as SourceType);
+		setQuery(searchQuery);
+	}, [searchType, searchQuery]);
 
 	const {
 		data: metData,
 		isLoading: loadingMet,
 		error: errorMet,
-	} = useFetchArtworks(query, source === "met");
+	} = useFetchArtworks(query, shouldSearch && source === "paintings");
 
 	const {
 		data: pexelsData,
 		isLoading: loadingPexels,
 		error: errorPexels,
-	} = useFetchPhotoWorks(query, source === "pexels");
+	} = useFetchPhotoWorks(query, shouldSearch && source === "photos");
 
-	const data = source === "met" ? metData : pexelsData;
-	const isLoading = source === "met" ? loadingMet : loadingPexels;
-	const error = source === "met" ? errorMet : errorPexels;
-
-	console.log("Provider....data = ", data);
-	console.log("Provider....typeof data = ", typeof data);
+	const data = source === "paintings" ? metData : pexelsData;
+	const isLoading = source === "paintings" ? loadingMet : loadingPexels;
+	const error = source === "paintings" ? errorMet : errorPexels;
 
 	const value = useMemo(
 		() => ({ source, query, data, isLoading, error, setSource, setQuery }),

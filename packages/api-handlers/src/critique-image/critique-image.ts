@@ -42,8 +42,6 @@ export const critiqueImage = async (
 ): Promise<Response> => {
 	const { imageUrl } = await request.json();
 
-	console.log("critiqueImage imageUrl:", imageUrl);
-
 	if (process.env.USE_MOCK_CRITIQUE === "true") {
 		console.log("🎨 Using mock image critique data");
 
@@ -74,7 +72,6 @@ export const critiqueImage = async (
 	}
 
 	const data = await response.json();
-	console.log("critiqueImage result:", data);
 
 	// Check if the result contains an error
 	if (data.error) {

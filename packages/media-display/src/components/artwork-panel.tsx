@@ -11,7 +11,8 @@ export const ArtworkPanel = ({ artwork }: { artwork: Artwork }) => {
 			<div className="relative aspect-[4/3] h-48 bg-gray-200">
 				{artwork.imageUrl ? (
 					<Image
-						fill
+						width={600}
+						height={0}
 						sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 						src={artwork.imageUrl}
 						alt={artwork.title}
