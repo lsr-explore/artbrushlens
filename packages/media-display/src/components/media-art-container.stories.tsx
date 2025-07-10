@@ -2,12 +2,11 @@ import type { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks, mockPhotoArtworks } from "../__stories__/mock-data";
-import { MediaSourceContext } from "../media-source-context";
-import { MediaArtContainer } from "./media-art-container";
+import { MediaArtContainerStory } from "../__stories__/story-components";
 
-const meta: Meta<typeof MediaArtContainer> = {
+const meta: Meta<typeof MediaArtContainerStory> = {
 	title: "Components/MediaArtContainer",
-	component: MediaArtContainer,
+	component: MediaArtContainerStory,
 	parameters: {
 		layout: "fullscreen",
 	},
@@ -24,95 +23,59 @@ const meta: Meta<typeof MediaArtContainer> = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const createMockContext = (data: {
-	total: number;
-	artworks: Artwork[];
-	mock?: boolean;
-}) => ({
-	source: "paintings" as const,
-	data,
-	isLoading: false,
-	error: null,
-});
-
 export const WithArtworks: Story = {
-	decorators: [
-		(Story) => (
-			<MediaSourceContext.Provider
-				value={createMockContext({
-					total: mockArtworks.length,
-					artworks: mockArtworks,
-					mock: true,
-				})}
-			>
-				<Story />
-			</MediaSourceContext.Provider>
-		),
-	],
+	args: {
+		data: {
+			total: mockArtworks.length,
+			artworks: mockArtworks,
+			mock: true,
+		},
+		source: "paintings",
+		isLoading: false,
+		error: null,
+	},
 };
 
 export const WithPhotos: Story = {
-	decorators: [
-		(Story) => (
-			<MediaSourceContext.Provider
-				value={createMockContext({
-					total: mockPhotoArtworks.length,
-					artworks: mockPhotoArtworks,
-					mock: true,
-				})}
-			>
-				<Story />
-			</MediaSourceContext.Provider>
-		),
-	],
+	args: {
+		data: {
+			total: mockPhotoArtworks.length,
+			artworks: mockPhotoArtworks,
+			mock: true,
+		},
+		source: "photos",
+		isLoading: false,
+		error: null,
+	},
 };
 
 export const Loading: Story = {
-	decorators: [
-		(Story) => (
-			<MediaSourceContext.Provider
-				value={{
-					source: "paintings" as const,
-					data: undefined,
-					isLoading: true,
-					error: null,
-				}}
-			>
-				<Story />
-			</MediaSourceContext.Provider>
-		),
-	],
+	args: {
+		data: undefined,
+		source: "paintings",
+		isLoading: true,
+		error: null,
+	},
 };
 
 export const ErrorState: Story = {
-	decorators: [
-		(Story) => (
-			<MediaSourceContext.Provider
-				value={{
-					source: "paintings" as const,
-					data: undefined,
-					isLoading: false,
-					error: new Error("Failed to load artworks") as Error,
-				}}
-			>
-				<Story />
-			</MediaSourceContext.Provider>
-		),
-	],
+	args: {
+		data: undefined,
+		source: "paintings",
+		isLoading: false,
+		error: new Error("Failed to load artworks"),
+	},
 };
 
 export const Empty: Story = {
-	decorators: [
-		(Story) => (
-			<MediaSourceContext.Provider
-				value={createMockContext({
-					total: 0,
-					artworks: [],
-					mock: true,
-				})}
-			>
-				<Story />
-			</MediaSourceContext.Provider>
-		),
-	],
+	args: {
+		data: {
+			total: 0,
+			artworks: [],
+			mock: true,
+		},
+		source: "paintings",
+		isLoading: false,
+		error: null,
+	},
 };

@@ -1,5 +1,6 @@
 import type { Artwork } from "@artbrushlens/shared-types";
 import React from "react";
+import { MediaLayout } from "../components/media-layout";
 import { Image, Link } from "./mock-components";
 
 // Story version of ArtworkPanel
@@ -114,5 +115,45 @@ export const PhotoPanelStory = ({ artwork }: { artwork: Artwork }) => {
 				</div>
 			</div>
 		</div>
+	);
+};
+
+// Story version of MediaArtContainer
+export const MediaArtContainerStory = ({
+	data,
+	isLoading,
+	error,
+	source,
+}: {
+	data?: { total: number; artworks: Artwork[]; mock?: boolean };
+	isLoading?: boolean;
+	error?: Error | null;
+	source?: "paintings" | "photos";
+}) => {
+	if (isLoading) return <p className="p-6 text-center">Loading...</p>;
+	if (error)
+		return (
+			<p className="p-6 text-center text-red-600">Error: {error.message}</p>
+		);
+	if (!data || data.artworks.length === 0)
+		return <p className="p-6 text-center">No results found.</p>;
+
+	return (
+		<MediaLayout
+			artworks={data.artworks}
+			renderItem={(item: Artwork) =>
+				source === "paintings" ? (
+					<ArtworkPanelStory key={item.id} artwork={item} />
+				) : (
+					<PhotoPanelStory key={item.id} artwork={item} />
+				)
+			}
+			title={
+				source === "paintings"
+					? "Metropolitan Museum of Art Collection"
+					: "Pexels Photo Collection"
+			}
+			subtitle="Discover and analyze beautiful imagery with AI"
+		/>
 	);
 };
