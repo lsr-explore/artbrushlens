@@ -12,7 +12,7 @@
 	},
 	"scripts": {
 		"build": "tsc --build tsconfig.json && npm run copy:css",
-		"copy:css": "cpx2 './src/**/*.css' dist/src",
+		"copy:css": "cpx './src/**/*.css' dist/src",
 		"dev": "tsc --watch",
 		"clean": "rm -rf dist",
 		"lint": "eslint --fix .",
