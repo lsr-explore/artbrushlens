@@ -49,7 +49,7 @@ export const PhotoPanel = ({ artwork }: { artwork: Artwork }) => {
 				<div className="flex justify-between items-center">
 					<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 					<Link
-						href={`/images/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id} || ""}`}
+						href={`/images/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id}`}
 					>
 						<button
 							type="button"
