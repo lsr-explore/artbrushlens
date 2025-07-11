@@ -117,7 +117,10 @@ describe("detectObjects", () => {
 			http.post(
 				`https://api-inference.huggingface.co/models/${mockModelId}`,
 				() => {
-					return HttpResponse.error();
+					return new HttpResponse(JSON.stringify({}), {
+						status: 500,
+						headers: { "Content-Type": "application/json" },
+					});
 				},
 			),
 		);
@@ -127,8 +130,9 @@ describe("detectObjects", () => {
 			modelId: mockModelId,
 		});
 
-		await expect(detectObjects(request)).rejects.toThrow();
-
+		const result = await detectObjects(request);
+		expect(result).toBeInstanceOf(Response);
+		expect(result.status).toBe(500);
 		// Restore original value
 		process.env.USE_MOCK_DETECTION = originalValue;
 	});

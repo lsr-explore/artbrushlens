@@ -107,15 +107,18 @@ describe("critiqueImage", () => {
 			http.post(
 				"https://api-inference.huggingface.co/models/vinvino02/saliency-model",
 				() => {
-					return HttpResponse.error();
+					return new HttpResponse(JSON.stringify({}), {
+						status: 500,
+						headers: { "Content-Type": "application/json" },
+					});
 				},
 			),
 		);
 
 		const request = mockRequest({ imageUrl: mockImageUrl });
-
-		await expect(critiqueImage(request)).rejects.toThrow();
-
+		const result = await critiqueImage(request);
+		expect(result).toBeInstanceOf(Response);
+		expect(result.status).toBe(500);
 		// Restore original value
 		process.env.USE_MOCK_CRITIQUE = originalValue;
 	});
