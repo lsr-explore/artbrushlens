@@ -1,10 +1,14 @@
 import { cleanup } from "@testing-library/react";
 import { afterAll, afterEach, beforeAll } from "vitest";
+import { server } from "../../mocks/server";
 
-// runs a cleanup after each test case (e.g. clearing jsdom)
+// Setup MSW
+beforeAll(() => server.listen());
 afterEach(() => {
+	server.resetHandlers();
 	cleanup();
 });
+afterAll(() => server.close());
 
 // Mock environment variables
 process.env.NODE_ENV = "test";
