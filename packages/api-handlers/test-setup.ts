@@ -1,10 +1,10 @@
-import { afterEach, beforeAll, afterAll } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import { server } from './mocks/handlers';
+import { cleanup } from "@testing-library/react";
+import { afterAll, afterEach, beforeAll } from "vitest";
+import { server } from "../../mocks/server";
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
-  cleanup();
+	cleanup();
 });
 
 // Establish API mocking before all tests
@@ -15,3 +15,7 @@ afterEach(() => server.resetHandlers());
 
 // Clean up after the tests are finished
 afterAll(() => server.close());
+
+// Mock environment variables
+process.env.NODE_ENV = "test";
+process.env.USE_LOCAL_AI = "true";

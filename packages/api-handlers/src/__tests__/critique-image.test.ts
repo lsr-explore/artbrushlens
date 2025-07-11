@@ -1,5 +1,5 @@
 import { HttpResponse, http } from "msw";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { server } from "../../../../mocks/dist/server";
 import { critiqueImage } from "../critique-image/critique-image";
 
@@ -12,6 +12,9 @@ const mockRequest = (body: any) =>
 describe("critiqueImage", () => {
 	beforeEach(() => {
 		vi.clearAllMocks();
+	});
+	beforeAll(() => {
+		process.env.HF_TOKEN = "test-token";
 	});
 
 	it("should return mock data when USE_MOCK_CRITIQUE is true", async () => {
@@ -102,15 +105,21 @@ describe("critiqueImage", () => {
 
 		const mockImageUrl = "https://example.com/test-image.jpg";
 
-		// Add MSW handler for this specific test to simulate error
 		server.use(
 			http.post(
 				"https://api-inference.huggingface.co/models/vinvino02/saliency-model",
-				() => {
-					return new HttpResponse(JSON.stringify({}), {
-						status: 500,
-						headers: { "Content-Type": "application/json" },
-					});
+				({ request }) => {
+					const token = request.headers.get("authorization");
+					console.log(".....token in the test", token);
+
+					if (!token || !token.includes("test-token")) {
+						return HttpResponse.json(
+							{ error: "unauthorized" },
+							{ status: 401 },
+						);
+					}
+
+					return HttpResponse.json({ error: "mocked error" }, { status: 500 });
 				},
 			),
 		);
