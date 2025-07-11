@@ -110,7 +110,7 @@ describe("PhotoPanel", () => {
 
 		const button = screen.getByRole("button");
 		expect(button).toHaveClass(
-			"button-background",
+			"bg-indigo-500",
 			"text-white",
 			"text-xs",
 			"px-4",

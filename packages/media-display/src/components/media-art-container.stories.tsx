@@ -2,11 +2,11 @@ import type { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks, mockPhotoArtworks } from "../__stories__/mock-data";
-import { MediaArtContainerStory } from "../__stories__/story-components";
+import { MediaArtContainer } from "./media-art-container";
 
-const meta: Meta<typeof MediaArtContainerStory> = {
+const meta: Meta<typeof MediaArtContainer> = {
 	title: "Components/MediaArtContainer",
-	component: MediaArtContainerStory,
+	component: MediaArtContainer,
 	parameters: {
 		layout: "fullscreen",
 	},

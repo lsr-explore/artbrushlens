@@ -106,10 +106,13 @@ describe("ArtworkPanel", () => {
 			"bg-indigo-500",
 			"text-white",
 			"text-xs",
-			"px-3",
-			"py-1",
+			"px-4",
+			"py-2",
 			"rounded",
 			"hover:bg-indigo-600",
+			"transition-colors",
+			"duration-200",
+			"font-medium",
 		);
 	});
 

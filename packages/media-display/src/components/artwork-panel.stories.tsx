@@ -1,11 +1,18 @@
+import { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks } from "../__stories__/mock-data";
-import { ArtworkPanelStory } from "../__stories__/story-components";
+import { ArtworkPanel } from "./artwork-panel";
 
-const meta: Meta<typeof ArtworkPanelStory> = {
+const ArtworkPanelStory = ({ artwork }: { artwork: Artwork }) => (
+	<div style={{ maxWidth: 400 }}>
+		<ArtworkPanel artwork={artwork} />
+	</div>
+);
+
+const meta: Meta<typeof ArtworkPanel> = {
 	title: "Components/ArtworkPanel",
-	component: ArtworkPanelStory,
+	component: ArtworkPanel,
 	parameters: {
 		layout: "centered",
 	},

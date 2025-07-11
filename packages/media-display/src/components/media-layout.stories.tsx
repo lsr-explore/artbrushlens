@@ -2,11 +2,9 @@ import type { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockArtworks, mockPhotoArtworks } from "../__stories__/mock-data";
-import {
-	ArtworkPanelStory,
-	PhotoPanelStory,
-} from "../__stories__/story-components";
+import { ArtworkPanelStory } from "./artwork-panel.stories";
 import { MediaLayout } from "./media-layout";
+import { PhotoPanelStory } from "./photo-panel.stories";
 
 const meta: Meta<typeof MediaLayout> = {
 	title: "Components/MediaLayout",

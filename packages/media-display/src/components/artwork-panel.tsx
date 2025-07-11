@@ -41,17 +41,18 @@ export const ArtworkPanel = ({ artwork }: { artwork: Artwork }) => {
 
 				{/* Action Button */}
 				<div className="flex justify-between items-center">
-					<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 					<Link
 						href={`/images/analyze/${artwork.id}?imageUrl=${encodeURIComponent(artwork.imageUrl || "")}&title=${encodeURIComponent(artwork.title)}&artist=${encodeURIComponent(artwork.artist || "")}&description=${encodeURIComponent(artwork.description || "")}&id=${artwork.id}`}
 					>
 						<button
 							type="button"
-							className="button-background text-white text-xs  px-4 py-2 rounded hover:bg-indigo-600"
+							className="bg-indigo-500 text-white text-xs  px-4 py-2 rounded hover:bg-indigo-600 transition-colors duration-200 font-medium"
 						>
 							Analyze Image
 						</button>
 					</Link>
+
+					<span className="text-xs text-gray-400">ID: {artwork.id}</span>
 				</div>
 			</div>
 		</div>

@@ -1,11 +1,18 @@
+import { Artwork } from "@artbrushlens/shared-types";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { mockPhotoArtworks } from "../__stories__/mock-data";
-import { PhotoPanelStory } from "../__stories__/story-components";
+import { PhotoPanel } from "./photo-panel";
 
-const meta: Meta<typeof PhotoPanelStory> = {
+const PhotoPanelStory = ({ artwork }: { artwork: Artwork }) => (
+	<div style={{ maxWidth: 400 }}>
+		<PhotoPanel artwork={artwork} />
+	</div>
+);
+
+const meta: Meta<typeof PhotoPanel> = {
 	title: "Components/PhotoPanel",
-	component: PhotoPanelStory,
+	component: PhotoPanel,
 	parameters: {
 		layout: "centered",
 	},
