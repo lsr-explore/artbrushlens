@@ -1,15 +1,10 @@
-import { beforeAll, afterEach, afterAll } from 'vitest';
-import { cleanup } from '@testing-library/react';
-import { server } from './mocks/dist/server';
+import { cleanup } from "@testing-library/react";
+import { afterEach } from "vitest";
 
-// Setup MSW
-beforeAll(() => server.listen());
 afterEach(() => {
-  server.resetHandlers();
-  cleanup();
+	cleanup();
 });
-afterAll(() => server.close());
 
 // Mock environment variables
-process.env.NODE_ENV = 'test';
-process.env.USE_LOCAL_AI = 'true';
+process.env.NODE_ENV = "test";
+process.env.USE_LOCAL_AI = "true";

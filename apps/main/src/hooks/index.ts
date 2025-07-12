@@ -1,2 +1,2 @@
-export * from "./useMetSearch";
-export * from "./usePhotoSearch";
+export * from "./use-met-search";
+export * from "./use-photo-search";

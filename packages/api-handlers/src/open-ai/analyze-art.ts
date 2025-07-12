@@ -20,9 +20,6 @@ export const analyzeArt = async (request: NextRequest): Promise<Response> => {
 
 		// Return a random mock analysis
 		const randomIndex = Math.floor(Math.random() * MOCK_AI_ANALYSES.length);
-		console.log(
-			`randomIndex: ${randomIndex} | length: ${MOCK_AI_ANALYSES.length}`,
-		);
 		return Response.json({
 			result: `AI Analysis of "${artwork.title}" by ${artwork.artist}: ${MOCK_AI_ANALYSES[randomIndex]}`,
 		});

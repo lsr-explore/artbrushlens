@@ -9,7 +9,7 @@ export const LoadingError = ({ error }: { error: Error }) => {
 				<p className="text-red-600 text-sm">{error.message}</p>
 				<button
 					type="button"
-					onClick={() => window.location.reload()}
+					onClick={() => globalThis.location.reload()}
 					className="mt-4 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
 				>
 					Retry

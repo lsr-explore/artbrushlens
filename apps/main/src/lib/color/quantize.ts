@@ -11,13 +11,13 @@ const hexToRgb = (hex: string) => {
 	if (h.length === 3) h = [...h].map((x) => x + x).join("");
 	else if (h.length === 8) alpha = true;
 
-	const hNum = parseInt(h, 16);
+	const hNumber = Number.parseInt(h, 16);
 
 	return [
-		hNum >>> (alpha ? 24 : 16),
-		(hNum & (alpha ? 0x00ff0000 : 0x00ff00)) >>> (alpha ? 16 : 8),
-		(hNum & (alpha ? 0x0000ff00 : 0x0000ff)) >>> (alpha ? 8 : 0),
-		alpha ? hNum & 0x000000ff : 0,
+		hNumber >>> (alpha ? 24 : 16),
+		(hNumber & (alpha ? 0x00_FF_00_00 : 0x00_FF_00)) >>> (alpha ? 16 : 8),
+		(hNumber & (alpha ? 0x00_00_FF_00 : 0x00_00_FF)) >>> (alpha ? 8 : 0),
+		alpha ? hNumber & 0x00_00_00_FF : 0,
 	];
 };
 
@@ -44,11 +44,11 @@ export const quantizeImageData = (
 		return Math.floor(value / step) * step;
 	};
 
-	for (let i = 0; i < data.length; i += 4) {
-		const r = data[i];
-		const g = data[i + 1];
-		const b = data[i + 2];
-		const a = data[i + 3];
+	for (let index = 0; index < data.length; index += 4) {
+		const r = data[index];
+		const g = data[index + 1];
+		const b = data[index + 2];
+		const a = data[index + 3];
 		if (a < 128) continue; // Skip transparent pixels
 
 		// Apply quantization
@@ -60,7 +60,7 @@ export const quantizeImageData = (
 		colorMap.set(hex, (colorMap.get(hex) || 0) + 1);
 	}
 
-	const entries: ColorCount[] = Array.from(colorMap.entries())
+	const entries: ColorCount[] = [...colorMap.entries()]
 		.map(([color, count]) => ({
 			color,
 			rgb: hexToRgb(color),

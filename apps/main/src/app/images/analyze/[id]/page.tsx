@@ -23,11 +23,11 @@ const getImageDataFromImageElement = (
 	const canvas = document.createElement("canvas");
 	canvas.width = img.naturalWidth;
 	canvas.height = img.naturalHeight;
-	const ctx = canvas.getContext("2d");
-	if (!ctx) return null;
+	const context = canvas.getContext("2d");
+	if (!context) return null;
 
-	ctx.drawImage(img, 0, 0);
-	return ctx.getImageData(0, 0, canvas.width, canvas.height);
+	context.drawImage(img, 0, 0);
+	return context.getImageData(0, 0, canvas.width, canvas.height);
 };
 
 const getColorPercentages = (element: HTMLImageElement | null) => {
@@ -49,12 +49,12 @@ const getRandomColor = (): string => {
 };
 
 const AnalyzePage = () => {
-	const searchParams = useSearchParams();
+	const searchParameters = useSearchParams();
 	const artwork = {
-		imageUrl: searchParams.get("imageUrl"),
-		title: searchParams.get("title"),
-		id: searchParams.get("id"),
-		author: searchParams.get("author"),
+		imageUrl: searchParameters.get("imageUrl"),
+		title: searchParameters.get("title"),
+		id: searchParameters.get("id"),
+		author: searchParameters.get("author"),
 	};
 
 	const [selectedModel, setSelectedModel] = useState(HUGGINGFACE_MODELS[0]);
@@ -76,7 +76,6 @@ const AnalyzePage = () => {
 		};
 
 		if (img.complete) {
-			console.log("Image already loaded");
 			handleLoad();
 		} else {
 			setImageLoaded(false);
@@ -87,14 +86,13 @@ const AnalyzePage = () => {
 
 	useEffect(() => {
 		if (!imageLoaded) return;
-		console.log("Image loaded");
 		const img = imageReference.current;
 
 		const colorThief = new ColorThief();
 		if (img?.complete) {
 			try {
-				const element = document.getElementById(
-					"artwork-image",
+				const element = document.querySelector(
+					"#artwork-image",
 				) as HTMLImageElement;
 				if (!element) return;
 				const result = colorThief.getPalette(element, 10);
@@ -103,8 +101,8 @@ const AnalyzePage = () => {
 				setDominantColor(color);
 				const colorAmounts = getColorPercentages(element);
 				setColorPercentages(colorAmounts);
-			} catch (err) {
-				console.error("ColorThief failed:", err);
+			} catch (error) {
+				console.error("ColorThief failed:", error);
 			}
 		}
 	}, [imageLoaded]);
@@ -141,8 +139,8 @@ const AnalyzePage = () => {
 				};
 			});
 			setAnalysisResult(colorCodedResult);
-		} catch (err) {
-			console.error("Error analyzing image:", err);
+		} catch (error) {
+			console.error("Error analyzing image:", error);
 		} finally {
 			setLoading(false);
 		}

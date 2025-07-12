@@ -46,7 +46,7 @@ export const ArtworkPanel = ({ artwork }: { artwork: Artwork }) => {
 					>
 						<button
 							type="button"
-							className="bg-indigo-500 text-white text-xs px-3 py-1 rounded hover:bg-indigo-600"
+							className="bg-indigo-500 text-white text-xs  px-4 py-2 rounded hover:bg-indigo-600 transition-colors duration-200 font-medium"
 						>
 							Analyze Image
 						</button>

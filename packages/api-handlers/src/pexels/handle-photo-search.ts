@@ -8,8 +8,6 @@ export const handlePhotoSearch = async (
 	const { searchParams } = new URL(request.url);
 	const q = searchParams.get("q");
 
-	console.log("🔍 q =", q);
-
 	if (!q) {
 		return Response.json({ error: "Missing query param `q`" }, { status: 400 });
 	}

@@ -3,7 +3,7 @@ import { vi } from "vitest";
 
 // Mock global fetch
 const mockFetch = vi.fn();
-Object.defineProperty(global, "fetch", {
+Object.defineProperty(globalThis, "fetch", {
 	value: mockFetch,
 	writable: true,
 });

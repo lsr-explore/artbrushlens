@@ -1,3 +1,3 @@
-export * from "./Footer";
-export * from "./Header";
-export * from "./SiteLayout";
+export * from "./footer";
+export * from "./header";
+export * from "./site-layout";

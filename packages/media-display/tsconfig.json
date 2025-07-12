@@ -13,7 +13,8 @@
 		"**/*.spec.*",
 		"**/test-*",
 		"**/tests/**",
-		"**/__tests__/**"
+		"**/__tests__/**",
+		"**/*.stories.tsx"
 	],
 	"references": [
 		{ "path": "../shared-types" },

@@ -71,14 +71,23 @@ export const detectObjects = async (
 	);
 
 	if (!response.ok) {
-		throw new Error(`HTTP error! status: ${response.status}`);
+		return new Response(
+			JSON.stringify({ error: `HTTP error! status: ${response.status}` }),
+			{
+				status: response.status,
+				headers: { "Content-Type": "application/json" },
+			},
+		);
 	}
 
 	const result = await response.json();
 
 	// Check if the result contains an error
 	if (result.error) {
-		throw new Error(result.error);
+		return new Response(JSON.stringify({ error: result.error }), {
+			status: 500,
+			headers: { "Content-Type": "application/json" },
+		});
 	}
 
 	return Response.json(result);

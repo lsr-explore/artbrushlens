@@ -10,7 +10,7 @@ describe("Landing Page", () => {
 		cy.get("select").select("photo");
 
 		// Wait for images to load
-		cy.get('[data-testid="photo-grid"]', { timeout: 10000 }).should(
+		cy.get('[data-testid="photo-grid"]', { timeout: 10_000 }).should(
 			"be.visible",
 		);
 

@@ -1,9 +1,23 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockPhotoWorks } from "../../../../mocks/dist/data";
 import { fetchPhotoWorks } from "../fetch-photo-works";
 
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
+
 describe("fetchPhotoWorks", () => {
+	beforeEach(() => {
+		// Clear all mocks before each test
+		vi.clearAllMocks();
+	});
+
 	it("should fetch photo works successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockPhotoWorks }),
+		} as unknown as Response);
+
 		const result = await fetchPhotoWorks("city street");
 
 		expect(result).toBeDefined();
@@ -20,6 +34,12 @@ describe("fetchPhotoWorks", () => {
 		const queries = ["nature", "urban", "landscape"];
 
 		for (const query of queries) {
+			// Mock successful response for each query
+			mockFetch.mockResolvedValueOnce({
+				ok: true,
+				json: vi.fn().mockResolvedValue({ artworks: mockPhotoWorks }),
+			} as unknown as Response);
+
 			const result = await fetchPhotoWorks(query);
 			expect(result).toBeDefined();
 			expect(Array.isArray(result.artworks)).toBe(true);
@@ -31,6 +51,12 @@ describe("fetchPhotoWorks", () => {
 	});
 
 	it("should include required photo properties", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockPhotoWorks }),
+		} as unknown as Response);
+
 		const result = await fetchPhotoWorks("test");
 
 		if (result.artworks.length > 0) {
@@ -39,5 +65,16 @@ describe("fetchPhotoWorks", () => {
 			expect(photo).toHaveProperty("url");
 			expect(photo).toHaveProperty("photographer");
 		}
+	});
+
+	it("should throw error when fetch fails", async () => {
+		// Mock failed response
+		mockFetch.mockResolvedValueOnce({
+			ok: false,
+		} as unknown as Response);
+
+		await expect(fetchPhotoWorks("test")).rejects.toThrow(
+			"Failed to fetch artworks",
+		);
 	});
 });
