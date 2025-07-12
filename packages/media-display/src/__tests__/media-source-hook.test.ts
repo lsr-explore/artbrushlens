@@ -41,7 +41,7 @@ describe("useMediaSource", () => {
 	});
 
 	it("should return context value when context exists", () => {
-		(useContext as any).mockReturnValue(mockContextValue);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(mockContextValue);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -58,7 +58,7 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			source: "paintings" as const,
 		};
-		(useContext as any).mockReturnValue(paintingsContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(paintingsContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -70,7 +70,7 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			source: "photos" as const,
 		};
-		(useContext as any).mockReturnValue(photosContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(photosContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -82,7 +82,7 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			isLoading: true,
 		};
-		(useContext as any).mockReturnValue(loadingContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(loadingContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -95,7 +95,7 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			error: mockError,
 		};
-		(useContext as any).mockReturnValue(errorContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(errorContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -107,7 +107,9 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			data: undefined,
 		};
-		(useContext as any).mockReturnValue(undefinedDataContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(
+			undefinedDataContext,
+		);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -122,7 +124,9 @@ describe("useMediaSource", () => {
 				artworks: [] as Artwork[],
 			},
 		};
-		(useContext as any).mockReturnValue(emptyArtworksContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(
+			emptyArtworksContext,
+		);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -151,7 +155,9 @@ describe("useMediaSource", () => {
 				artworks: multipleArtworks,
 			},
 		};
-		(useContext as any).mockReturnValue(multipleArtworksContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(
+			multipleArtworksContext,
+		);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -175,7 +181,7 @@ describe("useMediaSource", () => {
 				artworks: minimalArtworks,
 			},
 		};
-		(useContext as any).mockReturnValue(minimalContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(minimalContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -196,7 +202,7 @@ describe("useMediaSource", () => {
 				mock: true,
 			},
 		};
-		(useContext as any).mockReturnValue(mockDataContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(mockDataContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -204,7 +210,7 @@ describe("useMediaSource", () => {
 	});
 
 	it("should throw error when context is undefined", () => {
-		(useContext as any).mockReturnValue(undefined);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue();
 
 		expect(() => {
 			renderHook(() => useMediaSource());
@@ -212,7 +218,7 @@ describe("useMediaSource", () => {
 	});
 
 	it("should throw error when context is null", () => {
-		(useContext as any).mockReturnValue(null);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue();
 
 		expect(() => {
 			renderHook(() => useMediaSource());
@@ -236,7 +242,7 @@ describe("useMediaSource", () => {
 				artworks: largeArtworks,
 			},
 		};
-		(useContext as any).mockReturnValue(largeContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(largeContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -251,7 +257,9 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			error: complexError,
 		};
-		(useContext as any).mockReturnValue(complexErrorContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(
+			complexErrorContext,
+		);
 
 		const { result } = renderHook(() => useMediaSource());
 
@@ -264,7 +272,7 @@ describe("useMediaSource", () => {
 			...mockContextValue,
 			error: null,
 		};
-		(useContext as any).mockReturnValue(nullErrorContext);
+		(useContext as ReturnType<typeof vi.fn>).mockReturnValue(nullErrorContext);
 
 		const { result } = renderHook(() => useMediaSource());
 
