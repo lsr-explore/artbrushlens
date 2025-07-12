@@ -39,7 +39,7 @@ This project prioritizes a clean and scalable architecture to support rapid iter
 | ADR # | Topic                                        |
 | ----- | -------------------------------------------- |
 | 0001  | Use Next.js App Router over Pages Router     |
-| 0002  | Use Supabase for storage/auth                |
+| 0002  | Use Supabase for storage/auth - TBD          |
 | 0003  | Use Hugging Face for image analysis          |
 | 0004  | Use React 19 (canary) instead of React 18    |
 | 0005  | Replace CSS masonry with `react-masonry-css` |

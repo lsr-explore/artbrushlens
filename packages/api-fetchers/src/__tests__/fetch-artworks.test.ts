@@ -1,14 +1,24 @@
 import { fetchArtworks } from "@artbrushlens/api-fetchers";
-import { beforeEach, describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { mockArtworks } from "../../../../mocks/dist/data";
 
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
+
 describe("fetchArtworks", () => {
 	beforeEach(() => {
-		// Reset any test state
+		// Clear all mocks before each test
+		vi.clearAllMocks();
 	});
 
 	it("should fetch artworks successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+		} as unknown as Response);
+
 		const result = await fetchArtworks("sunflowers");
 
 		expect(result).toBeDefined();
@@ -21,6 +31,12 @@ describe("fetchArtworks", () => {
 	});
 
 	it("should handle empty search results", async () => {
+		// Mock response with empty results
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: [] }),
+		} as unknown as Response);
+
 		const result = await fetchArtworks("nonexistentquery");
 
 		expect(result).toBeDefined();
@@ -32,6 +48,12 @@ describe("fetchArtworks", () => {
 	});
 
 	it("should include all required artwork properties", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+		} as unknown as Response);
+
 		const result = await fetchArtworks("test");
 
 		if (result.artworks.length > 0) {
@@ -40,5 +62,16 @@ describe("fetchArtworks", () => {
 			expect(artwork).toHaveProperty("title");
 			expect(artwork).toHaveProperty("artist");
 		}
+	});
+
+	it("should throw error when fetch fails", async () => {
+		// Mock failed response
+		mockFetch.mockResolvedValueOnce({
+			ok: false,
+		} as Response);
+
+		await expect(fetchArtworks("test")).rejects.toThrow(
+			"Failed to fetch artworks",
+		);
 	});
 });

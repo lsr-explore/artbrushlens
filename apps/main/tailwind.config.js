@@ -15,6 +15,7 @@ module.exports = {
 		"bg-yellow-500",
 		"bg-orange-500",
 		"bg-red-500",
+		"bg-gray-200",
 		"bg-gray-50",
 		"text-white",
 		"text-gray-50",

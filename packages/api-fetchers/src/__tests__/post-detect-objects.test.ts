@@ -1,17 +1,25 @@
-import { describe, it, expect } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockDetectionResult } from "../../../../mocks/dist/data";
 import { postDetectObjects } from "../post-detect-objects";
 
-interface DetectionResult {
-	label: string;
-	score: number;
-	box: { xmin: number; ymin: number; xmax: number; ymax: number };
-}
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
 
 describe("postDetectObjects", () => {
 	const mockImageData = new ArrayBuffer(8);
 
+	beforeEach(() => {
+		// Clear all mocks before each test
+		vi.clearAllMocks();
+	});
+
 	it("should detect objects successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const result = await postDetectObjects(mockImageData);
 
 		expect(result).toBeDefined();
@@ -20,6 +28,12 @@ describe("postDetectObjects", () => {
 	});
 
 	it("should return objects with required properties", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const result = await postDetectObjects(mockImageData);
 
 		if (result.length > 0) {
@@ -40,11 +54,29 @@ describe("postDetectObjects", () => {
 	});
 
 	it("should return valid confidence scores", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const result = await postDetectObjects(mockImageData);
 
-		result.forEach((detection: DetectionResult) => {
+		for (const detection of result) {
 			expect(detection.score).toBeGreaterThanOrEqual(0);
 			expect(detection.score).toBeLessThanOrEqual(1);
-		});
+		}
+	});
+
+	it("should throw error when fetch fails", async () => {
+		// Mock failed response
+		mockFetch.mockResolvedValueOnce({
+			ok: false,
+			json: vi.fn().mockResolvedValue({ error: "Detection failed" }),
+		} as unknown as Response);
+
+		await expect(postDetectObjects(mockImageData)).rejects.toThrow(
+			"Detection failed",
+		);
 	});
 });

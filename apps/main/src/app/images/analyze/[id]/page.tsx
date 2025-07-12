@@ -76,7 +76,6 @@ const AnalyzePage = () => {
 		};
 
 		if (img.complete) {
-			console.log("Image already loaded");
 			handleLoad();
 		} else {
 			setImageLoaded(false);
@@ -87,7 +86,6 @@ const AnalyzePage = () => {
 
 	useEffect(() => {
 		if (!imageLoaded) return;
-		console.log("Image loaded");
 		const img = imageReference.current;
 
 		const colorThief = new ColorThief();
