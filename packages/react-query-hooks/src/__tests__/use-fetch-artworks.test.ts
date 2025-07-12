@@ -1,11 +1,25 @@
 import { waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockArtworks } from "../../../../mocks/dist/data";
 import { useFetchArtworks } from "../use-fetch-artworks";
 import { renderHookWithQueryClient } from "./test-utilities";
 
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
+
 describe("useFetchArtworks", () => {
+	beforeEach(() => {
+		// Clear all mocks before each test
+		vi.clearAllMocks();
+	});
+
 	it("should fetch artworks successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() =>
 			useFetchArtworks("sunflowers"),
 		);
@@ -19,7 +33,7 @@ describe("useFetchArtworks", () => {
 
 		expect(result.current.data).toBeDefined();
 		expect(result.current.data?.artworks).toHaveLength(mockArtworks.length);
-		expect(result.current.error).toBe(null);
+		expect(result.current.error).toBeNull();
 	});
 
 	it("should not fetch when query is empty", () => {
@@ -39,6 +53,12 @@ describe("useFetchArtworks", () => {
 	});
 
 	it("should have correct query key", () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() =>
 			useFetchArtworks("sunflowers"),
 		);
@@ -48,6 +68,17 @@ describe("useFetchArtworks", () => {
 	});
 
 	it("should refetch when query changes", async () => {
+		// Mock successful responses for both queries
+		mockFetch
+			.mockResolvedValueOnce({
+				ok: true,
+				json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+			} as unknown as Response)
+			.mockResolvedValueOnce({
+				ok: true,
+				json: vi.fn().mockResolvedValue({ artworks: mockArtworks }),
+			} as unknown as Response);
+
 		let query = "sunflowers";
 		const { result, rerender } = renderHookWithQueryClient(() =>
 			useFetchArtworks(query),
@@ -56,8 +87,6 @@ describe("useFetchArtworks", () => {
 		await waitFor(() => {
 			expect(result.current.isSuccess).toBe(true);
 		});
-
-		const firstData = result.current.data;
 
 		// Change query
 		query = "monet";

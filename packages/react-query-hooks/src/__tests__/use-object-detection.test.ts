@@ -1,11 +1,25 @@
 import { waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockDetectionResult } from "../../../../mocks/dist/data";
 import { useDetectObjects } from "../use-object-detection";
 import { renderHookWithQueryClient } from "./test-utilities";
 
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
+
 describe("useObjectDetection", () => {
+	beforeEach(() => {
+		// Clear all mocks before each test
+		vi.clearAllMocks();
+	});
+
 	it("should detect objects successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
 		const mockImageData = new ArrayBuffer(8);
@@ -17,7 +31,7 @@ describe("useObjectDetection", () => {
 		});
 
 		expect(result.current.data).toEqual(mockDetectionResult.objects);
-		expect(result.current.error).toBe(null);
+		expect(result.current.error).toBeNull();
 	});
 
 	it("should handle detection errors", async () => {
@@ -35,6 +49,12 @@ describe("useObjectDetection", () => {
 	});
 
 	it("should return valid detection results", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
 		const mockImageData = new ArrayBuffer(8);
@@ -60,6 +80,12 @@ describe("useObjectDetection", () => {
 	});
 
 	it("should support multiple detections", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
 		const mockImageData = new ArrayBuffer(8);
@@ -70,6 +96,12 @@ describe("useObjectDetection", () => {
 	});
 
 	it("should reset mutation state", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockDetectionResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useDetectObjects());
 
 		const mockImageData = new ArrayBuffer(8);
@@ -86,6 +118,6 @@ describe("useObjectDetection", () => {
 			expect(result.current.isSuccess).toBe(false);
 		});
 		expect(result.current.data).toBeUndefined();
-		expect(result.current.error).toBe(null);
+		expect(result.current.error).toBeNull();
 	});
 });

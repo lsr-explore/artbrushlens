@@ -1,11 +1,25 @@
 import { waitFor } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockAnalysisResult, mockArtwork } from "../../../../mocks/dist/data";
 import { useAnalyzeArt } from "../use-analyze-art";
 import { renderHookWithQueryClient } from "./test-utilities";
 
+// Get the mocked fetch function
+const mockFetch = vi.mocked(fetch);
+
 describe("useAnalyzeArt", () => {
+	beforeEach(() => {
+		// Clear all mocks before each test
+		vi.clearAllMocks();
+	});
+
 	it("should analyze artwork successfully", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockAnalysisResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
 		expect(result.current.isPending).toBe(false);
@@ -19,7 +33,7 @@ describe("useAnalyzeArt", () => {
 		});
 
 		expect(result.current.data?.result).toBe(mockAnalysisResult.result);
-		expect(result.current.error).toBe(null);
+		expect(result.current.error).toBeNull();
 	});
 
 	it("should handle mutation errors", async () => {
@@ -31,7 +45,7 @@ describe("useAnalyzeArt", () => {
 			artist: "",
 		};
 
-		result.current.mutate(invalidArtwork as any);
+		result.current.mutate(invalidArtwork as never);
 
 		await waitFor(() => {
 			expect(result.current.isError).toBe(true);
@@ -42,6 +56,12 @@ describe("useAnalyzeArt", () => {
 	});
 
 	it("should reset mutation state", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockAnalysisResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
 		result.current.mutate(mockArtwork);
@@ -56,10 +76,16 @@ describe("useAnalyzeArt", () => {
 			expect(result.current.isSuccess).toBe(false);
 		});
 		expect(result.current.data).toBeUndefined();
-		expect(result.current.error).toBe(null);
+		expect(result.current.error).toBeNull();
 	});
 
 	it("should support async mutation", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockAnalysisResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
 		const mutatePromise = result.current.mutateAsync(mockArtwork);
@@ -68,6 +94,12 @@ describe("useAnalyzeArt", () => {
 	});
 
 	it("should track loading state correctly", async () => {
+		// Mock successful response
+		mockFetch.mockResolvedValueOnce({
+			ok: true,
+			json: vi.fn().mockResolvedValue(mockAnalysisResult),
+		} as unknown as Response);
+
 		const { result } = renderHookWithQueryClient(() => useAnalyzeArt());
 
 		expect(result.current.isPending).toBe(false);
