@@ -13,7 +13,7 @@ export const PhotoPanel = ({ artwork }: { artwork: Artwork }) => {
 			data-testid="artwork-card"
 		>
 			{/* Image Container */}
-			<div className="bg-red-500 p-4">
+			<div className="bg-gray-200 p-4">
 				{artwork.imageUrl ? (
 					<Image
 						width={600}

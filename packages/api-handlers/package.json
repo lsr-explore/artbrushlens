@@ -36,7 +36,6 @@
 		"eslint-plugin-perfectionist": "^4.15.0",
 		"eslint-plugin-sonarjs": "^3.0.4",
 		"eslint-plugin-unicorn": "^59.0.1",
-		"msw": "^2.0.0",
 		"typescript": "^5.8.3",
 		"vitest": "^3.2.4"
 	},

@@ -57,9 +57,6 @@ export const detectObjects = async (
 		return Response.json(MOCK_OBJECT_DETECTION_RESULTS[randomIndex]);
 	}
 
-	console.log(".....process.env.HF_TOKEN", process.env.HF_TOKEN);
-	console.log(".....modelId", modelId);
-
 	const response = await fetch(
 		`https://api-inference.huggingface.co/models/${modelId}`,
 		{
@@ -73,11 +70,7 @@ export const detectObjects = async (
 		},
 	);
 
-	console.log(".....response", response);
-	console.log(".....response.status", response.status);
-
 	if (!response.ok) {
-		console.log(".....response.ok", response.ok);
 		return new Response(
 			JSON.stringify({ error: `HTTP error! status: ${response.status}` }),
 			{
@@ -91,14 +84,11 @@ export const detectObjects = async (
 
 	// Check if the result contains an error
 	if (result.error) {
-		console.log(".....result.error", result.error);
 		return new Response(JSON.stringify({ error: result.error }), {
 			status: 500,
 			headers: { "Content-Type": "application/json" },
 		});
 	}
-
-	console.log(".....result", result);
 
 	return Response.json(result);
 };

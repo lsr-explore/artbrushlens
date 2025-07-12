@@ -137,9 +137,9 @@ describe("PhotoPanel", () => {
 	it("should have correct image container styling", () => {
 		const { container } = render(<PhotoPanel artwork={mockArtwork} />);
 
-		const imageContainer = container.querySelector(".bg-red-500");
+		const imageContainer = container.querySelector(".bg-gray-200");
 		expect(imageContainer).toBeInTheDocument();
-		expect(imageContainer).toHaveClass("bg-red-500", "p-4");
+		expect(imageContainer).toHaveClass("bg-gray-200", "p-4");
 	});
 
 	it("should have correct content container styling", () => {

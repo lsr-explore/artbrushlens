@@ -18,9 +18,6 @@ describe("detectObjects", () => {
 	});
 
 	it("should return mock data when USE_MOCK_DETECTION is true", async () => {
-		console.log(
-			".....it should return mock data when USE_MOCK_DETECTION is true",
-		);
 		const originalValue = process.env.USE_MOCK_DETECTION;
 		process.env.USE_MOCK_DETECTION = "true";
 
@@ -47,9 +44,6 @@ describe("detectObjects", () => {
 	});
 
 	it("should call HuggingFace API with correct parameters when not using mock", async () => {
-		console.log(
-			".....it should call HuggingFace API with correct parameters when not using mock",
-		);
 		const originalValue = process.env.USE_MOCK_DETECTION;
 		delete process.env.USE_MOCK_DETECTION;
 
@@ -126,8 +120,6 @@ describe("detectObjects", () => {
 	});
 
 	it("should handle fetch errors", async () => {
-		console.log("fetch exists?", typeof fetch); // Should log 'function'
-
 		const originalValue = process.env.USE_MOCK_DETECTION;
 		delete process.env.USE_MOCK_DETECTION;
 
